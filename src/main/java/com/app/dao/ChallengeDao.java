@@ -9,7 +9,8 @@ import com.app.model.Challenge;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.in;;
 
 @Repository
 public class ChallengeDao {

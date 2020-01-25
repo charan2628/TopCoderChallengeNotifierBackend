@@ -9,6 +9,10 @@ public class Challenge {
 	private String description;
 	private String link;
 	
+	public Challenge() {
+		super();
+	}
+
 	public Challenge(String name, String description, String link) {
 		super();
 		this.name = name;
