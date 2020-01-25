@@ -5,6 +5,7 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
@@ -14,8 +15,8 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 @Configuration
-@ComponentScan(basePackages = {"com.dao"})
-public class AppConfig {
+@ComponentScan(basePackages = {"com.dao", "com.app.service"})
+public class AppConfig implements WebMvcConfigurer{
 
 	@Bean
 	public MongoClient mongoClient() {

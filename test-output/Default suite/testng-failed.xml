@@ -3,16 +3,17 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.app.dao.ConfigDaoTest">
+      <class name="com.app.service.RSSFeedServiceTest">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
+          <include name="itemsByTagsTest2"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="springTestContextBeforeTestMethod"/>
-          <include name="configEmailsUpdateTest"/>
           <include name="springTestContextAfterTestMethod"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- com.app.dao.ConfigDaoTest -->
+      </class> <!-- com.app.service.RSSFeedServiceTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
