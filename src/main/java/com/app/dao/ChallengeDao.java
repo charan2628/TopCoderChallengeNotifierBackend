@@ -1,5 +1,6 @@
 package com.app.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.app.model.Challenge;
 import com.mongodb.MongoClient;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.in;;
@@ -28,12 +28,18 @@ public class ChallengeDao {
 		this.collection.insertOne(challenge);
 	}
 
-	public FindIterable<Challenge> getChallenges(String challengeName) {
-		return this.collection.find(eq("name", challengeName));
+	public List<Challenge> getChallenges(String challengeName) {
+		List<Challenge> challenges = new ArrayList<>();
+		this.collection.find(eq("name", challengeName))
+			.forEach((Challenge challenge) -> challenges.add(challenge));
+		return challenges;
 	}
 	
-	public FindIterable<Challenge> getchallenges() {
-		return this.collection.find();
+	public List<Challenge> getchallenges() {
+		List<Challenge> challenges = new ArrayList<>();
+		this.collection.find()
+			.forEach((Challenge challenge) -> challenges.add(challenge));
+		return challenges;
 	}
 	
 	public long getChallengesCount() {
