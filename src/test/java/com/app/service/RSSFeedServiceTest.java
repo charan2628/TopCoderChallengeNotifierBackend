@@ -2,6 +2,7 @@ package com.app.service;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.web.client.RestTemplate;
 import org.testng.Assert;
@@ -18,13 +19,12 @@ import com.app.model.Config;
 import com.app.model.rss.Feed;
 import com.app.model.rss.Item;
 
+@ActiveProfiles("test")
 @SpringBootTest(classes = AppRunner.class)
 public class RSSFeedServiceTest extends AbstractTestNGSpringContextTests{
 
 	private ConfigService configService;
 	private RSSFeedService rssFeedService;
-	
-	private final RSSFeedTestData testData = new RSSFeedTestData();
 	
 	@BeforeTest
 	public void setUp() {
@@ -36,7 +36,7 @@ public class RSSFeedServiceTest extends AbstractTestNGSpringContextTests{
 						"http://feeds.topcoder.com/challenges/feed?list=active&contestType=develop&bucket=openForRegistration", 
 						Feed.class)
 				)
-		.thenReturn(this.testData.feed());
+		.thenReturn(RSSFeedTestData.feed());
 		this.configService = mock(ConfigService.class);
 		this.rssFeedService = new RSSFeedService(restTemplateBuilder, this.configService);
 	}
@@ -65,4 +65,5 @@ public class RSSFeedServiceTest extends AbstractTestNGSpringContextTests{
 		List<Item> items = this.rssFeedService.getItems();
 		Assert.assertEquals(items.size(), 3);
 	}
+	
 }

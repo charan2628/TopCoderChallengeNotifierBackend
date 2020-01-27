@@ -10,7 +10,7 @@ import com.app.model.rss.Item;
 
 public class RSSFeedTestData {
 
-	public List<Item> items() {
+	public static List<Item> items() {
 		Item item = new Item();
 		item.setTitle("Topcoder - Notifications Popup");
 		item.setDescription("<ul>\n" + 
@@ -221,7 +221,7 @@ public class RSSFeedTestData {
 		return items;
 	}
 	
-	public Channel channel() {
+	public static Channel channel() {
 		Channel channel = new Channel();
 		channel.setTitle("topcoder - Challenges");
 		channel.setDescription("RSS feed service");
@@ -229,11 +229,11 @@ public class RSSFeedTestData {
 		channel.setGenerator("RSS for Node");
 		channel.setLastBuildDate("Sat, 25 Jan 2020 08:28:49 GMT");
 		channel.setAtomLink(null);
-		channel.setItems(this.items());
+		channel.setItems(RSSFeedTestData.items());
 		return channel;
 	}
 	
-	public Feed feed() {
-		return new Feed(this.channel());
+	public static Feed feed() {
+		return new Feed(RSSFeedTestData.channel());
 	}
 }

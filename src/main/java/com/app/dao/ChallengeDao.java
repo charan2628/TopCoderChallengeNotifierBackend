@@ -2,6 +2,7 @@ package com.app.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
@@ -31,14 +32,14 @@ public class ChallengeDao {
 	public List<Challenge> getChallenges(String challengeName) {
 		List<Challenge> challenges = new ArrayList<>();
 		this.collection.find(eq("name", challengeName))
-			.forEach((Challenge challenge) -> challenges.add(challenge));
+			.forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
 		return challenges;
 	}
 	
 	public List<Challenge> getchallenges() {
 		List<Challenge> challenges = new ArrayList<>();
 		this.collection.find()
-			.forEach((Challenge challenge) -> challenges.add(challenge));
+			.forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
 		return challenges;
 	}
 	

@@ -2,102 +2,102 @@
 <testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3795" started-at="2020-01-25T18:24:32Z" finished-at="2020-01-25T18:24:36Z">
+  <suite name="Default suite" duration-ms="4035" started-at="2020-01-27T13:10:07Z" finished-at="2020-01-27T13:10:11Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3795" started-at="2020-01-25T18:24:32Z" finished-at="2020-01-25T18:24:36Z">
-      <class name="com.app.dao.ChallengeDaoTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="13" started-at="2020-01-25T23:54:32Z" finished-at="2020-01-25T23:54:32Z">
+    <test name="Default test" duration-ms="4035" started-at="2020-01-27T13:10:07Z" finished-at="2020-01-27T13:10:11Z">
+      <class name="com.app.dao.ConfigDaoTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="14" started-at="2020-01-27T18:40:07Z" finished-at="2020-01-27T18:40:07Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3421" started-at="2020-01-25T23:54:32Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3819" started-at="2020-01-27T18:40:07Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-27T18:40:10Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="2" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="2" started-at="2020-01-27T18:40:10Z" finished-at="2020-01-27T18:40:10Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengeInsertTest()]]>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configEmailsUpdateTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="challengeInsertTest()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="challengeInsertTest" duration-ms="271" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="configEmailsUpdateTest()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="configEmailsUpdateTest" duration-ms="151" started-at="2020-01-27T18:40:10Z" finished-at="2020-01-27T18:40:11Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- challengeInsertTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        </test-method> <!-- configEmailsUpdateTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengeInsertTest()]]>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configEmailsUpdateTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="2" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengeInsertTest2()]]>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configInsertionTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="challengeInsertTest2()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="challengeInsertTest2" duration-ms="51" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="configInsertionTest()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="configInsertionTest" duration-ms="6" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- challengeInsertTest2 -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        </test-method> <!-- configInsertionTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengeInsertTest2()]]>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configInsertionTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="2" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengesCountTest()]]>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configTagsUpdateTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="challengesCountTest()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="challengesCountTest" duration-ms="8" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        <test-method status="PASS" signature="configTagsUpdateTest()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="configTagsUpdateTest" duration-ms="15" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- challengesCountTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
+        </test-method> <!-- configTagsUpdateTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.dao.ConfigDaoTest.configTagsUpdateTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.dao.ConfigDaoTest@87a85e1]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2020-01-27T18:40:11Z" finished-at="2020-01-27T18:40:11Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.dao.ChallengeDaoTest@45ca843]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-25T23:54:36Z" finished-at="2020-01-25T23:54:36Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.app.dao.ChallengeDaoTest.challengesCountTest()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-      </class> <!-- com.app.dao.ChallengeDaoTest -->
+      </class> <!-- com.app.dao.ConfigDaoTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

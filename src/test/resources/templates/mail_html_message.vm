@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TopCoder Challenges</title>
+	</head>
+	<body>
+		<h1>TopCoder Challenges</h1>
+		<ul>
+			#foreach( $challenge in $challenges )
+				<li><h2>$challenge.name</h2></li>
+				$challenge.description
+				<br/>
+				<a href="$challenge.link" target="_blank">LINK</a>
+			#end
+		</ul>
+	</body>
+</html>
