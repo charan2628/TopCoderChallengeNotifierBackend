@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Config {
 
+	@JsonIgnore
 	private ObjectId id;
 	private List<String> emails;
 	private List<String> tags;
