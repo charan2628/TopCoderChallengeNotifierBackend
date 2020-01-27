@@ -27,6 +27,10 @@ public class ChallengeDao {
 	public void addchallenge(Challenge challenge) {
 		this.collection.insertOne(challenge);
 	}
+	
+	public void addChallenges(List<Challenge> challenges) {
+		this.collection.insertMany(challenges);
+	}
 
 	public List<Challenge> getChallenges(String challengeName) {
 		List<Challenge> challenges = new ArrayList<>();
