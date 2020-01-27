@@ -34,11 +34,11 @@ public class ChallengeNotifier {
 	
 	public void notifyNewChallenges() {
 		try {
-			this.mailService.buildMessage(
-					this.newChallenges(
-							this.itemsToChallenges(
-									this.rssFeedService.getItems())))
-			.send();
+			List<Challenge> challenges = this.newChallenges(
+					this.itemsToChallenges(
+							this.rssFeedService.getItems()));
+			this.challengeService.addChallenges(challenges);
+			this.mailService.buildMessage(challenges).send();
 		} catch (IOException e) {
 			// TODO add logging sysout for now
 			e.printStackTrace();
