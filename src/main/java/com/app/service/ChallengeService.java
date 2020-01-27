@@ -26,6 +26,10 @@ public class ChallengeService {
 		this.challengeDao.addchallenge(challenge);
 	}
 	
+	public void addChallenges(List<Challenge> challenges) {
+		this.challengeDao.addChallenges(challenges);
+	}
+	
 	public long getChallengesCount() {
 		return this.challengeDao.getChallengesCount();
 	}
