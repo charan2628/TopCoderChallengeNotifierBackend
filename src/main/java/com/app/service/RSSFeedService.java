@@ -1,9 +1,12 @@
 package com.app.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import com.app.model.rss.Item;
 @Service
 public class RSSFeedService {
 
+	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+	
 	private ConfigService configService;
 	private RestTemplate restTemplate;
 	
@@ -28,7 +33,16 @@ public class RSSFeedService {
 	}
 	
 	public Feed getFeed() {
-		return this.restTemplate.getForObject("http://feeds.topcoder.com/challenges/feed?list=active&contestType=develop&bucket=openForRegistration", Feed.class);
+		Feed feed = null;
+		try {
+			feed = this.restTemplate.getForObject("http://feeds.topcoder.com/challenges/feed?list=active&contestType=develop&bucket=openForRegistration", Feed.class);
+		} catch (Exception e) {
+			logger.error("Error retrieving feed {}", e);
+			return feed;
+		}
+		logger.debug("Got Feed: {}", feed);
+		return feed;
+		
 	}
 	
 	public List<Item> getAllItems() {

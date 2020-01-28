@@ -1,6 +1,5 @@
 package com.app.util;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Properties;
@@ -20,7 +19,7 @@ public class MailHTMLMessageBuilder {
 		Velocity.init(properties);
 	}
 
-	public static String build(List<Challenge> challenges) throws IOException {
+	public static String build(List<Challenge> challenges) {
 		VelocityContext context = new VelocityContext();
 		context.put("challenges", challenges);
 		Template template = Velocity.getTemplate("templates/mail_html_message.vm");

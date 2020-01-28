@@ -5,7 +5,8 @@
 	</head>
 	<body>
 		<h1>TopCoder Challenges</h1>
-		<ul>
+		#if( $challenges.size() > 0 )
+			<ul>
 			#foreach( $challenge in $challenges )
 				<li><h2>$challenge.name</h2></li>
 				$challenge.description
@@ -13,5 +14,8 @@
 				<a href="$challenge.link" target="_blank">LINK</a>
 			#end
 		</ul>
+		#else
+			<p>No New Challenges today</p>
+		#end
 	</body>
 </html>

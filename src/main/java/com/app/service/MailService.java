@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Properties;
 
@@ -14,6 +15,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ import com.app.util.MailHTMLMessageBuilder;
 
 @Service
 public class MailService {
+	
+	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private ConfigService configService;
 	private Properties properties;
@@ -47,7 +52,7 @@ public class MailService {
 		this.properties.put("mail.smtp.port", "465");
 	}
 	
-	public Mail buildMessage(List<Challenge> challenges) throws IOException {
+	public Mail buildMessage(List<Challenge> challenges) {
 		String message = MailHTMLMessageBuilder.build(challenges);
 		return new Mail(message);
 	}
@@ -60,7 +65,7 @@ public class MailService {
 			this.body = body;
 		}
 		
-		public void send() throws IOException {
+		public void send() {
 			Session session = Session.getDefaultInstance(MailService.this.properties,    
 			           new javax.mail.Authenticator() {    
 			           protected PasswordAuthentication getPasswordAuthentication() {    
@@ -79,9 +84,10 @@ public class MailService {
 							new ByteArrayDataSource(this.body, "text/html")));
 					Transport.send(message);
 				} catch (MessagingException | IOException exception) {
-					// TODO add logging for now sysout
-					System.out.println("MAIL SENT FAILED");
+					logger.error("Error sending mail {} {}", mail, exception);
+					continue;
 				}
+				logger.debug("Mail to: {} sent successfully", mail);
 			}
 		}
 	}

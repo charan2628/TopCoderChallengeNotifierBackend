@@ -1,12 +1,14 @@
 package com.app.notifier;
 
-import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +17,12 @@ import com.app.model.rss.Item;
 import com.app.service.ChallengeService;
 import com.app.service.MailService;
 import com.app.service.RSSFeedService;
+import com.app.util.SCHEDULE_TYPE;
 
 @Component
 public class ChallengeNotifier {
+	
+	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 	
 	private ChallengeService challengeService;
 	private RSSFeedService  rssFeedService;
@@ -32,17 +37,21 @@ public class ChallengeNotifier {
 		this.mailService = mailService;
 	}
 	
-	public void notifyNewChallenges() {
+	public void notifyNewChallenges(SCHEDULE_TYPE scheduleType) {
 		try {
 			List<Challenge> challenges = this.newChallenges(
 					this.itemsToChallenges(
 							this.rssFeedService.getItems()));
-			this.challengeService.addChallenges(challenges);
 			this.mailService.buildMessage(challenges).send();
-		} catch (IOException e) {
-			// TODO add logging sysout for now
-			e.printStackTrace();
+			logger.debug("ScheduleType: {} challenges: {}", scheduleType, challenges);
+			if(scheduleType.equals(SCHEDULE_TYPE.LATER) && challenges.size() > 0) {
+				this.challengeService.addChallenges(challenges);
+			}
+		} catch (Exception e) {
+			logger.error("Error notifying new challenges {}", e);
+			return;
 		}
+		logger.debug("Successfully notified new challenges");
 	}
 	
 	public void notifyAllChallenges() {
@@ -51,10 +60,11 @@ public class ChallengeNotifier {
 					this.itemsToChallenges(
 							this.rssFeedService.getAllItems()))
 			.send();
-		} catch (IOException e) {
-			// TODO add logging sysout for now
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error("Error notifying all challenges {}", e);
+			return;
 		}
+		logger.debug("Successfully notified all challenges");
 	}
 	
 	private List<Challenge> newChallenges(List<Challenge> challenges) {

@@ -46,5 +46,10 @@ public class Config {
 	public void setTags(List<String> tags) {
 		this.tags = tags;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Config [emails=" + emails + ", tags=" + tags + "]";
+	}
+
 }

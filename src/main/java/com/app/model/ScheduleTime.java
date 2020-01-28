@@ -30,5 +30,9 @@ public class ScheduleTime {
 	public void setMinutes(int minutes) {
 		this.minutes = minutes;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "ScheduleTime [hours=" + hours + ", minutes=" + minutes + "]";
+	}
 }
