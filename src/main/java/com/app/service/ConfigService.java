@@ -24,11 +24,25 @@ public class ConfigService {
 	private ConfigDao configDao;
 	
 	public Config getConfig() {
-		return this.configDao.getConfig();
+		Config config = null;
+		try {
+			config = this.configDao.getConfig();
+		} catch (Exception e) {
+			logger.error("Error retrieving config {}", e);
+			return config;
+		}
+		logger.debug("Got Config {}", config);
+		return config;
 	}
 	
 	public void addConfig(Config config) {
-		this.configDao.addConfig(config);
+		try {
+			this.configDao.addConfig(config);
+		} catch (Exception e) {
+			logger.error("Error adding config: {} {}", config, e);
+			return;
+		}
+		logger.debug("Added config: {} successfully", config);
 	}
 	
 	public void updateTags(List<String> tags) {

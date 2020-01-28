@@ -10,12 +10,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 
 import java.lang.invoke.MethodHandles;
-import java.util.List;
 
 //To the future me this is a collection capped to one document
 @Repository
 public class ConfigDao {
-	
+
 	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private MongoCollection<Config> collection;
@@ -29,25 +28,11 @@ public class ConfigDao {
 	}
 
 	public Config getConfig() {
-		Config config = null;
-		try {
-			config = this.collection.find().first();
-		} catch (Exception e) {
-			logger.error("Error retrieving config {}", e);
-			return config;
-		}
-		logger.debug("Got Config {}", config);
-		return config;
+		return this.collection.find().first();
 	}
 
 	public void addConfig(Config config) {
-		try {
-			this.collection.insertOne(config);
-		} catch (Exception e) {
-			logger.error("Error adding config: {} {}", config, e);
-			return;
-		}
-		logger.debug("Added config: {} successfully", config);
+		this.collection.insertOne(config);
 	}
-	
+
 }
