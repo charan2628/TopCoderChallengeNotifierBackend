@@ -1,81 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="2" passed="2">
+<testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="4204" started-at="2020-01-27T14:59:49Z" finished-at="2020-01-27T14:59:53Z">
+  <suite name="Default suite" duration-ms="4858" started-at="2020-01-28T17:58:01Z" finished-at="2020-01-28T17:58:06Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="4204" started-at="2020-01-27T14:59:49Z" finished-at="2020-01-27T14:59:53Z">
-      <class name="com.app.notifier.ChallengeNotifierTest">
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="setUp" is-config="true" duration-ms="575" started-at="2020-01-27T20:29:49Z" finished-at="2020-01-27T20:29:50Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="7" started-at="2020-01-27T20:29:50Z" finished-at="2020-01-27T20:29:50Z">
+    <test name="Default test" duration-ms="4858" started-at="2020-01-28T17:58:01Z" finished-at="2020-01-28T17:58:06Z">
+      <class name="com.app.service.ChallengeServiceTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="15" started-at="2020-01-28T23:28:01Z" finished-at="2020-01-28T23:28:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3564" started-at="2020-01-27T20:29:50Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-27T20:29:53Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="4605" started-at="2020-01-28T23:28:01Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-28T23:28:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="4" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.allChallengesTest() throws java.io.IOException]]>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengeInsertTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="allChallengesTest()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="allChallengesTest" duration-ms="25" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        <test-method status="PASS" signature="challengeInsertTest()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="challengeInsertTest" duration-ms="157" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- allChallengesTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        </test-method> <!-- challengeInsertTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.allChallengesTest() throws java.io.IOException]]>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengeInsertTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.newChallengesTest() throws java.io.IOException]]>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengeInsertTest2()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="newChallengesTest()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="newChallengesTest" duration-ms="4" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        <test-method status="PASS" signature="challengeInsertTest2()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="challengeInsertTest2" duration-ms="34" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- newChallengesTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
+        </test-method> <!-- challengeInsertTest2 -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengeInsertTest2()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengesCountTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="challengesCountTest()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="challengesCountTest" duration-ms="15" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- challengesCountTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.ChallengeServiceTest.challengesCountTest()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.service.ChallengeServiceTest@157853da]" name="springTestContextAfterTestClass" is-config="true" duration-ms="1" started-at="2020-01-28T23:28:06Z" finished-at="2020-01-28T23:28:06Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-27T20:29:53Z" finished-at="2020-01-27T20:29:53Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.newChallengesTest() throws java.io.IOException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-      </class> <!-- com.app.notifier.ChallengeNotifierTest -->
+      </class> <!-- com.app.service.ChallengeServiceTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

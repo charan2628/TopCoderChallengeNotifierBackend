@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.model.ScheduleTime;
 import com.app.scheduler.ChallengeNotificationScheduler;
+import com.app.util.AppUtil;
 import com.app.util.CHALLENGE_TYPE;
-import com.app.util.ToUtilDate;
 
 @RestController
 @RequestMapping("/schedule")
@@ -49,7 +49,7 @@ public class ScheduleController {
 			logger.info("POST /schedule");
 		}
 		this.scheduler.schedule(
-				ToUtilDate.format(scheduleTime.getHours(), scheduleTime.getMinutes()));
+				AppUtil.format(scheduleTime.getHours(), scheduleTime.getMinutes()));
 		return "SCHEDULED";
 	}
 }

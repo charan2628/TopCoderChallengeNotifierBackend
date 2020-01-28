@@ -49,30 +49,5 @@ public class ConfigDao {
 		}
 		logger.debug("Added config: {} successfully", config);
 	}
-
-	public void addTags(List<String> tags) {
-		try {
-			Config config = this.getConfig();
-			config.getTags().addAll(tags);
-			config.setId(null);
-			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error adding tags: {} {}", tags, e);
-			return;
-		}
-		logger.debug("Added tags: {} successfully", tags);
-	}
-
-	public void addEmails(List<String> emails) {
-		try {
-			Config config = this.getConfig();
-			config.getEmails().addAll(emails);
-			config.setId(null);
-			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error adding emails: {} {}", emails, e);
-			return;
-		}
-		logger.error("Added emails: {} successfully", emails);
-	}
+	
 }

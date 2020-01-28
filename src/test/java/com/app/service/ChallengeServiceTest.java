@@ -1,9 +1,8 @@
-package com.app.dao;
+package com.app.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -13,47 +12,40 @@ import org.testng.annotations.Test;
 
 import com.app.AppRunner;
 import com.app.model.Challenge;
-import com.mongodb.MongoClient;
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = AppRunner.class)
-public class ChallengeDaoTest extends AbstractTestNGSpringContextTests{
-	
-	@Autowired 
-	private MongoClient client;
-	
+public class ChallengeServiceTest extends AbstractTestNGSpringContextTests{
+
 	@Autowired
-	private ChallengeDao challengeDao;
+	private ChallengeService challengeService;
 	
 	@Test
 	public void challengesCountTest() {
-		Assert.assertNotNull(client);
-		this.deleteCollection();
-		Assert.assertEquals(this.challengeDao.getChallengesCount(), 0L);
+		this.challengeService.deleteAll();
+		Assert.assertEquals(this.challengeService.getChallengesCount(), 0L);
+		Challenge challenge = new Challenge("Backend Challange", "Integrate API to FrontEnd", "https://topcoder.com/challenge/12345");
+		this.challengeService.addChallenge(challenge);
+		Assert.assertEquals(this.challengeService.getChallengesCount(), 1L);
 	}
 	
 	@Test
 	public void challengeInsertTest() {
-		this.deleteCollection();
+		this.challengeService.deleteAll();
 		Challenge challenge = new Challenge("Backend Challange", "Integrate API to FrontEnd", "https://topcoder.com/challenge/12345");
-		this.challengeDao.addchallenge(challenge);
-		Assert.assertEquals(this.challengeDao.getChallengesCount(), 1L);
-		Assert.assertTrue(this.challengeDao.isPresent(challenge.getName()));
+		this.challengeService.addChallenge(challenge);
+		Assert.assertTrue(this.challengeService.isPresent(challenge.getName()));
 	}
 	
 	@Test
 	public void challengeInsertTest2() {
-		this.deleteCollection();
+		this.challengeService.deleteAll();
 		Challenge challenge = new Challenge("Backend Challange", "Integrate API to FrontEnd", "https://topcoder.com/challenge/12345");
 		Challenge challenge2 = new Challenge("FrontEnd Challange", "Add new search to FrontEnd", "https://topcoder.com/challenge/12346");
-		this.challengeDao.addchallenge(challenge);
-		this.challengeDao.addchallenge(challenge2);
+		this.challengeService.addChallenge(challenge);
+		this.challengeService.addChallenge(challenge2);
 		List<Challenge> challenges = new ArrayList<>();
 		challenges.add(challenge2); challenges.add(challenge);
-		Assert.assertEqualsNoOrder(this.challengeDao.getchallenges().toArray(), challenges.toArray());
-	}
-	
-	private void deleteCollection() {
-		this.client.getDatabase("test").getCollection("challenges").deleteMany(new Document());
+		Assert.assertEqualsNoOrder(this.challengeService.getChallenges().toArray(), challenges.toArray());
 	}
 }

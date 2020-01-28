@@ -66,4 +66,20 @@ public class ConfigController {
 		return "UPDATED";
 	}
 	
+	@DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
+	public String deleteConfig(
+			@RequestBody Config config) {
+		if(logger.isDebugEnabled()) {
+			logger.debug("PUT /config BODY: {}", config.toString());
+		} else {
+			logger.info("PUT /config");
+		}
+		if(config.getEmails() != null && config.getEmails().size() > 0) {
+			this.configService.deleteEmails(config.getEmails());
+		}
+		if(config.getTags() != null && config.getTags().size() > 0) {
+			this.configService.deleteTags(config.getTags());
+		}
+		return "DELETED";
+	}
 }

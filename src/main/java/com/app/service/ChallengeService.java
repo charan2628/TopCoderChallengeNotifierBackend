@@ -41,4 +41,8 @@ public class ChallengeService {
 	public boolean arePresent(List<String> challengeNames) {
 		return this.challengeDao.arePresent(challengeNames);
 	}
+	
+	public void deleteAll() {
+		this.challengeDao.deleteAll();
+	}
 }
