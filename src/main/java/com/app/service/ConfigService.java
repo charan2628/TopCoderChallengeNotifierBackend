@@ -37,6 +37,8 @@ public class ConfigService {
 	
 	public void addConfig(Config config) {
 		try {
+			config.setEmails(AppUtil.removeDups(config.getEmails()));
+			config.setTags(AppUtil.removeDups(config.getTags()));
 			this.configDao.addConfig(config);
 		} catch (Exception e) {
 			logger.error("Error adding config: {} {}", config, e);
@@ -108,19 +110,20 @@ public class ConfigService {
 			Config config = this.getConfig();
 			if(config == null) return;
 			
-			List<String> prevTags = config.getEmails();
+			List<String> prevTags = config.getTags();
 			Map<String, Object> filteredOutTags = new HashMap<>();
 			prevTags.forEach(tag -> filteredOutTags.put(tag, null));
 			tags.forEach(tag -> {
 				filteredOutTags.compute(tag, (k, v) -> null);
 			});
 			
-			config.setEmails(new ArrayList<>(filteredOutTags.keySet()));
+			config.setTags(new ArrayList<>(filteredOutTags.keySet()));
+			config.setId(null);
 			this.addConfig(config);
 		} catch (Exception e) {
-			logger.error("Error deleting mails: {} {}", tags, e);
+			logger.error("Error deleting tags: {} {}", tags, e);
 			return;
 		}
-		logger.debug("Deleted mails: {} successfully", tags);
+		logger.debug("Deleted tags: {} successfully", tags);
 	}
 }
