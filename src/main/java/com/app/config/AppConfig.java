@@ -13,9 +13,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.app.converters.ChallengeTypeConverter;
+import com.app.interceptors.AuthInterceptor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientSettings;
@@ -40,5 +42,10 @@ public class AppConfig implements WebMvcConfigurer{
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new ChallengeTypeConverter());
 		logger.debug("Adding Custom Converters");
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**");
 	}
 }

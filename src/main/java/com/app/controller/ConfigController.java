@@ -5,17 +5,21 @@ import java.lang.invoke.MethodHandles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.model.Config;
 import com.app.service.ConfigService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/config")
 public class ConfigController {
@@ -38,7 +42,8 @@ public class ConfigController {
 	}
 	
 	@PostMapping(path = "", produces = "application/json", consumes = "application/json")
-	public String addConfig(
+	@ResponseStatus(code = HttpStatus.OK)
+	public void addConfig(
 			@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("POST /config BODY: {}", config.toString());
@@ -46,11 +51,11 @@ public class ConfigController {
 			logger.info("POST /config");
 		}
 		this.configService.addConfig(config);
-		return "ADDED CONFIG";
 	}
 	
 	@PutMapping(path = "", produces = "application/json", consumes = "application/json")
-	public String updateConfig(
+	@ResponseStatus(code = HttpStatus.OK)
+	public void updateConfig(
 			@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("PUT /config BODY: {}", config.toString());
@@ -63,11 +68,11 @@ public class ConfigController {
 		if(config.getTags() != null && config.getTags().size() > 0) {
 			this.configService.updateTags(config.getTags());
 		}
-		return "UPDATED";
 	}
 	
 	@DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
-	public String deleteConfig(
+	@ResponseStatus(code = HttpStatus.OK)
+	public void deleteConfig(
 			@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("PUT /config BODY: {}", config.toString());
@@ -80,6 +85,5 @@ public class ConfigController {
 		if(config.getTags() != null && config.getTags().size() > 0) {
 			this.configService.deleteTags(config.getTags());
 		}
-		return "DELETED";
 	}
 }

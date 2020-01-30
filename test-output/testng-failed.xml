@@ -3,16 +3,15 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.app.service.ConfigServiceTest">
+      <class name="com.app.controller.ConfigFlowITCase">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
-          <include name="configTagsUpdateTest"/>
-          <include name="springTestContextBeforeTestMethod"/>
+          <include name="addConfigTest"/>
           <include name="springTestContextAfterTestMethod"/>
         </methods>
-      </class> <!-- com.app.service.ConfigServiceTest -->
+      </class> <!-- com.app.controller.ConfigFlowITCase -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
