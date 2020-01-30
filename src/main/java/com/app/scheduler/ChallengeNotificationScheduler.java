@@ -11,6 +11,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.DefaultManagedTaskScheduler;
 import org.springframework.stereotype.Component;
 
+import com.app.exception.ErrorSchedulingTaskException;
 import com.app.notifier.ChallengeNotifier;
 import com.app.util.CHALLENGE_TYPE;
 import com.app.util.SCHEDULE_TYPE;
@@ -49,7 +50,7 @@ public class ChallengeNotificationScheduler {
 					86400000L);
 		} catch (Exception e) {
 			logger.error("Error scheduling task date: {} {}", date, e);
-			return;
+			throw new ErrorSchedulingTaskException();
 		}
 		logger.info("Successfully scheduled task for date: {}", date);
 	}

@@ -2,6 +2,7 @@ package com.app.dao;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,7 @@ public class ConfigDao {
 	private MongoCollection<Config> collection;
 
 	public ConfigDao(
-			MongoClient mongoClient, 
+			@Autowired MongoClient mongoClient, 
 			@Value("${app.database}") String databaseName,
 			@Value("${app.collection.config}") String challenges) {
 		this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Config.class);

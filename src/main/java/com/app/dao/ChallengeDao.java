@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -25,7 +26,7 @@ public class ChallengeDao {
 	private MongoCollection<Challenge> collection;
 
 	public ChallengeDao(
-			MongoClient mongoClient, 
+			@Autowired MongoClient mongoClient, 
 			@Value("${app.database}") String databaseName,
 			@Value("${app.collection.challenges}") String challenges) {
 

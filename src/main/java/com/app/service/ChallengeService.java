@@ -24,9 +24,9 @@ public class ChallengeService {
 		List<Challenge> challenges = new ArrayList<>();
 		try {
 			challenges = this.challengeDao.getchallenges();
-		} catch (Exception e) {
-			logger.error("Error retrieving challenges {}", e);
-			return challenges;
+		} catch (Exception exception) {
+			logger.error("Error retrieving challenges {}", exception);
+			throw exception;
 		}
 		logger.debug("Retrieved challenges {}", challenges);
 		return challenges;
@@ -36,9 +36,9 @@ public class ChallengeService {
 		List<Challenge> challenges = new ArrayList<>();
 		try {
 			challenges = this.challengeDao.getChallenges(challengeName);
-		} catch (Exception e) {
-			logger.error("Error retrieving challenges name: {} {}", challengeName, e);
-			return challenges;
+		} catch (Exception exception) {
+			logger.error("Error retrieving challenges name: {} {}", challengeName, exception);
+			throw exception;
 		}
 		logger.debug("Retrieved challenges: {} name: {}", challenges, challengeName);
 		return challenges;
@@ -47,9 +47,9 @@ public class ChallengeService {
 	public void addChallenge(Challenge challenge) {
 		try {
 			this.challengeDao.addchallenge(challenge);
-		} catch (Exception e) {
-			logger.error("Error inserting challenge {} {}", challenge, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error inserting challenge {} {}", challenge, exception);
+			throw exception;
 		}
 		logger.debug("Added challenge: {} successfully", challenge);
 	}
@@ -57,9 +57,9 @@ public class ChallengeService {
 	public void addChallenges(List<Challenge> challenges) {
 		try {
 			this.challengeDao.addChallenges(challenges);
-		} catch (Exception e) {
-			logger.error("Error inserting challenges: {} {}", challenges, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error inserting challenges: {} {}", challenges, exception);
+			throw exception;
 		}
 		logger.debug("Added challenges: {} successfully", challenges);
 	}
@@ -68,9 +68,9 @@ public class ChallengeService {
 		long count = 0;
 		try {
 			count =  this.challengeDao.getChallengesCount();
-		} catch (Exception e) {
-			logger.error("Error getting count of challenges {}", e);
-			return count;
+		} catch (Exception exception) {
+			logger.error("Error getting count of challenges {}", exception);
+			throw exception;
 		}
 		logger.debug("Got challenges count: {}", count);
 		return count;
@@ -81,9 +81,9 @@ public class ChallengeService {
 		boolean isPresent = false;
 		try {
 			isPresent = this.challengeDao.isPresent(challengeName);
-		} catch (Exception e) {
-			logger.error("Error checking database {}", e);
-			return isPresent;
+		} catch (Exception exception) {
+			logger.error("Error checking database {}", exception);
+			throw exception;
 		}
 		logger.debug("challenge: {} isPresent: {}", challengeName, isPresent);
 		return isPresent;
@@ -93,9 +93,9 @@ public class ChallengeService {
 		boolean arePresent = false;
 		try {
 			arePresent = this.challengeDao.arePresent(challengeNames);
-		} catch (Exception e) {
-			logger.error("Error checking database [arePresent] {}", e);
-			return arePresent;
+		} catch (Exception exception) {
+			logger.error("Error checking database [arePresent] {}", exception);
+			throw exception;
 		}
 		logger.debug("challenges: {} arePresnt: {}", challengeNames, arePresent);
 		return  arePresent;
@@ -104,9 +104,9 @@ public class ChallengeService {
 	public void deleteAll() {
 		try {
 			this.challengeDao.deleteAll();
-		} catch (Exception e) {
-			logger.error("Error deleting challenges {}", e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error deleting challenges {}", exception);
+			throw exception;
 		}
 		logger.debug("Deleted challenges successfully");
 	}

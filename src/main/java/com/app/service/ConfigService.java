@@ -27,9 +27,9 @@ public class ConfigService {
 		Config config = null;
 		try {
 			config = this.configDao.getConfig();
-		} catch (Exception e) {
-			logger.error("Error retrieving config {}", e);
-			return config;
+		} catch (Exception exception) {
+			logger.error("Error retrieving config {}", exception);
+			throw exception;
 		}
 		logger.debug("Got Config {}", config);
 		return config;
@@ -40,9 +40,9 @@ public class ConfigService {
 			config.setEmails(AppUtil.removeDups(config.getEmails()));
 			config.setTags(AppUtil.removeDups(config.getTags()));
 			this.configDao.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error adding config: {} {}", config, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error adding config: {} {}", config, exception);
+			throw exception;
 		}
 		logger.debug("Added config: {} successfully", config);
 	}
@@ -58,9 +58,9 @@ public class ConfigService {
 			}
 			config.setId(null);
 			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error updating tags: {} {}", tags, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error updating tags: {} {}", tags, exception);
+			throw exception;
 		}
 		logger.debug("Updated tags: {} successfully", tags);
 	}
@@ -76,9 +76,9 @@ public class ConfigService {
 			}
 			config.setId(null);
 			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error updating emails: {} {}", emails, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error updating emails: {} {}", emails, exception);
+			throw exception;
 		}
 		logger.debug("Updated emails: {} successfully", emails);
 	}
@@ -98,9 +98,9 @@ public class ConfigService {
 			config.setEmails(new ArrayList<>(filteredOutMails.keySet()));
 			config.setId(null);
 			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error deleting mails: {} {}", emails, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error deleting mails: {} {}", emails, exception);
+			throw exception;
 		}
 		logger.debug("Deleted Emails: {} successfully", emails);
 	}
@@ -120,9 +120,9 @@ public class ConfigService {
 			config.setTags(new ArrayList<>(filteredOutTags.keySet()));
 			config.setId(null);
 			this.addConfig(config);
-		} catch (Exception e) {
-			logger.error("Error deleting tags: {} {}", tags, e);
-			return;
+		} catch (Exception exception) {
+			logger.error("Error deleting tags: {} {}", tags, exception);
+			throw exception;
 		}
 		logger.debug("Deleted tags: {} successfully", tags);
 	}
