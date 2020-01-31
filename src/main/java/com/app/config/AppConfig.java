@@ -38,6 +38,11 @@ public class AppConfig implements WebMvcConfigurer{
 		return mongoClient;
 	}
 	
+	@Bean
+	public AuthInterceptor authInterceptor() {
+		return new AuthInterceptor();
+	}
+	
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addConverter(new ChallengeTypeConverter());
@@ -46,6 +51,6 @@ public class AppConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/**", "/error/**");
 	}
 }
