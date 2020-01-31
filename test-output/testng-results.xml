@@ -1,51 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="1" passed="1">
+<testng-results skipped="0" failed="0" total="3" passed="3">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="3826" started-at="2020-01-30T18:58:09Z" finished-at="2020-01-30T18:58:13Z">
+  <suite name="Default suite" duration-ms="5039" started-at="2020-01-31T13:59:17Z" finished-at="2020-01-31T13:59:22Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="3826" started-at="2020-01-30T18:58:09Z" finished-at="2020-01-30T18:58:13Z">
-      <class name="com.app.service.AccessTokenServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="21" started-at="2020-01-31T00:28:09Z" finished-at="2020-01-31T00:28:09Z">
+    <test name="Default test" duration-ms="5039" started-at="2020-01-31T13:59:17Z" finished-at="2020-01-31T13:59:22Z">
+      <class name="com.app.service.RSSFeedServiceTest">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="12" started-at="2020-01-31T19:29:17Z" finished-at="2020-01-31T19:29:17Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3638" started-at="2020-01-31T00:28:09Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-31T00:28:12Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3967" started-at="2020-01-31T19:29:17Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-31T19:29:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="2" started-at="2020-01-31T00:28:12Z" finished-at="2020-01-31T00:28:12Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-01-31T19:29:21Z" finished-at="2020-01-31T19:29:21Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.AccessTokenServiceTest.tokenTest() throws java.lang.Exception]]>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="tokenTest()[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="tokenTest" duration-ms="128" started-at="2020-01-31T00:28:12Z" finished-at="2020-01-31T00:28:13Z">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="988" started-at="2020-01-31T19:29:21Z" finished-at="2020-01-31T19:29:22Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- tokenTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2020-01-31T00:28:13Z" finished-at="2020-01-31T00:28:13Z">
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="itemsByTagsTest()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="itemsByTagsTest" duration-ms="18" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- itemsByTagsTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.AccessTokenServiceTest.tokenTest() throws java.lang.Exception]]>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest()]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.service.AccessTokenServiceTest@157853da]" name="springTestContextAfterTestClass" is-config="true" duration-ms="3" started-at="2020-01-31T00:28:13Z" finished-at="2020-01-31T00:28:13Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest2()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="2" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="itemsByTagsTest2()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="itemsByTagsTest2" duration-ms="8" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- itemsByTagsTest2 -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest2()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.rssFeedTest() throws java.io.IOException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="1" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="rssFeedTest()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="rssFeedTest" duration-ms="3" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- rssFeedTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-      </class> <!-- com.app.service.AccessTokenServiceTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.app.service.RSSFeedServiceTest.rssFeedTest() throws java.io.IOException]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+      </class> <!-- com.app.service.RSSFeedServiceTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,6 +17,7 @@ import com.app.model.Config;
 import com.app.model.rss.Feed;
 import com.app.model.rss.Item;
 
+
 @Service
 public class RSSFeedService {
 
@@ -23,19 +25,23 @@ public class RSSFeedService {
 	
 	private ConfigService configService;
 	private RestTemplate restTemplate;
+	private String feedUrl;
 	
 	public RSSFeedService(
 			@Autowired RestTemplateBuilder restTemplateBuilder,
-			@Autowired ConfigService configService) {
+			@Autowired ConfigService configService,
+			@Value("${feed.url}") String feedUrl) {
+		
 		this.restTemplate = restTemplateBuilder
 				.build();
 		this.configService = configService;
+		this.feedUrl = feedUrl;
 	}
 	
 	public Feed getFeed() {
 		Feed feed = null;
 		try {
-			feed = this.restTemplate.getForObject("http://feeds.topcoder.com/challenges/feed?list=active&contestType=develop&bucket=openForRegistration", Feed.class);
+			feed = this.restTemplate.getForObject(this.feedUrl, Feed.class);
 		} catch (Exception e) {
 			logger.error("Error retrieving feed {}", e);
 			return feed;

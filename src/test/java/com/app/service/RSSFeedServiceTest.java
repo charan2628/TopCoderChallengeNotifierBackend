@@ -1,12 +1,14 @@
 package com.app.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.web.client.RestTemplate;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.mockito.Mockito.*;
 
@@ -26,19 +28,22 @@ public class RSSFeedServiceTest extends AbstractTestNGSpringContextTests{
 	private ConfigService configService;
 	private RSSFeedService rssFeedService;
 	
-	@BeforeTest
+	@Autowired
+	private Environment environment;
+	
+	@BeforeMethod
 	public void setUp() {
 		RestTemplateBuilder restTemplateBuilder = mock(RestTemplateBuilder.class);
 		RestTemplate restTemplate = mock(RestTemplate.class);
 		when(restTemplateBuilder.build()).thenReturn(restTemplate);
 		when(restTemplate
 				.getForObject(
-						"http://feeds.topcoder.com/challenges/feed?list=active&contestType=develop&bucket=openForRegistration", 
+						this.environment.getProperty("feed.url"), 
 						Feed.class)
 				)
 		.thenReturn(RSSFeedTestData.feed());
 		this.configService = mock(ConfigService.class);
-		this.rssFeedService = new RSSFeedService(restTemplateBuilder, this.configService);
+		this.rssFeedService = new RSSFeedService(restTemplateBuilder, this.configService, this.environment.getProperty("feed.url"));
 	}
 	
 	@Test
