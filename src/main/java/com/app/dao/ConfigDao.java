@@ -22,8 +22,8 @@ public class ConfigDao {
 
 	public ConfigDao(
 			@Autowired MongoClient mongoClient, 
-			@Value("${app.database}") String databaseName,
-			@Value("${app.collection.config}") String challenges) {
+			@Value("${app.db}") String databaseName,
+			@Value("${app.db.coll.config}") String challenges) {
 		this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Config.class);
 		logger.debug("ConfigDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
 	}

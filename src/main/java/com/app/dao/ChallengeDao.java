@@ -27,8 +27,8 @@ public class ChallengeDao {
 
 	public ChallengeDao(
 			@Autowired MongoClient mongoClient, 
-			@Value("${app.database}") String databaseName,
-			@Value("${app.collection.challenges}") String challenges) {
+			@Value("${app.db}") String databaseName,
+			@Value("${app.db.coll.challenges}") String challenges) {
 
 		this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Challenge.class);
 		logger.debug("ChallengeDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);

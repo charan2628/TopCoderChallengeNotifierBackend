@@ -36,7 +36,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 			}
 		}
 		
-		logger.info("UNAUTHORIZED REQUEST {} {}", LocalDateTime.now(), request.getRequestURI());
+		logger.info("Unauthorized request {} {}", LocalDateTime.now(), request.getRequestURI());
 		sendErrorResponse(response);
 		return false;
 	}
