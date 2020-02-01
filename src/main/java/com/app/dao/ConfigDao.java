@@ -16,7 +16,8 @@ import java.lang.invoke.MethodHandles;
 @Repository
 public class ConfigDao {
 
-    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
 
     private MongoCollection<Config> collection;
 
@@ -26,7 +27,7 @@ public class ConfigDao {
             @Value("${app.db.coll.config}") String challenges) {
         
         this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Config.class);
-        logger.debug("ConfigDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
+        LOGGER.debug("ConfigDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
     }
 
     public Config getConfig() {

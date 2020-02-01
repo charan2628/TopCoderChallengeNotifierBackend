@@ -24,29 +24,30 @@ import com.app.service.ConfigService;
 @RequestMapping("/config")
 public class ConfigController {
 
-    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
             
     private ConfigService configService;
     
     public ConfigController(@Autowired ConfigService configService) {
-        logger.debug("Config controller initialization started");
+        LOGGER.debug("Config controller initialization started");
         this.configService = configService;
-        logger.debug("Config controller initialized");
+        LOGGER.debug("Config controller initialized");
     }
     
     @GetMapping(path = "", produces = "application/json")
     public Config getConfig() {
-        logger.info("GET /config");
+        LOGGER.info("GET /config");
         return this.configService.getConfig();
     }
     
     @PostMapping(path = "", produces = "application/json", consumes = "application/json")
     @ResponseStatus(code = HttpStatus.OK)
     public void addConfig(@RequestBody Config config) {
-        if(logger.isDebugEnabled()) {
-            logger.debug("POST /config BODY: {}", config.toString());
+        if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("POST /config BODY: {}", config.toString());
         } else {
-            logger.info("POST /config");
+            LOGGER.info("POST /config");
         }
         this.configService.addConfig(config);
     }
@@ -54,10 +55,10 @@ public class ConfigController {
     @PutMapping(path = "", produces = "application/json", consumes = "application/json")
     @ResponseStatus(code = HttpStatus.OK)
     public void updateConfig(@RequestBody Config config) {
-        if(logger.isDebugEnabled()) {
-            logger.debug("PUT /config BODY: {}", config.toString());
+        if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("PUT /config BODY: {}", config.toString());
         } else {
-            logger.info("PUT /config");
+            LOGGER.info("PUT /config");
         }
         if(config.getEmails() != null && config.getEmails().size() > 0) {
             this.configService.updateEmails(config.getEmails());
@@ -70,10 +71,10 @@ public class ConfigController {
     @DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
     @ResponseStatus(code = HttpStatus.OK)
     public void deleteConfig(@RequestBody Config config) {
-        if(logger.isDebugEnabled()) {
-            logger.debug("PUT /config BODY: {}", config.toString());
+        if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("PUT /config BODY: {}", config.toString());
         } else {
-            logger.info("PUT /config");
+            LOGGER.info("PUT /config");
         }
         if(config.getEmails() != null && config.getEmails().size() > 0) {
             this.configService.deleteEmails(config.getEmails());

@@ -22,7 +22,8 @@ import com.app.service.AuthorizationService;
 @RequestMapping("/login")
 public class LoginController {
     
-    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
 
     private AuthorizationService authorizationService;
     private AccessTokenService accessTokenService;
@@ -37,12 +38,12 @@ public class LoginController {
     
     @PostMapping
     public Token login(@RequestBody Login login) throws Exception{
-        logger.info("GET /login");
+        LOGGER.info("GET /login");
         if(authorizationService.authenticate(login)) {
-            logger.debug("USER AUTHENTICATED");
+            LOGGER.debug("USER AUTHENTICATED");
             return new Token(this.accessTokenService.createToken());
         }
-        logger.info("USER UNAUTHENTICATED");
+        LOGGER.info("USER UNAUTHENTICATED");
         throw new UnAuthorizedException();
     }
 }

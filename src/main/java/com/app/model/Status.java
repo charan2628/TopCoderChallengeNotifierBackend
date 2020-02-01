@@ -55,4 +55,10 @@ public class Status {
         this.errors = errors;
     }
 
+    @Override
+    public String toString() {
+        return "Status [id=" + this.id + ", successfullTasks=" + this.successfullTasks + ", failedTasks="
+                + this.failedTasks + ", errors=" + this.errors + "]";
+    }
+
 }

@@ -21,7 +21,8 @@ import static com.mongodb.client.model.Filters.in;;
 @Repository
 public class ChallengeDao {
 
-    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
 
     private MongoCollection<Challenge> collection;
 
@@ -31,7 +32,7 @@ public class ChallengeDao {
             @Value("${app.db.coll.challenges}") String challenges) {
 
         this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Challenge.class);
-        logger.debug("ChallengeDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
+        LOGGER.debug("ChallengeDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
     }
 
     public void addchallenge(Challenge challenge) {

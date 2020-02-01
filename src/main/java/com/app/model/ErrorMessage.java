@@ -21,4 +21,9 @@ public class ErrorMessage {
         this.msg = msg;
     }
 
+    @Override
+    public String toString() {
+        return "ErrorMessage [msg=" + this.msg + "]";
+    }
+
 }

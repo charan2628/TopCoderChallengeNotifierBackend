@@ -66,7 +66,7 @@ public class ChallengeNotifier {
             List<Challenge> challenges = this.newChallenges(
                     this.itemsToChallenges(
                             this.rssFeedService.getItems()));
-//            this.mailService.buildMessage(challenges).send();
+            this.mailService.buildMessage(challenges).send();
             LOGGER.debug("ScheduleType: {} challenges: {}", scheduleType, challenges);
             if (scheduleType.equals(ScheduleType.LATER) && challenges.size() > 0) {
                 this.challengeService.addChallenges(challenges);
@@ -89,10 +89,10 @@ public class ChallengeNotifier {
      */
     public void notifyAllChallenges() {
         try {
-//            this.mailService.buildMessage(
-//                    this.itemsToChallenges(
-//                            this.rssFeedService.getAllItems()))
-//            .send();
+            this.mailService.buildMessage(
+                    this.itemsToChallenges(
+                            this.rssFeedService.getAllItems()))
+            .send();
         } catch (Exception e) {
             LOGGER.error("Error notifying all challenges {}", e);
             this.errorLogService.addErrorLog(

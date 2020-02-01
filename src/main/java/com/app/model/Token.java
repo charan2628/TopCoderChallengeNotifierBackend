@@ -23,5 +23,5 @@ public class Token {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
-    
+
 }
