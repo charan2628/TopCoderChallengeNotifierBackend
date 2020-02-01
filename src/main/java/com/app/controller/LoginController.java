@@ -17,6 +17,12 @@ import com.app.model.Token;
 import com.app.service.AccessTokenService;
 import com.app.service.AuthorizationService;
 
+/**
+ * Controller for /login requests.
+ *
+ * @author charan2628
+ *
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/login")

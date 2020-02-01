@@ -25,9 +25,6 @@ import com.app.service.ChallengeService;
 @RequestMapping("/challenges")
 public class ChallengeController {
 
-    /**
-     * Logger.
-     */
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 

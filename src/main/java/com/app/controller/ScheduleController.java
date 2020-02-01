@@ -20,6 +20,12 @@ import com.app.scheduler.ChallengeNotificationScheduler;
 import com.app.util.AppUtil;
 import com.app.util.ChallengeType;
 
+/**
+ * Controller for /schedule requests.
+ *
+ * @author charan2628
+ *
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/schedule")

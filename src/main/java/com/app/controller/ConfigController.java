@@ -19,6 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.model.Config;
 import com.app.service.ConfigService;
 
+/**
+ * Controller for /config requests.
+ * 
+ * @author charan2628
+ *
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/config")
