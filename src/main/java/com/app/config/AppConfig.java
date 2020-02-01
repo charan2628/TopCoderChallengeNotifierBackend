@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,6 +32,7 @@ import com.mongodb.MongoClientSettings;
  *
  */
 @Configuration
+@EnableAsync
 @ComponentScan(basePackages = {"com.app"})
 public class AppConfig implements WebMvcConfigurer {
 
@@ -77,6 +80,15 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public AuthInterceptor authInterceptor() {
         return new AuthInterceptor();
+    }
+    
+    @Bean("asnc_executor")
+    public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setMaxPoolSize(5);
+        taskExecutor.setAwaitTerminationSeconds(5);
+        taskExecutor.setDaemon(true);
+        return taskExecutor;
     }
 
     @Override
