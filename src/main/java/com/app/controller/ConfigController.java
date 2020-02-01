@@ -24,62 +24,62 @@ import com.app.service.ConfigService;
 @RequestMapping("/config")
 public class ConfigController {
 
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-			
-	private ConfigService configService;
-	
-	public ConfigController(@Autowired ConfigService configService) {
-		logger.debug("Config controller initialization started");
-		this.configService = configService;
-		logger.debug("Config controller initialized");
-	}
-	
-	@GetMapping(path = "", produces = "application/json")
-	public Config getConfig() {
-		logger.info("GET /config");
-		return this.configService.getConfig();
-	}
-	
-	@PostMapping(path = "", produces = "application/json", consumes = "application/json")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void addConfig(@RequestBody Config config) {
-		if(logger.isDebugEnabled()) {
-			logger.debug("POST /config BODY: {}", config.toString());
-		} else {
-			logger.info("POST /config");
-		}
-		this.configService.addConfig(config);
-	}
-	
-	@PutMapping(path = "", produces = "application/json", consumes = "application/json")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void updateConfig(@RequestBody Config config) {
-		if(logger.isDebugEnabled()) {
-			logger.debug("PUT /config BODY: {}", config.toString());
-		} else {
-			logger.info("PUT /config");
-		}
-		if(config.getEmails() != null && config.getEmails().size() > 0) {
-			this.configService.updateEmails(config.getEmails());
-		}
-		if(config.getTags() != null && config.getTags().size() > 0) {
-			this.configService.updateTags(config.getTags());
-		}
-	}
-	
-	@DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void deleteConfig(@RequestBody Config config) {
-		if(logger.isDebugEnabled()) {
-			logger.debug("PUT /config BODY: {}", config.toString());
-		} else {
-			logger.info("PUT /config");
-		}
-		if(config.getEmails() != null && config.getEmails().size() > 0) {
-			this.configService.deleteEmails(config.getEmails());
-		}
-		if(config.getTags() != null && config.getTags().size() > 0) {
-			this.configService.deleteTags(config.getTags());
-		}
-	}
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+            
+    private ConfigService configService;
+    
+    public ConfigController(@Autowired ConfigService configService) {
+        logger.debug("Config controller initialization started");
+        this.configService = configService;
+        logger.debug("Config controller initialized");
+    }
+    
+    @GetMapping(path = "", produces = "application/json")
+    public Config getConfig() {
+        logger.info("GET /config");
+        return this.configService.getConfig();
+    }
+    
+    @PostMapping(path = "", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void addConfig(@RequestBody Config config) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("POST /config BODY: {}", config.toString());
+        } else {
+            logger.info("POST /config");
+        }
+        this.configService.addConfig(config);
+    }
+    
+    @PutMapping(path = "", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void updateConfig(@RequestBody Config config) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("PUT /config BODY: {}", config.toString());
+        } else {
+            logger.info("PUT /config");
+        }
+        if(config.getEmails() != null && config.getEmails().size() > 0) {
+            this.configService.updateEmails(config.getEmails());
+        }
+        if(config.getTags() != null && config.getTags().size() > 0) {
+            this.configService.updateTags(config.getTags());
+        }
+    }
+    
+    @DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void deleteConfig(@RequestBody Config config) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("PUT /config BODY: {}", config.toString());
+        } else {
+            logger.info("PUT /config");
+        }
+        if(config.getEmails() != null && config.getEmails().size() > 0) {
+            this.configService.deleteEmails(config.getEmails());
+        }
+        if(config.getTags() != null && config.getTags().size() > 0) {
+            this.configService.deleteTags(config.getTags());
+        }
+    }
 }

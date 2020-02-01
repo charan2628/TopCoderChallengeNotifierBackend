@@ -8,48 +8,48 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Config {
 
-	@JsonIgnore
-	private ObjectId id;
-	private List<String> emails;
-	private List<String> tags;
-	
-	public Config() {
-		super();
-	}
+    @JsonIgnore
+    private ObjectId id;
+    private List<String> emails;
+    private List<String> tags;
+    
+    public Config() {
+        super();
+    }
 
-	public Config(List<String> emails, List<String> tags) {
-		super();
-		this.emails = emails;
-		this.tags = tags;
-	}
+    public Config(List<String> emails, List<String> tags) {
+        super();
+        this.emails = emails;
+        this.tags = tags;
+    }
 
-	public ObjectId getId() {
-		return id;
-	}
+    public ObjectId getId() {
+        return id;
+    }
 
-	public void setId(ObjectId id) {
-		this.id = id;
-	}
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
-	public List<String> getEmails() {
-		return emails;
-	}
+    public List<String> getEmails() {
+        return emails;
+    }
 
-	public void setEmails(List<String> emails) {
-		this.emails = emails;
-	}
+    public void setEmails(List<String> emails) {
+        this.emails = emails;
+    }
 
-	public List<String> getTags() {
-		return tags;
-	}
+    public List<String> getTags() {
+        return tags;
+    }
 
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 
-	@Override
-	public String toString() {
-		return "Config [emails=" + emails + ", tags=" + tags + "]";
-	}
+    @Override
+    public String toString() {
+        return "Config [emails=" + emails + ", tags=" + tags + "]";
+    }
 
 }

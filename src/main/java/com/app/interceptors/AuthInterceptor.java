@@ -22,42 +22,42 @@ import com.app.service.AccessTokenService;
  *
  */
 public class AuthInterceptor implements HandlerInterceptor{
-	
-	@Autowired
-	private AccessTokenService accessTokenService;
-	
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
+    @Autowired
+    private AccessTokenService accessTokenService;
+    
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	/**
-	 * Checks/ Verifies access_token in requests and sends
-	 * 401 Unauthorized response if not authorized
-	 * 
-	 * This intercepter pass through CORS preflight request
-	 */
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		logger.debug("GOT REQUEST: {}", request.getRequestURI());
-		
-		if(request.getMethod().equals("OPTIONS")) return true;
-		
-		String accessToken = request.getHeader("Authorization");
-		if(accessToken != null && accessToken.length() >= 0) {
-			try {
-				boolean authorized = this.accessTokenService.verifyToken(accessToken);
-				if(authorized) {
-					return true;
-				}
-			} catch (Exception e) {
-				logger.error("Error Verifying token: {}", e);
-			}
-		}
-		
-		logger.info("Unauthorized request {} {}", LocalDateTime.now(), request.getRequestURI());
-		sendErrorResponse(response);
-		return false;
-	}
-	
-	private void sendErrorResponse(HttpServletResponse response) throws IOException {
-		response.sendError(401, "Unauthorized");
-	}
+    /**
+     * Checks/ Verifies access_token in requests and sends
+     * 401 Unauthorized response if not authorized
+     * 
+     * This intercepter pass through CORS preflight request
+     */
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        logger.debug("GOT REQUEST: {}", request.getRequestURI());
+        
+        if(request.getMethod().equals("OPTIONS")) return true;
+        
+        String accessToken = request.getHeader("Authorization");
+        if(accessToken != null && accessToken.length() >= 0) {
+            try {
+                boolean authorized = this.accessTokenService.verifyToken(accessToken);
+                if(authorized) {
+                    return true;
+                }
+            } catch (Exception e) {
+                logger.error("Error Verifying token: {}", e);
+            }
+        }
+        
+        logger.info("Unauthorized request {} {}", LocalDateTime.now(), request.getRequestURI());
+        sendErrorResponse(response);
+        return false;
+    }
+    
+    private void sendErrorResponse(HttpServletResponse response) throws IOException {
+        response.sendError(401, "Unauthorized");
+    }
 }

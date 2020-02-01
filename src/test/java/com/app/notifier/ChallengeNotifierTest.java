@@ -21,7 +21,7 @@ import com.app.service.MailService;
 import com.app.service.MailService.Mail;
 import com.app.service.RSSFeedService;
 import com.app.service.RSSFeedTestData;
-import com.app.util.SCHEDULE_TYPE;
+import com.app.util.ScheduleType;
 
 @ActiveProfiles("test")
 @SpringBootTest(classes = AppRunner.class)
@@ -58,7 +58,7 @@ public class ChallengeNotifierTest extends AbstractTestNGSpringContextTests {
 		when(this.challengeService.getChallenges()).thenReturn(challenges);
 		
 		ChallengeNotifier challangeNotifier = new ChallengeNotifier(this.challengeService, this.rssFeedService, this.mailService);
-		challangeNotifier.notifyNewChallenges(SCHEDULE_TYPE.NOW);
+		challangeNotifier.notifyNewChallenges(ScheduleType.NOW);
 		
 		List<Challenge> newChallenges = new ArrayList<>(); 
 		newChallenges.add(

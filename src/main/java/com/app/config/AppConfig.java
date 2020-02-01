@@ -23,41 +23,72 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientSettings;
 
+/**
+ * Main Application configuration class.
+ *
+ * @author charan2628
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = {"com.app"})
-public class AppConfig implements WebMvcConfigurer{
-	
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+public class AppConfig implements WebMvcConfigurer {
 
-	@Bean
-	public MongoClient mongoClient(
-			@Value("${db.host}") String host,
-			@Value("${db.port}") String port) {
-		
-		String url = String.format("%s:%s", host, port);
-		
-		CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
-                fromProviders(PojoCodecProvider.builder().automatic(true).build()));
-		MongoClientOptions options = MongoClientOptions.builder().codecRegistry(pojoCodecRegistry).build();
-		MongoClient mongoClient = new MongoClient(url, options);
-		
-		logger.info("Mongo Client created successfully");
-		return mongoClient;
-	}
-	
-	@Bean
-	public AuthInterceptor authInterceptor() {
-		return new AuthInterceptor();
-	}
-	
-	@Override
-	public void addFormatters(FormatterRegistry registry) {
-		registry.addConverter(new ChallengeTypeConverter());
-		logger.debug("Adding Custom Converters");
-	}
-	
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(authInterceptor()).addPathPatterns("/**").excludePathPatterns("/login/**", "/error/**");
-	}
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
+
+    /**
+     * Creates MongoClient configures it with Codec for POJO.
+     *
+     * @param host
+     *        Database host
+     * @param port
+     *        Database port
+     * @return MongoClient
+     */
+    @Bean
+    public MongoClient mongoClient(
+            @Value("${db.host}") final String host,
+            @Value("${db.port}") final String port) {
+
+        String url = String.format("%s:%s", host, port);
+
+        CodecRegistry pojoCodecRegistry = fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder()
+                        .automatic(true)
+                        .build()));
+        MongoClientOptions options = MongoClientOptions.builder()
+                .codecRegistry(pojoCodecRegistry)
+                .build();
+        MongoClient mongoClient = new MongoClient(url, options);
+
+        LOGGER.info("Mongo Client created successfully");
+        return mongoClient;
+    }
+
+    /**
+     * Creates AuthInterceptor and registers it as Spring bean.
+     *
+     * @return AuthInterceptor
+     */
+    @Bean
+    public AuthInterceptor authInterceptor() {
+        return new AuthInterceptor();
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new ChallengeTypeConverter());
+        LOGGER.debug("Adding Custom Converters");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authInterceptor())
+            .addPathPatterns("/**")
+            .excludePathPatterns("/login/**", "/error/**");
+    }
 }

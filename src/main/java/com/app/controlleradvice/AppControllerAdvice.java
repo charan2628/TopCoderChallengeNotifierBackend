@@ -19,31 +19,31 @@ import com.mongodb.MongoException;
 
 @ControllerAdvice(basePackages = "com.app")
 public class AppControllerAdvice {
-	
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-	
-	@ExceptionHandler(Throwable.class)
-	public ResponseEntity<?> anyOtherException(HttpServletRequest request, Throwable ex) {
-		if(ex instanceof MongoException) {
-			return new ResponseEntity<>(
-					new AppException(
-							LocalDateTime.now().toString(), "error", "db error contact admin",
-							request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
-		} else if(ex instanceof ErrorSchedulingTaskException) {
-			return new ResponseEntity<>(
-					new AppException(
-							LocalDateTime.now().toString(), "error", "error scheduling task",
-							request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
-		} else if(ex instanceof UnAuthorizedException) {
-			return new ResponseEntity<>(
-					new AppException(
-							LocalDateTime.now().toString(), "error", "invalid userame or password",
-							request.getRequestURI()), HttpStatus.BAD_REQUEST);
-		}
-		logger.error("ERROR: {}", ex);
-		return new ResponseEntity<>(
-				new AppException(
-						LocalDateTime.now().toString(), "error", "bad request check docs",
-						request.getRequestURI()), HttpStatus.BAD_REQUEST);
-	}
+    
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<?> anyOtherException(HttpServletRequest request, Throwable ex) {
+        if(ex instanceof MongoException) {
+            return new ResponseEntity<>(
+                    new AppException(
+                            LocalDateTime.now().toString(), "error", "db error contact admin",
+                            request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
+        } else if(ex instanceof ErrorSchedulingTaskException) {
+            return new ResponseEntity<>(
+                    new AppException(
+                            LocalDateTime.now().toString(), "error", "error scheduling task",
+                            request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
+        } else if(ex instanceof UnAuthorizedException) {
+            return new ResponseEntity<>(
+                    new AppException(
+                            LocalDateTime.now().toString(), "error", "invalid userame or password",
+                            request.getRequestURI()), HttpStatus.BAD_REQUEST);
+        }
+        logger.error("ERROR: {}", ex);
+        return new ResponseEntity<>(
+                new AppException(
+                        LocalDateTime.now().toString(), "error", "bad request check docs",
+                        request.getRequestURI()), HttpStatus.BAD_REQUEST);
+    }
 }

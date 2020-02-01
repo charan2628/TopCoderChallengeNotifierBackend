@@ -6,16 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.converter.Converter;
 
-import com.app.util.CHALLENGE_TYPE;
+import com.app.util.ChallengeType;
 
-public class ChallengeTypeConverter implements Converter<String, CHALLENGE_TYPE>{
+public class ChallengeTypeConverter implements Converter<String, ChallengeType>{
 
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	@Override
-	public CHALLENGE_TYPE convert(String source) {
-		logger.debug("Converting {} to CHALLENGE_TYPE", source);
-		return CHALLENGE_TYPE.valueOf(source);
-	}
+    @Override
+    public ChallengeType convert(String source) {
+        logger.debug("Converting {} to CHALLENGE_TYPE", source);
+        return ChallengeType.valueOf(source);
+    }
 
 }

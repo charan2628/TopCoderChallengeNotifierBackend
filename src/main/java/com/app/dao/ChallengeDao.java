@@ -21,55 +21,55 @@ import static com.mongodb.client.model.Filters.in;;
 @Repository
 public class ChallengeDao {
 
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private MongoCollection<Challenge> collection;
+    private MongoCollection<Challenge> collection;
 
-	public ChallengeDao(
-			@Autowired MongoClient mongoClient, 
-			@Value("${app.db}") String databaseName,
-			@Value("${app.db.coll.challenges}") String challenges) {
+    public ChallengeDao(
+            @Autowired MongoClient mongoClient, 
+            @Value("${app.db}") String databaseName,
+            @Value("${app.db.coll.challenges}") String challenges) {
 
-		this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Challenge.class);
-		logger.debug("ChallengeDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
-	}
+        this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Challenge.class);
+        logger.debug("ChallengeDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
+    }
 
-	public void addchallenge(Challenge challenge) {
-		this.collection.insertOne(challenge);
-	}
+    public void addchallenge(Challenge challenge) {
+        this.collection.insertOne(challenge);
+    }
 
-	public void addChallenges(List<Challenge> challenges) {
-		this.collection.insertMany(challenges);
-	}
+    public void addChallenges(List<Challenge> challenges) {
+        this.collection.insertMany(challenges);
+    }
 
-	public List<Challenge> getChallenges(String challengeName) {
-		List<Challenge> challenges = new ArrayList<>();
-		this.collection.find(eq("name", challengeName))
-			.forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
-		return challenges;
-	}
+    public List<Challenge> getChallenges(String challengeName) {
+        List<Challenge> challenges = new ArrayList<>();
+        this.collection.find(eq("name", challengeName))
+            .forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
+        return challenges;
+    }
 
-	public List<Challenge> getchallenges() {
-		List<Challenge> challenges = new ArrayList<>();
-		this.collection.find()
-			.forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
-		return challenges;
-	}
+    public List<Challenge> getchallenges() {
+        List<Challenge> challenges = new ArrayList<>();
+        this.collection.find()
+            .forEach((Consumer<Challenge>)(challenge) -> challenges.add(challenge));
+        return challenges;
+    }
 
-	public long getChallengesCount() {
-		return this.collection.countDocuments();
-	}
+    public long getChallengesCount() {
+        return this.collection.countDocuments();
+    }
 
-	public boolean isPresent(String challengeName) {
-		return this.collection.countDocuments(eq("name", challengeName)) > 0 ? true: false;
-	}
+    public boolean isPresent(String challengeName) {
+        return this.collection.countDocuments(eq("name", challengeName)) > 0 ? true: false;
+    }
 
-	public boolean arePresent(List<String> challengeNames) {
-		return this.collection.countDocuments(in("name", challengeNames)) > 0 ? true: false;
-	}
+    public boolean arePresent(List<String> challengeNames) {
+        return this.collection.countDocuments(in("name", challengeNames)) > 0 ? true: false;
+    }
 
-	public void deleteAll() {
-		this.collection.deleteMany(new Document());
-	}
+    public void deleteAll() {
+        this.collection.deleteMany(new Document());
+    }
 
 }

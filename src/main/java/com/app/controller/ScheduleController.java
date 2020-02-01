@@ -18,39 +18,39 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.model.ScheduleTime;
 import com.app.scheduler.ChallengeNotificationScheduler;
 import com.app.util.AppUtil;
-import com.app.util.CHALLENGE_TYPE;
+import com.app.util.ChallengeType;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
 
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-			
-	private ChallengeNotificationScheduler scheduler;
-	
-	public ScheduleController(@Autowired ChallengeNotificationScheduler scheduler) {
-		logger.debug("Schedule controller initialization started");
-		this.scheduler = scheduler;
-		logger.debug("Schedule controller initialized");
-	}
-	
-	@GetMapping("/now/{challengeType}")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void scheduleNow(@PathVariable(required = true) CHALLENGE_TYPE challengeType) {
-		logger.info("GET /schedule/now/{}", challengeType.name());
-		this.scheduler.scheduleNow(challengeType);
-	}
-	
-	@PostMapping(path = "", produces = "application/json")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void schedule(@RequestBody(required = true) ScheduleTime scheduleTime) {
-		if(logger.isDebugEnabled()) {
-			logger.debug("POST /schedule BODY: {}", scheduleTime.toString());
-		} else {
-			logger.info("POST /schedule");
-		}
-		this.scheduler.schedule(
-				AppUtil.format(scheduleTime.getHours(), scheduleTime.getMinutes()));
-	}
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+            
+    private ChallengeNotificationScheduler scheduler;
+    
+    public ScheduleController(@Autowired ChallengeNotificationScheduler scheduler) {
+        logger.debug("Schedule controller initialization started");
+        this.scheduler = scheduler;
+        logger.debug("Schedule controller initialized");
+    }
+    
+    @GetMapping("/now/{challengeType}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void scheduleNow(@PathVariable(required = true) ChallengeType challengeType) {
+        logger.info("GET /schedule/now/{}", challengeType.name());
+        this.scheduler.scheduleNow(challengeType);
+    }
+    
+    @PostMapping(path = "", produces = "application/json")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void schedule(@RequestBody(required = true) ScheduleTime scheduleTime) {
+        if(logger.isDebugEnabled()) {
+            logger.debug("POST /schedule BODY: {}", scheduleTime.toString());
+        } else {
+            logger.info("POST /schedule");
+        }
+        this.scheduler.schedule(
+                AppUtil.format(scheduleTime.getHours(), scheduleTime.getMinutes()));
+    }
 }

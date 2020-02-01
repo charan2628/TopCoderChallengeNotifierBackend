@@ -11,16 +11,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Application Landing controller can be used
+ * to check whether application is running.
+ *
+ * @author charan2628
+ *
+ */
 @CrossOrigin
 @RestController
 @RequestMapping("/")
 public class AppController {
-	
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	@GetMapping("")
-	@ResponseStatus(code = HttpStatus.OK)
-	public void main() {
-		logger.info("GET /");
-	}
+    /**
+     * Logger.
+     */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(MethodHandles.lookup().lookupClass());
+
+    /**
+     * GET mapping for /.
+     */
+    @GetMapping("")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void main() {
+        LOGGER.info("GET /");
+    }
 }

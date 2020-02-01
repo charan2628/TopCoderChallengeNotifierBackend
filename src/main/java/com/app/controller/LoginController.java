@@ -21,28 +21,28 @@ import com.app.service.AuthorizationService;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-	
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private AuthorizationService authorizationService;
-	private AccessTokenService accessTokenService;
-	
-	public LoginController(
-			@Autowired AuthorizationService authorizationService,
-			@Autowired AccessTokenService accessTokenService) {
-		
-		this.authorizationService = authorizationService;
-		this.accessTokenService = accessTokenService;
-	}
-	
-	@PostMapping
-	public Token login(@RequestBody Login login) throws Exception{
-		logger.info("GET /login");
-		if(authorizationService.authenticate(login)) {
-			logger.debug("USER AUTHENTICATED");
-			return new Token(this.accessTokenService.createToken());
-		}
-		logger.info("USER UNAUTHENTICATED");
-		throw new UnAuthorizedException();
-	}
+    private AuthorizationService authorizationService;
+    private AccessTokenService accessTokenService;
+    
+    public LoginController(
+            @Autowired AuthorizationService authorizationService,
+            @Autowired AccessTokenService accessTokenService) {
+        
+        this.authorizationService = authorizationService;
+        this.accessTokenService = accessTokenService;
+    }
+    
+    @PostMapping
+    public Token login(@RequestBody Login login) throws Exception{
+        logger.info("GET /login");
+        if(authorizationService.authenticate(login)) {
+            logger.debug("USER AUTHENTICATED");
+            return new Token(this.accessTokenService.createToken());
+        }
+        logger.info("USER UNAUTHENTICATED");
+        throw new UnAuthorizedException();
+    }
 }

@@ -16,25 +16,25 @@ import java.lang.invoke.MethodHandles;
 @Repository
 public class ConfigDao {
 
-	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private MongoCollection<Config> collection;
+    private MongoCollection<Config> collection;
 
-	public ConfigDao(
-			@Autowired MongoClient mongoClient, 
-			@Value("${app.db}") String databaseName,
-			@Value("${app.db.coll.config}") String challenges) {
-		
-		this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Config.class);
-		logger.debug("ConfigDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
-	}
+    public ConfigDao(
+            @Autowired MongoClient mongoClient, 
+            @Value("${app.db}") String databaseName,
+            @Value("${app.db.coll.config}") String challenges) {
+        
+        this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, Config.class);
+        logger.debug("ConfigDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
+    }
 
-	public Config getConfig() {
-		return this.collection.find().first();
-	}
+    public Config getConfig() {
+        return this.collection.find().first();
+    }
 
-	public void addConfig(Config config) {
-		this.collection.insertOne(config);
-	}
+    public void addConfig(Config config) {
+        this.collection.insertOne(config);
+    }
 
 }
