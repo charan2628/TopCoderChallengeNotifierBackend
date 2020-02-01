@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import com.app.model.ErrorMessage;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 
@@ -20,25 +21,26 @@ public class ErrorLogDao {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
-    private MongoCollection<String> collection;
+    private MongoCollection<ErrorMessage> collection;
 
     public ErrorLogDao(
             @Autowired MongoClient mongoClient, 
             @Value("${app.db}") String databaseName,
             @Value("${app.db.coll.errorlog}") String challenges) {
         
-        this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, String.class);
+        this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, ErrorMessage.class);
         LOGGER.debug("ErrorLogDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
     }
     
     public void addErrorLog(String error) {
-        this.collection.insertOne(error);
+        this.collection.insertOne(
+                new ErrorMessage(error));
     }
     
     public List<String> getErrorLogs() {
         List<String> errors = new ArrayList<>();
         this.collection.find()
-            .forEach((Consumer<String>)(error) -> errors.add(error));
+            .forEach((Consumer<ErrorMessage>)(error) -> errors.add(error.getMsg()));
         return errors;
     }
 }
