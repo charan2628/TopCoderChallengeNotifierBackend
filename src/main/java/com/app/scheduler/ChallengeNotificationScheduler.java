@@ -50,9 +50,17 @@ public class ChallengeNotificationScheduler {
      */
     public void scheduleNow(ChallengeType challengeType) {
         if (challengeType.equals(ChallengeType.NEW)) {
-            this.challengeNotifier.notifyNewChallenges(ScheduleType.NOW);
+            this.challengeNotifier.notifyNewChallenges(ScheduleType.NOW, null);
         } else {
-            this.challengeNotifier.notifyAllChallenges();
+            this.challengeNotifier.notifyAllChallenges(null);
+        }
+    }
+    
+    public void scheduleNow(ChallengeType challengeType, String mail) {
+        if (challengeType.equals(ChallengeType.NEW)) {
+            this.challengeNotifier.notifyNewChallenges(ScheduleType.NOW, mail);
+        } else {
+            this.challengeNotifier.notifyAllChallenges(mail);
         }
     }
 
@@ -69,7 +77,7 @@ public class ChallengeNotificationScheduler {
             }
             TaskScheduler scheduler = new DefaultManagedTaskScheduler();
             this.scheduledFuture = scheduler.scheduleAtFixedRate(
-                    () -> this.challengeNotifier.notifyNewChallenges(ScheduleType.LATER),
+                    () -> this.challengeNotifier.notifyNewChallenges(ScheduleType.LATER, null),
                     date,
                     86400000L);
         } catch (Exception e) {

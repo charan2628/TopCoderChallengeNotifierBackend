@@ -110,14 +110,14 @@ public class MailService {
                     .getDefaultInstance(
                             MailService.this.properties,
                             new javax.mail.Authenticator() {
-                            protected PasswordAuthentication getPasswordAuthentication() {
-                                return new PasswordAuthentication(
-                                MailService.this.environment
-                                    .getProperty("APP_SENDER_MAIL"),
-                                MailService.this.environment
-                                    .getProperty("APP_SENDER_MAIL_PASSWORD"));
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return new PasswordAuthentication(
+                                            MailService.this.environment
+                                            .getProperty("APP_SENDER_MAIL"),
+                                            MailService.this.environment
+                                            .getProperty("APP_SENDER_MAIL_PASSWORD"));
                                 }
-                              });
+                            });
             Config config = MailService.this.configService.getConfig();
             for (String mail: config.getEmails()) {
                 try {
@@ -136,7 +136,43 @@ public class MailService {
                     continue;
                 }
                 LOGGER.debug("Mail to: {} sent successfully", mail);
-                    }
-                }
             }
+        }
+
+        /**
+         * Sends mail to given mail
+         *
+         * @param email
+         */
+        public void send(String email) {
+            Session session = Session
+                    .getDefaultInstance(
+                            MailService.this.properties,
+                            new javax.mail.Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                    return new PasswordAuthentication(
+                                            MailService.this.environment
+                                            .getProperty("APP_SENDER_MAIL"),
+                                            MailService.this.environment
+                                            .getProperty("APP_SENDER_MAIL_PASSWORD"));
+                                }
+                            });
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+                message.setSubject("TopCoder Challenges check out");
+                message.setDataHandler(new DataHandler(
+                        new ByteArrayDataSource(this.body, "text/html")));
+                Transport.send(message);
+            } catch (MessagingException | IOException exception) {
+                LOGGER.error("Error sending mail {} {}", email, exception);
+                MailService.this.errorLogService.addErrorLog(
+                        String.format("Error sending mail %s",
+                                LocalDateTime.now().toString()));
+                MailService.this.statusService.error();
+                return;
+            }
+            LOGGER.debug("Mail to: {} sent successfully", email);
+        }
+    }
 }

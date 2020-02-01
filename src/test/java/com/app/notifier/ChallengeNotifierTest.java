@@ -66,7 +66,7 @@ public class ChallengeNotifierTest extends AbstractTestNGSpringContextTests {
 		ChallengeNotifier challangeNotifier = new ChallengeNotifier(
 		        this.challengeService, this.rssFeedService, this.mailService,
 		        this.errorLogService, this.stausService);
-		challangeNotifier.notifyNewChallenges(ScheduleType.NOW);
+		challangeNotifier.notifyNewChallenges(ScheduleType.NOW, null);
 		
 		List<Challenge> newChallenges = new ArrayList<>(); 
 		newChallenges.add(
@@ -96,7 +96,7 @@ public class ChallengeNotifierTest extends AbstractTestNGSpringContextTests {
 		ChallengeNotifier challangeNotifier = new ChallengeNotifier(
                 this.challengeService, this.rssFeedService, this.mailService,
                 this.errorLogService, this.stausService);
-		challangeNotifier.notifyAllChallenges();
+		challangeNotifier.notifyAllChallenges(null);
 		
 		verify(this.mailService).buildMessage(eq(allChallenges));
 	}
