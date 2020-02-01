@@ -17,8 +17,7 @@ public class ChallengeController {
 	
 	private ChallengeService challengeService;
 	
-	public ChallengeController(
-			@Autowired ChallengeService challengeService) {
+	public ChallengeController(@Autowired ChallengeService challengeService) {
 		this.challengeService = challengeService;
 	}
 

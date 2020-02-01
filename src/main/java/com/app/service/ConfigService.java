@@ -15,6 +15,12 @@ import com.app.dao.ConfigDao;
 import com.app.model.Config;
 import com.app.util.AppUtil;
 
+/**
+ * Service class to get, add, update Config
+ * 
+ * @author charan2628
+ *
+ */
 @Service
 public class ConfigService {
 	
@@ -35,6 +41,16 @@ public class ConfigService {
 		return config;
 	}
 	
+	/**
+	 * Adds the Config to mongo db, since the
+	 * collection is capped to one record, adding this
+	 * cause the complete replacing of previous Config
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param config
+	 */
 	public void addConfig(Config config) {
 		try {
 			config.setEmails(AppUtil.removeDups(config.getEmails()));
@@ -47,6 +63,18 @@ public class ConfigService {
 		logger.debug("Added config: {} successfully", config);
 	}
 	
+	/**
+	 * Updates the tags of Config, 
+	 * 
+	 * This method removes duplicate tags before adding it to db
+	 * Since, it's a capped collection update is not possible, so it does
+	 * whole replacement of record persisting previous values;
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param tags to add
+	 */
 	public void updateTags(List<String> tags) {
 		try {
 			Config config = this.getConfig();
@@ -65,6 +93,18 @@ public class ConfigService {
 		logger.debug("Updated tags: {} successfully", tags);
 	}
 	
+	/**
+	 * Updates the email's of Config, 
+	 * 
+	 * This method removes duplicate email's before adding it to db
+	 * Since, it's a capped collection update is not possible, so it does
+	 * whole replacement of record persisting previous values;
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param emails to add
+	 */
 	public void updateEmails(List<String> emails) {
 		try {
 			Config config = this.getConfig();
@@ -83,6 +123,17 @@ public class ConfigService {
 		logger.debug("Updated emails: {} successfully", emails);
 	}
 	
+	/**
+	 * Deletes the email's of Config, 
+	 * 
+	 * The method uses HashMap's compute method to 
+	 * efficiently do set subtraction
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param emails to delete
+	 */
 	public void deleteEmails(List<String> emails) {
 		try {
 			Config config = this.getConfig();
@@ -105,6 +156,17 @@ public class ConfigService {
 		logger.debug("Deleted Emails: {} successfully", emails);
 	}
 	
+	/**
+	 * Deletes the tags of Config, 
+	 * 
+	 * The method uses HashMap's compute method to 
+	 * efficiently do set subtraction
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param tags to delete
+	 */
 	public void deleteTags(List<String> tags) {
 		try {
 			Config config = this.getConfig();

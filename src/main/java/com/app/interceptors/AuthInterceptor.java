@@ -14,6 +14,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.app.service.AccessTokenService;
 
+/**
+ * Intercepter to check / verify access token in
+ * Authorization header of requests
+ * 
+ * @author schar
+ *
+ */
 public class AuthInterceptor implements HandlerInterceptor{
 	
 	@Autowired
@@ -21,10 +28,18 @@ public class AuthInterceptor implements HandlerInterceptor{
 	
 	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+	/**
+	 * Checks/ Verifies access_token in requests and sends
+	 * 401 Unauthorized response if not authorized
+	 * 
+	 * This intercepter pass through CORS preflight request
+	 */
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		logger.debug("GOT REQUEST: {}", request.getRequestURI());
+		
 		if(request.getMethod().equals("OPTIONS")) return true;
+		
 		String accessToken = request.getHeader("Authorization");
 		if(accessToken != null && accessToken.length() >= 0) {
 			try {

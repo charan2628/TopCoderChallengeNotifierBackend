@@ -16,8 +16,7 @@ public class AuthorizationService {
 	
 	private Environment environment;
 	
-	public AuthorizationService(
-			@Autowired Environment environment) {
+	public AuthorizationService(@Autowired Environment environment) {
 		this.environment = environment;
 	}
 

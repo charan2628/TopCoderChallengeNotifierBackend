@@ -30,13 +30,13 @@ public class LoginController {
 	public LoginController(
 			@Autowired AuthorizationService authorizationService,
 			@Autowired AccessTokenService accessTokenService) {
+		
 		this.authorizationService = authorizationService;
 		this.accessTokenService = accessTokenService;
 	}
 	
 	@PostMapping
-	public Token login(
-			@RequestBody Login login) throws Exception{
+	public Token login(@RequestBody Login login) throws Exception{
 		logger.info("GET /login");
 		if(authorizationService.authenticate(login)) {
 			logger.debug("USER AUTHENTICATED");

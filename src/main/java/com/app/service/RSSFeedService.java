@@ -17,7 +17,13 @@ import com.app.model.Config;
 import com.app.model.rss.Feed;
 import com.app.model.rss.Item;
 
-
+/**
+ * Gets the RSS Feed from the feedUrl and
+ * maps it to Feed Object
+ * 
+ * @author charan2628
+ *
+ */
 @Service
 public class RSSFeedService {
 
@@ -27,6 +33,12 @@ public class RSSFeedService {
 	private RestTemplate restTemplate;
 	private String feedUrl;
 	
+	/**
+	 * 
+	 * @param restTemplateBuilder
+	 * @param configService
+	 * @param feedUrl
+	 */
 	public RSSFeedService(
 			@Autowired RestTemplateBuilder restTemplateBuilder,
 			@Autowired ConfigService configService,
@@ -38,6 +50,15 @@ public class RSSFeedService {
 		this.feedUrl = feedUrl;
 	}
 	
+	/**
+	 * Makes a HTTP call for RSS Feed using the
+	 * feed URL and maps to Feed object
+	 * 
+	 * if error then logs and returns null, 
+	 * which will be handled by the caller
+	 * 
+	 * @return Feed
+	 */
 	public Feed getFeed() {
 		Feed feed = null;
 		try {
@@ -50,11 +71,22 @@ public class RSSFeedService {
 		return feed;
 		
 	}
-	
+	/**
+	 * A Helper method to get all Items
+	 * from Feed got from getFeed() method
+	 * 
+	 * @return All Items
+	 */
 	public List<Item> getAllItems() {
 		return this.getFeed().getChannel().getItems();
 	}
 	
+	/**
+	 * Filters the items from feed that match
+	 * tags (ex: Node.Js, Java) got from ConfigService
+	 * 
+	 * @return filtered Items
+	 */
 	public List<Item> getItems() {
 		Config config = this.configService.getConfig();
 		final Pattern pattern = this.createPattern(config.getTags());
@@ -71,6 +103,17 @@ public class RSSFeedService {
 		return items;
 	}
 	
+	/**
+	 * Helper method to create a regex pattern including
+	 * all the tags 
+	 * 
+	 * Example:
+	 * For tags (Node.Js, Java) it will create following regex pattern
+	 * (?:Node\.Js|Java)
+	 * 
+	 * @param tags
+	 * @return compiled pattern from tags
+	 */
 	private Pattern createPattern(List<String> tags) {
 		StringBuilder regex = new StringBuilder();
 		regex.append("(?:");

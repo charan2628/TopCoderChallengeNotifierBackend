@@ -25,6 +25,13 @@ import com.app.model.Challenge;
 import com.app.model.Config;
 import com.app.util.MailHTMLMessageBuilder;
 
+/**
+ * Service class to send mail of
+ * new Challenges
+ * 
+ * @author charan2628
+ *
+ */
 @Service
 public class MailService {
 	
@@ -37,6 +44,7 @@ public class MailService {
 	public MailService(
 			@Autowired ConfigService configService,
 			@Autowired Environment environment) {
+		
 		this.configService = configService;
 		this.properties = new Properties();
 		this.configProperties();
@@ -52,11 +60,25 @@ public class MailService {
 		this.properties.put("mail.smtp.port", "465");
 	}
 	
+	/**
+	 * Builds message using MailHTMLMessageBuilder, 
+	 * which use velocity to create message from templates
+	 * and return Mail which is ready to send
+	 * 
+	 * @param challenges
+	 * @return Mail ready to send
+	 */
 	public Mail buildMessage(List<Challenge> challenges) {
 		String message = MailHTMLMessageBuilder.build(challenges);
 		return new Mail(message);
 	}
 	
+	/**
+	 * Mail encapsulated with message to be sent
+	 * 
+	 * @author charan2628
+	 *
+	 */
 	public class Mail {
 
 		private String body;
@@ -65,6 +87,12 @@ public class MailService {
 			this.body = body;
 		}
 		
+		/**
+		 * Sends the mail to list of mails got from
+		 * ConfigService if any error sending mail logs it and
+		 * continue to next mail
+		 * 
+		 */
 		public void send() {
 			Session session = Session.getDefaultInstance(MailService.this.properties,    
 			           new javax.mail.Authenticator() {    

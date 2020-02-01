@@ -27,8 +27,7 @@ public class AccessTokenService {
 	private KeyPair keyPair;
 	private String expMin;
 
-	public AccessTokenService(
-			@Autowired Environment environment) throws Exception{
+	public AccessTokenService(@Autowired Environment environment) throws Exception{
 		this.expMin = environment.getProperty("TOKEN_EXP_TIME");
 		String alias = environment.getProperty("JKS_KEYSTORE_ALIAS");
 		FileInputStream ksFile = new FileInputStream(environment.getProperty("JKS_KEYSTORE_FILE"));

@@ -16,6 +16,12 @@ import com.app.notifier.ChallengeNotifier;
 import com.app.util.CHALLENGE_TYPE;
 import com.app.util.SCHEDULE_TYPE;
 
+/**
+ * Scheduler which schedule notifications now or later
+ * 
+ * @author charan2628
+ *
+ */
 @Component
 public class ChallengeNotificationScheduler {
 	
@@ -24,11 +30,15 @@ public class ChallengeNotificationScheduler {
 	private ChallengeNotifier challengeNotifier;
 	private ScheduledFuture<?> scheduledFuture;
 
-	public ChallengeNotificationScheduler(
-			@Autowired ChallengeNotifier challengeNotifier) {
+	public ChallengeNotificationScheduler(@Autowired ChallengeNotifier challengeNotifier) {
 		this.challengeNotifier = challengeNotifier;
 	}
 
+	/**
+	 * Notified challenges now
+	 * 
+	 * @param challengeType NEW / ALL
+	 */
 	public void scheduleNow(CHALLENGE_TYPE challengeType) {
 		if(challengeType.equals(CHALLENGE_TYPE.NEW)) {
 			this.challengeNotifier.notifyNewChallenges(SCHEDULE_TYPE.NOW);
@@ -37,6 +47,11 @@ public class ChallengeNotificationScheduler {
 		}
 	}
 
+	/**
+	 * Notifies challenges daily at specified time
+	 * 
+	 * @param date
+	 */
 	public synchronized void schedule(Date date) {
 		try {
 			if(this.scheduledFuture != null) {

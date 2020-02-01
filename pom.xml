@@ -9,11 +9,12 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.charan.projects</groupId>
-	<artifactId>TopCoderChallengeNotifier</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>TopCoderChallengeNotifier</name>
-	<description>Demo project for Spring Boot</description>
+	<groupId>dev.charan2628.projects</groupId>
+	<artifactId>TopCoderChallengeNotifierBackend</artifactId>
+	<version>1.0</version>
+	<name>TopCoderChallengeNotifierBackend</name>
+	<description>Notifies new challenges of specified tags through mail,
+	configured through admin console</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -74,6 +75,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.1.0</version>
 			</plugin>
 		</plugins>
 	</build>

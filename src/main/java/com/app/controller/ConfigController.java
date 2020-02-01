@@ -28,8 +28,7 @@ public class ConfigController {
 			
 	private ConfigService configService;
 	
-	public ConfigController(
-			@Autowired ConfigService configService) {
+	public ConfigController(@Autowired ConfigService configService) {
 		logger.debug("Config controller initialization started");
 		this.configService = configService;
 		logger.debug("Config controller initialized");
@@ -43,8 +42,7 @@ public class ConfigController {
 	
 	@PostMapping(path = "", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void addConfig(
-			@RequestBody Config config) {
+	public void addConfig(@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("POST /config BODY: {}", config.toString());
 		} else {
@@ -55,8 +53,7 @@ public class ConfigController {
 	
 	@PutMapping(path = "", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void updateConfig(
-			@RequestBody Config config) {
+	public void updateConfig(@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("PUT /config BODY: {}", config.toString());
 		} else {
@@ -72,8 +69,7 @@ public class ConfigController {
 	
 	@DeleteMapping(path = "", produces = "application/json", consumes = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void deleteConfig(
-			@RequestBody Config config) {
+	public void deleteConfig(@RequestBody Config config) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("PUT /config BODY: {}", config.toString());
 		} else {

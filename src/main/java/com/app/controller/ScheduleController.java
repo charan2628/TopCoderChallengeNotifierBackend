@@ -29,8 +29,7 @@ public class ScheduleController {
 			
 	private ChallengeNotificationScheduler scheduler;
 	
-	public ScheduleController(
-			@Autowired ChallengeNotificationScheduler scheduler) {
+	public ScheduleController(@Autowired ChallengeNotificationScheduler scheduler) {
 		logger.debug("Schedule controller initialization started");
 		this.scheduler = scheduler;
 		logger.debug("Schedule controller initialized");
@@ -38,16 +37,14 @@ public class ScheduleController {
 	
 	@GetMapping("/now/{challengeType}")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void scheduleNow(
-			@PathVariable(required = true) CHALLENGE_TYPE challengeType) {
+	public void scheduleNow(@PathVariable(required = true) CHALLENGE_TYPE challengeType) {
 		logger.info("GET /schedule/now/{}", challengeType.name());
 		this.scheduler.scheduleNow(challengeType);
 	}
 	
 	@PostMapping(path = "", produces = "application/json")
 	@ResponseStatus(code = HttpStatus.OK)
-	public void schedule(
-			@RequestBody(required = true) ScheduleTime scheduleTime) {
+	public void schedule(@RequestBody(required = true) ScheduleTime scheduleTime) {
 		if(logger.isDebugEnabled()) {
 			logger.debug("POST /schedule BODY: {}", scheduleTime.toString());
 		} else {

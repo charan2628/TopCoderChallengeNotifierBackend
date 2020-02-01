@@ -12,14 +12,29 @@ import org.springframework.stereotype.Service;
 import com.app.dao.ChallengeDao;
 import com.app.model.Challenge;
 
+/**
+ * Service class to get and add challenges
+ * 
+ * @author charan2628
+ *
+ */
 @Service
 public class ChallengeService {
-	
+
 	private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	@Autowired
 	private ChallengeDao challengeDao;
-	
+
+	/**
+	 * Gets a list of challenges that are saved in db
+	 * means already notified through mail
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @return list of notified challenges
+	 */
 	public List<Challenge> getChallenges() {
 		List<Challenge> challenges = new ArrayList<>();
 		try {
@@ -31,7 +46,16 @@ public class ChallengeService {
 		logger.debug("Retrieved challenges {}", challenges);
 		return challenges;
 	}
-	
+
+	/**
+	 * Gets a list of challenges by name that are saved in db
+	 * means already notified through mail
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @return list of notified challenges that match the given name
+	 */
 	public List<Challenge> getChallenges(String challengeName) {
 		List<Challenge> challenges = new ArrayList<>();
 		try {
@@ -43,7 +67,15 @@ public class ChallengeService {
 		logger.debug("Retrieved challenges: {} name: {}", challenges, challengeName);
 		return challenges;
 	}
-	
+
+	/**
+	 * Adds challenge to db
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param challenge
+	 */
 	public void addChallenge(Challenge challenge) {
 		try {
 			this.challengeDao.addchallenge(challenge);
@@ -53,7 +85,15 @@ public class ChallengeService {
 		}
 		logger.debug("Added challenge: {} successfully", challenge);
 	}
-	
+
+	/**
+	 * Adds list of challenges to db
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param challenges
+	 */
 	public void addChallenges(List<Challenge> challenges) {
 		try {
 			this.challengeDao.addChallenges(challenges);
@@ -63,7 +103,15 @@ public class ChallengeService {
 		}
 		logger.debug("Added challenges: {} successfully", challenges);
 	}
-	
+
+	/**
+	 * Gets a count of notified challenges
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @return challenge count
+	 */
 	public long getChallengesCount() {
 		long count = 0;
 		try {
@@ -74,9 +122,19 @@ public class ChallengeService {
 		}
 		logger.debug("Got challenges count: {}", count);
 		return count;
-		
+
 	}
-	
+
+	/**
+	 * Checks if challenge of given name is 
+	 * present in db
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param challengeName
+	 * @return is challenge present
+	 */
 	public boolean isPresent(String challengeName) {
 		boolean isPresent = false;
 		try {
@@ -88,7 +146,17 @@ public class ChallengeService {
 		logger.debug("challenge: {} isPresent: {}", challengeName, isPresent);
 		return isPresent;
 	}
-	
+
+	/**
+	 * Checks if given list of challenges are
+	 * present in db
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 * 
+	 * @param challengeNames
+	 * @return
+	 */
 	public boolean arePresent(List<String> challengeNames) {
 		boolean arePresent = false;
 		try {
@@ -100,7 +168,13 @@ public class ChallengeService {
 		logger.debug("challenges: {} arePresnt: {}", challengeNames, arePresent);
 		return  arePresent;
 	}
-	
+
+	/**
+	 * Deletes all challenges in  db (Handle with care)
+	 * 
+	 * If error logs it and throws it which will be handled by
+	 * caller
+	 */
 	public void deleteAll() {
 		try {
 			this.challengeDao.deleteAll();
