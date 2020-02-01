@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
 
@@ -38,6 +39,10 @@ public class MailService {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
+    @Autowired
+    private StatusService statusService;
+    @Autowired
+    private ErrorLogService errorLogService;
     private ConfigService configService;
     private Properties properties;
     private Environment environment;
@@ -124,6 +129,10 @@ public class MailService {
                     Transport.send(message);
                 } catch (MessagingException | IOException exception) {
                     LOGGER.error("Error sending mail {} {}", mail, exception);
+                    MailService.this.errorLogService.addErrorLog(
+                            String.format("Error sending mail %s",
+                                    LocalDateTime.now().toString()));
+                    MailService.this.statusService.error();
                     continue;
                 }
                 LOGGER.debug("Mail to: {} sent successfully", mail);

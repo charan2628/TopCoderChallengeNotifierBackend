@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class ChallengeService {
             .getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
+    private StatusService statusService;
+    @Autowired
+    private ErrorLogService errorLogService;
     private ChallengeDao challengeDao;
 
     /**
@@ -32,7 +36,7 @@ public class ChallengeService {
      *
      * <p> Constructor Injection to ease testing
      */
-    public ChallengeService(ChallengeDao challengeDao) {
+    public ChallengeService(@Autowired ChallengeDao challengeDao) {
         this.challengeDao = challengeDao;
     }
 
@@ -51,6 +55,10 @@ public class ChallengeService {
             challenges = this.challengeDao.getchallenges();
         } catch (Exception exception) {
             LOGGER.error("Error retrieving challenges {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error retrieving challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Retrieved challenges {}", challenges);
@@ -73,6 +81,10 @@ public class ChallengeService {
         } catch (Exception exception) {
             LOGGER.error("Error retrieving challenges name: {} {}",
                     challengeName, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error retrieving challenges by name %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Retrieved challenges: {} name: {}", challenges, challengeName);
@@ -93,6 +105,10 @@ public class ChallengeService {
         } catch (Exception exception) {
             LOGGER.error("Error inserting challenge {} {}",
                     challenge, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error adding challenge %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Added challenge: {} successfully", challenge);
@@ -112,6 +128,10 @@ public class ChallengeService {
         } catch (Exception exception) {
             LOGGER.error("Error inserting challenges: {} {}",
                     challenges, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error adding challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Added challenges: {} successfully", challenges);
@@ -131,6 +151,10 @@ public class ChallengeService {
             count =  this.challengeDao.getChallengesCount();
         } catch (Exception exception) {
             LOGGER.error("Error getting count of challenges {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error retrieving count of challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Got challenges count: {}", count);
@@ -154,6 +178,10 @@ public class ChallengeService {
             isPresent = this.challengeDao.isPresent(challengeName);
         } catch (Exception exception) {
             LOGGER.error("Error checking database {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error checking databse for challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("challenge: {} isPresent: {}", challengeName, isPresent);
@@ -176,6 +204,10 @@ public class ChallengeService {
             arePresent = this.challengeDao.arePresent(challengeNames);
         } catch (Exception exception) {
             LOGGER.error("Error checking database [arePresent] {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error checking databse for challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("challenges: {} arePresnt: {}", challengeNames, arePresent);
@@ -193,6 +225,10 @@ public class ChallengeService {
             this.challengeDao.deleteAll();
         } catch (Exception exception) {
             LOGGER.error("Error deleting challenges {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error deleting challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Deleted challenges successfully");

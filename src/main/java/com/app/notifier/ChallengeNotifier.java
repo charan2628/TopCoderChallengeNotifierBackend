@@ -1,6 +1,7 @@
 package com.app.notifier;
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Component;
 import com.app.model.Challenge;
 import com.app.model.rss.Item;
 import com.app.service.ChallengeService;
+import com.app.service.ErrorLogService;
 import com.app.service.MailService;
 import com.app.service.RSSFeedService;
+import com.app.service.StatusService;
 import com.app.util.ScheduleType;
 
 /**
@@ -31,6 +34,8 @@ public class ChallengeNotifier {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
+    private StatusService statusService;
+    private ErrorLogService errorLogService;
     private ChallengeService challengeService;
     private RSSFeedService  rssFeedService;
     private MailService mailService;
@@ -38,11 +43,15 @@ public class ChallengeNotifier {
     public ChallengeNotifier(
             @Autowired ChallengeService challengeService,
             @Autowired RSSFeedService rssFeedService,
-            @Autowired MailService mailService) {
+            @Autowired MailService mailService,
+            @Autowired ErrorLogService errorLogService,
+            @Autowired StatusService statusService) {
 
         this.challengeService = challengeService;
         this.rssFeedService = rssFeedService;
         this.mailService = mailService;
+        this.statusService = statusService;
+        this.errorLogService = errorLogService;
     }
 
     /**
@@ -57,15 +66,21 @@ public class ChallengeNotifier {
             List<Challenge> challenges = this.newChallenges(
                     this.itemsToChallenges(
                             this.rssFeedService.getItems()));
-            this.mailService.buildMessage(challenges).send();
+//            this.mailService.buildMessage(challenges).send();
             LOGGER.debug("ScheduleType: {} challenges: {}", scheduleType, challenges);
             if (scheduleType.equals(ScheduleType.LATER) && challenges.size() > 0) {
                 this.challengeService.addChallenges(challenges);
             }
         } catch (Exception e) {
             LOGGER.error("Error notifying new challenges {}", e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error notifying new challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.taskStatus(false);
+            this.statusService.error();
             return;
         }
+        this.statusService.taskStatus(true);
         LOGGER.debug("Successfully notified new challenges");
     }
 
@@ -74,14 +89,20 @@ public class ChallengeNotifier {
      */
     public void notifyAllChallenges() {
         try {
-            this.mailService.buildMessage(
-                    this.itemsToChallenges(
-                            this.rssFeedService.getAllItems()))
-            .send();
+//            this.mailService.buildMessage(
+//                    this.itemsToChallenges(
+//                            this.rssFeedService.getAllItems()))
+//            .send();
         } catch (Exception e) {
             LOGGER.error("Error notifying all challenges {}", e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error notifying all challenges %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.taskStatus(false);
+            this.statusService.error();
             return;
         }
+        this.statusService.taskStatus(true);
         LOGGER.debug("Successfully notified all challenges");
     }
     

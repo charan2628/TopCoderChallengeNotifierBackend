@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,9 @@ public class ConfigService {
             .getLogger(MethodHandles.lookup().lookupClass());
 
     @Autowired
+    private StatusService statusService;
+    @Autowired
+    private ErrorLogService errorLogService;
     private ConfigDao configDao;
 
     /**
@@ -54,6 +58,10 @@ public class ConfigService {
             config = this.configDao.getConfig();
         } catch (Exception exception) {
             LOGGER.error("Error retrieving config {}", exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error retrieving config %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Got Config {}", config);
@@ -78,6 +86,10 @@ public class ConfigService {
             this.configDao.addConfig(config);
         } catch (Exception exception) {
             LOGGER.error("Error adding config: {} {}", config, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error adding config %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Added config: {} successfully", config);
@@ -108,6 +120,10 @@ public class ConfigService {
             this.addConfig(config);
         } catch (Exception exception) {
             LOGGER.error("Error updating tags: {} {}", tags, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error updating tags %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Updated tags: {} successfully", tags);
@@ -138,6 +154,10 @@ public class ConfigService {
             this.addConfig(config);
         } catch (Exception exception) {
             LOGGER.error("Error updating emails: {} {}", emails, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error updating emails %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Updated emails: {} successfully", emails);
@@ -173,6 +193,10 @@ public class ConfigService {
             this.addConfig(config);
         } catch (Exception exception) {
             LOGGER.error("Error deleting mails: {} {}", emails, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error deleting mails %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Deleted Emails: {} successfully", emails);
@@ -208,6 +232,10 @@ public class ConfigService {
             this.addConfig(config);
         } catch (Exception exception) {
             LOGGER.error("Error deleting tags: {} {}", tags, exception);
+            this.errorLogService.addErrorLog(
+                    String.format("Error deleting tags %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw exception;
         }
         LOGGER.debug("Deleted tags: {} successfully", tags);

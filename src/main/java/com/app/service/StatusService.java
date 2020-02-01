@@ -65,7 +65,7 @@ public class StatusService {
             }
             if (taskStatus) {
                 status.setSuccessfullTasks(
-                        status.getSuccessfullTaskss()+1);
+                        status.getSuccessfullTasks()+1);
             } else {
                 status.setFailedTasks(
                         status.getFailedTasks() + 1);

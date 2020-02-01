@@ -1,6 +1,7 @@
 package com.app.scheduler;
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.concurrent.ScheduledFuture;
 
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Component;
 
 import com.app.exception.ErrorSchedulingTaskException;
 import com.app.notifier.ChallengeNotifier;
+import com.app.service.ErrorLogService;
+import com.app.service.StatusService;
 import com.app.util.ChallengeType;
 import com.app.util.ScheduleType;
 
@@ -28,6 +31,10 @@ public class ChallengeNotificationScheduler {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
+    @Autowired
+    private StatusService statusService;
+    @Autowired
+    private ErrorLogService errorLogService;
     private ChallengeNotifier challengeNotifier;
     private ScheduledFuture<?> scheduledFuture;
 
@@ -67,6 +74,10 @@ public class ChallengeNotificationScheduler {
                     86400000L);
         } catch (Exception e) {
             LOGGER.error("Error scheduling task date: {} {}", date, e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error scheduling tasks %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             throw new ErrorSchedulingTaskException();
         }
         LOGGER.info("Successfully scheduled task for date: {}", date);

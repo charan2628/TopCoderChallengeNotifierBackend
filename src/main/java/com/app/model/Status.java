@@ -31,16 +31,16 @@ public class Status {
         this.id = id;
     }
 
-    public int getSuccessfullTaskss() {
+    public int getFailedTasks() {
+        return this.failedTasks;
+    }
+
+    public int getSuccessfullTasks() {
         return this.successfullTasks;
     }
 
     public void setSuccessfullTasks(int successfullTasks) {
         this.successfullTasks = successfullTasks;
-    }
-
-    public int getFailedTasks() {
-        return this.failedTasks;
     }
 
     public void setFailedTasks(int failedTasks) {

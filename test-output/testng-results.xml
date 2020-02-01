@@ -1,115 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" total="3" passed="3">
+<testng-results skipped="0" failed="0" total="2" passed="2">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="5039" started-at="2020-01-31T13:59:17Z" finished-at="2020-01-31T13:59:22Z">
+  <suite name="Default suite" duration-ms="4991" started-at="2020-02-01T14:19:38Z" finished-at="2020-02-01T14:19:43Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="5039" started-at="2020-01-31T13:59:17Z" finished-at="2020-01-31T13:59:22Z">
-      <class name="com.app.service.RSSFeedServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="12" started-at="2020-01-31T19:29:17Z" finished-at="2020-01-31T19:29:17Z">
+    <test name="Default test" duration-ms="4991" started-at="2020-02-01T14:19:38Z" finished-at="2020-02-01T14:19:43Z">
+      <class name="com.app.notifier.ChallengeNotifierTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="setUp" is-config="true" duration-ms="704" started-at="2020-02-01T19:49:38Z" finished-at="2020-02-01T19:49:39Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="7" started-at="2020-02-01T19:49:39Z" finished-at="2020-02-01T19:49:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="3967" started-at="2020-01-31T19:29:17Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-01-31T19:29:21Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="4211" started-at="2020-02-01T19:49:39Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2020-02-01T19:49:43Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-01-31T19:29:21Z" finished-at="2020-01-31T19:29:21Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest()]]>
+                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.allChallengesTest() throws java.io.IOException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="988" started-at="2020-01-31T19:29:21Z" finished-at="2020-01-31T19:29:22Z">
+        <test-method status="PASS" signature="allChallengesTest()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="allChallengesTest" duration-ms="26" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="itemsByTagsTest()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="itemsByTagsTest" duration-ms="18" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- itemsByTagsTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="4" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+        </test-method> <!-- allChallengesTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="2" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest()]]>
+                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.allChallengesTest() throws java.io.IOException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest2()]]>
+                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.newChallengesTest() throws java.io.IOException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="2" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+        <test-method status="PASS" signature="newChallengesTest()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="newChallengesTest" duration-ms="9" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="itemsByTagsTest2()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="itemsByTagsTest2" duration-ms="8" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- itemsByTagsTest2 -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+        </test-method> <!-- newChallengesTest -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="1" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.itemsByTagsTest2()]]>
+                <![CDATA[public void com.app.notifier.ChallengeNotifierTest.newChallengesTest() throws java.io.IOException]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="1" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.rssFeedTest() throws java.io.IOException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="setUp()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="setUp" is-config="true" duration-ms="1" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- setUp -->
-        <test-method status="PASS" signature="rssFeedTest()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="rssFeedTest" duration-ms="3" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- rssFeedTest -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:com.app.notifier.ChallengeNotifierTest@28975c28]" name="springTestContextAfterTestClass" is-config="true" duration-ms="2" started-at="2020-02-01T19:49:43Z" finished-at="2020-02-01T19:49:43Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestClass -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:com.app.service.RSSFeedServiceTest@157853da]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2020-01-31T19:29:22Z" finished-at="2020-01-31T19:29:22Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void com.app.service.RSSFeedServiceTest.rssFeedTest() throws java.io.IOException]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-      </class> <!-- com.app.service.RSSFeedServiceTest -->
+      </class> <!-- com.app.notifier.ChallengeNotifierTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

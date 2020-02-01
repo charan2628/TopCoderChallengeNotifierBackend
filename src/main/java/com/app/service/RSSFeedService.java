@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.lang.invoke.MethodHandles;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -31,6 +32,10 @@ public class RSSFeedService {
             .getLogger(MethodHandles.lookup().lookupClass());
 
 
+    @Autowired
+    private StatusService statusService;
+    @Autowired
+    private ErrorLogService errorLogService;
     private ConfigService configService;
     private RestTemplate restTemplate;
     private String feedUrl;
@@ -66,6 +71,10 @@ public class RSSFeedService {
             feed = this.restTemplate.getForObject(this.feedUrl, Feed.class);
         } catch (Exception e) {
             LOGGER.error("Error retrieving feed {}", e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error retrieving feed %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
             return feed;
         }
         LOGGER.debug("Got Feed: {}", feed);
