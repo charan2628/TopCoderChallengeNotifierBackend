@@ -49,6 +49,15 @@ public class ScheduleController {
         this.scheduler.scheduleNow(challengeType);
     }
     
+    @PostMapping("/now/{challengeType}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public void scheduleNow(
+            @PathVariable(required = true) ChallengeType challengeType,
+            @RequestBody String mail) {
+        LOGGER.info("GET /schedule/now/{} mail: {}", challengeType.name(), mail);
+        this.scheduler.scheduleNow(challengeType, mail);
+    }
+    
     @PostMapping(path = "", produces = "application/json")
     @ResponseStatus(code = HttpStatus.OK)
     public void schedule(@RequestBody(required = true) ScheduleTime scheduleTime) {
