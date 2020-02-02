@@ -44,6 +44,7 @@ public class StatusController {
      *
      * @return
      */
+
     @GetMapping(
             path = "",
             produces = "application/json")
@@ -57,6 +58,7 @@ public class StatusController {
      *
      * @return the list of error messages
      */
+
     @GetMapping(
             path = "errors",
             produces = "application/json")
