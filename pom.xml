@@ -11,10 +11,11 @@
 	</parent>
 	<groupId>dev.charan2628.projects</groupId>
 	<artifactId>TopCoderChallengeNotifierBackend</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<name>TopCoderChallengeNotifierBackend</name>
 	<description>Notifies new challenges of specified tags through mail,
 	configured through admin console</description>
+	<url>https://github.com/charan2628/TopCoderChallengeNotifierApi</url>
 
 	<properties>
 		<java.version>1.8</java.version>
