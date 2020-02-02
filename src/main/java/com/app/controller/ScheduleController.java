@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.model.ScheduleTime;
 import com.app.scheduler.ChallengeNotificationScheduler;
-import com.app.util.AppUtil;
 import com.app.util.ChallengeType;
 
 /**
@@ -67,6 +67,6 @@ public class ScheduleController {
             LOGGER.info("POST /schedule");
         }
         this.scheduler.schedule(
-                AppUtil.format(scheduleTime.getHours(), scheduleTime.getMinutes()));
+                new Date(scheduleTime.getEpochMilli()));
     }
 }

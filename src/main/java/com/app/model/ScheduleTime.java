@@ -2,37 +2,23 @@ package com.app.model;
 
 public class ScheduleTime {
 
-    private int hours;
-    private int minutes;
-    
+    private long epochMilli;
+
     public ScheduleTime() {
         super();
     }
 
-    public ScheduleTime(int hours, int minutes) {
+    public ScheduleTime(long epochMilli) {
         super();
-        this.hours = hours;
-        this.minutes = minutes;
+        this.epochMilli = epochMilli;
     }
 
-    public int getHours() {
-        return hours;
+    public long getEpochMilli() {
+        return this.epochMilli;
     }
 
-    public void setHours(int hours) {
-        this.hours = hours;
+    public void setEpochMilli(long epochMilli) {
+        this.epochMilli = epochMilli;
     }
 
-    public int getMinutes() {
-        return minutes;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
-    }
-
-    @Override
-    public String toString() {
-        return "ScheduleTime [hours=" + hours + ", minutes=" + minutes + "]";
-    }
 }
