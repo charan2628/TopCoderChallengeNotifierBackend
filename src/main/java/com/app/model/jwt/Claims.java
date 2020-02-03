@@ -8,15 +8,18 @@ public class Claims {
     private String issuer;
     @JsonProperty("exp")
     private String expirationTime;
-    
+    @JsonProperty("email")
+    private String email;
+
     public Claims() {
         super();
     }
 
-    public Claims(String issuer, String expirationTime) {
+    public Claims(String issuer, String expirationTime, String email) {
         super();
         this.issuer = issuer;
         this.expirationTime = expirationTime;
+        this.email = email;
     }
 
     public String getIssuer() {
@@ -34,5 +37,13 @@ public class Claims {
     public void setExpirationTime(String expirationTime) {
         this.expirationTime = expirationTime;
     }
-    
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
 }

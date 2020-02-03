@@ -78,18 +78,11 @@ public class AccessTokenService {
      * @return JWT token
      * @throws Exception
      */
-    public String createToken() throws Exception {
+    public String createToken(Claims claims) throws Exception {
         LocalDateTime dateTime = LocalDateTime.now();
-        ZoneOffset zoneOffset = ZoneId.systemDefault()
-                .getRules()
-                .getOffset(Instant.now());
         dateTime = dateTime.plusMinutes(Integer.parseInt(this.expMin));
 
         Header header = new Header("JWT", "ES256");
-        Claims claims = new Claims(
-                "charan-dev",
-                String.format("%d",
-                        dateTime.toEpochSecond(zoneOffset)));
 
         ObjectMapper mapper = new ObjectMapper();
 
