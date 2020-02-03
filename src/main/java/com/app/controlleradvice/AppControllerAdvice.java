@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.app.exception.AppException;
 import com.app.exception.ErrorSchedulingTaskException;
 import com.app.exception.UnAuthorizedException;
+import com.app.exception.UnConfirmedRegistrationExcpetion;
 import com.mongodb.MongoException;
 
 @ControllerAdvice(basePackages = "com.app")
@@ -38,6 +39,11 @@ public class AppControllerAdvice {
             return new ResponseEntity<>(
                     new AppException(
                             LocalDateTime.now().toString(), "error", "invalid userame or password",
+                            request.getRequestURI()), HttpStatus.BAD_REQUEST);
+        } else if(ex instanceof UnConfirmedRegistrationExcpetion) {
+            return new ResponseEntity<>(
+                    new AppException(
+                            LocalDateTime.now().toString(), "error", "unconfirmed registration",
                             request.getRequestURI()), HttpStatus.BAD_REQUEST);
         }
         logger.error("ERROR: {}", ex);
