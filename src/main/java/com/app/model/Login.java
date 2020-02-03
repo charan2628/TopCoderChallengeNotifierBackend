@@ -1,17 +1,15 @@
 package com.app.model;
 
-import java.util.Arrays;
-
 public class Login {
 
     private String email;
-    private char[] password;
+    private String password;
 
     public Login() {
         super();
     }
 
-    public Login(String email, char[] password) {
+    public Login(String email, String password) {
         super();
         this.email = email;
         this.password = password;
@@ -25,17 +23,17 @@ public class Login {
         this.email = email;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
     @Override
     public String toString() {
-        return "Login [email=" + this.email + ", password=" + Arrays.toString(this.password) + "]";
+        return "Login [email=" + this.email + ", password=" + this.password + "]";
     }
 
 }
