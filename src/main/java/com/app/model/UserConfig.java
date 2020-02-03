@@ -10,14 +10,14 @@ public class UserConfig {
     private ObjectId id;
     private String email;
     private List<String> tags;
-    private String scheduleTime;
+    private long scheduleTime;
     private List<String> notifiedChallenges;
 
     public UserConfig() {
         super();
     }
 
-    public UserConfig(String email, List<String> tags, String scheduleTime, List<String> notifiedChallenges) {
+    public UserConfig(String email, List<String> tags, long scheduleTime, List<String> notifiedChallenges) {
         super();
         this.email = email;
         this.tags = new ArrayList<String>(tags);
@@ -49,11 +49,11 @@ public class UserConfig {
         this.tags = new ArrayList<String>(tags);
     }
 
-    public String getScheduleTime() {
+    public long getScheduleTime() {
         return this.scheduleTime;
     }
 
-    public void setScheduleTime(String scheduleTime) {
+    public void setScheduleTime(long scheduleTime) {
         this.scheduleTime = scheduleTime;
     }
 
