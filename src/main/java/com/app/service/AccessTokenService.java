@@ -109,6 +109,16 @@ public class AccessTokenService {
         return String.format("%s.%s.%s",
                 jwtHeader, jwtPayload, sign);
     }
+    
+    public Claims getClaims(String token) throws Exception {
+        if(!this.verifyToken(token)) {
+            return null;
+        }
+        String payload = token.split("\\.")[1];
+        payload = new String(Base64.getUrlDecoder().decode(payload));
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(payload, Claims.class);
+    }
 
     /**
      * Verifies the access token by verifying the sign and
@@ -120,13 +130,16 @@ public class AccessTokenService {
      */
     public boolean verifyToken(String token) throws Exception {
         String[] data = token.split("\\.");
+        if(data.length != 3) {
+            return false;
+        }
 
         Signature signature = Signature.getInstance("SHA256withECDSA");
         signature.initVerify(this.keyPair.getPublic());
 
         MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-        signature.update(sha256
-                .digest(
+        signature.update(
+                sha256.digest(
                         String.format("%s.%s", data[0], data[1])
                         .getBytes()));
 
