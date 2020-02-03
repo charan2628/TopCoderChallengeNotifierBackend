@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserConfig {
 
+    @JsonIgnore
     private ObjectId id;
     private String email;
     private List<String> tags;
