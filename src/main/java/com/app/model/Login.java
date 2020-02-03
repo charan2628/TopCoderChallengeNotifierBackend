@@ -4,29 +4,29 @@ import java.util.Arrays;
 
 public class Login {
 
-    private String username;
+    private String email;
     private char[] password;
-    
+
     public Login() {
         super();
     }
 
-    public Login(String username, char[] password) {
+    public Login(String email, char[] password) {
         super();
-        this.username = username;
+        this.email = email;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public char[] getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(char[] password) {
@@ -35,7 +35,7 @@ public class Login {
 
     @Override
     public String toString() {
-        return "Login [username=" + username + ", password=" + Arrays.toString(password) + "]";
+        return "Login [email=" + this.email + ", password=" + Arrays.toString(this.password) + "]";
     }
-    
+
 }
