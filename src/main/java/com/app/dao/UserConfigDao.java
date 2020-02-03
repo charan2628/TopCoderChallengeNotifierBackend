@@ -45,7 +45,7 @@ public class UserConfigDao {
         this.collection.updateOne(eq("email", email), set("tags", tags));
     }
 
-    public void scheduleTime(String email, String time) {
+    public void scheduleTime(String email, long time) {
         this.collection.updateOne(eq("email", email), set("scheduleTime", time));
     }
 

@@ -2,6 +2,7 @@ package com.app.dao;
 
 import java.lang.invoke.MethodHandles;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +32,20 @@ public class UserDao {
         this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, User.class);
         LOGGER.debug("UserDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
     }
-    
+
     public User getUser(String email) {
         return this.collection.find(eq("email", email)).first();
     }
-    
+
     public void addUser(User user) {
         this.collection.insertOne(user);
     }
-    
+
     public void confirmUser(ObjectId id) {
         this.collection.updateOne(eq("_id", id), combine(set("confirmed", true)));
+    }
+
+    public void _deleteAll() {
+        this.collection.deleteMany(new Document());
     }
 }
