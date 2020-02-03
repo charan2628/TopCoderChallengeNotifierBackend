@@ -56,6 +56,20 @@ public class UserService {
         LOGGER.debug("Added user {}", user);
     }
     
+    public boolean isConfirmed(String email) {
+        try {
+            User user = this.userDao.getUser(email);
+            return user.isConfirmed();
+        } catch (Exception e) {
+            LOGGER.error("Error checking confirm status user: {} {}", email, e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error checking confirm status user %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
+            throw e;
+        }
+    }
+    
     public boolean confirmUser(String email, String code) {
         try {
             User user = this.getUser(email);
@@ -74,7 +88,7 @@ public class UserService {
         }
     }
 
-    public void _deleteAll() {
+    void _deleteAll() {
         this.userDao._deleteAll();
     }
 }
