@@ -42,11 +42,21 @@ public class MailHTMLMessageBuilder {
      *        list of challenges to build HTML message for
      * @return HTML message build using the given challenges and template
      */
-    public static String build(final List<Challenge> challenges) {
+    public static String challegesMessage(final List<Challenge> challenges) {
         VelocityContext context = new VelocityContext();
         context.put("challenges", challenges);
         Template template = Velocity
-                .getTemplate("templates/mail_html_message.vm");
+                .getTemplate("templates/mail_challenges_message.vm");
+        StringWriter writer = new StringWriter();
+        template.merge(context, writer);
+        return writer.toString();
+    }
+    
+    public static String confirmRegistrationMessage(String code) {
+        VelocityContext context = new VelocityContext();
+        context.put("code", code);
+        Template template = Velocity
+                .getTemplate("templates/mail_cnfrm_regt_message.vm");
         StringWriter writer = new StringWriter();
         template.merge(context, writer);
         return writer.toString();

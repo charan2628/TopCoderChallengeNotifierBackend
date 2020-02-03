@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TopCoder Challenges</title>
+	</head>
+	<body>
+		<h1>TopCoder Challenge Notifier Confirm Registration</h1>
+			<p>Confirmation code: ${code}</p>
+	</body>
+</html>

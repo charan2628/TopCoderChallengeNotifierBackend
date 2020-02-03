@@ -23,7 +23,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.app.model.Challenge;
-import com.app.model.Config;
 import com.app.util.MailHTMLMessageBuilder;
 
 /**
@@ -43,7 +42,6 @@ public class MailService {
     private StatusService statusService;
     @Autowired
     private ErrorLogService errorLogService;
-    private ConfigService configService;
     private Properties properties;
     private Environment environment;
 
@@ -53,10 +51,8 @@ public class MailService {
      * <p> Constructor Injection to ease testing
      */
     public MailService(
-            @Autowired ConfigService configService,
             @Autowired Environment environment) {
 
-        this.configService = configService;
         this.properties = new Properties();
         this.configProperties();
         this.environment = environment;
@@ -80,10 +76,16 @@ public class MailService {
      * @param challenges
      * @return Mail ready to send
      */
-    public Mail buildMessage(List<Challenge> challenges) {
-        String message = MailHTMLMessageBuilder.build(challenges);
+    public Mail challengesMessage(List<Challenge> challenges) {
+        String message = MailHTMLMessageBuilder.challegesMessage(challenges);
         return new Mail(message);
     }
+
+    public Mail confirmRegistration(String code) {
+        String mesage = MailHTMLMessageBuilder.confirmRegistrationMessage(code);
+        return new Mail(mesage);
+    }
+
 
     /**
      * Mail encapsulated with message to be sent
@@ -100,51 +102,11 @@ public class MailService {
         }
 
         /**
-         * Sends the mail to list of mails got from
-         * ConfigService if any error sending mail logs it and
-         * continue to next mail.
-         *
-         */
-        public void send() {
-            Session session = Session
-                    .getDefaultInstance(
-                            MailService.this.properties,
-                            new javax.mail.Authenticator() {
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(
-                                            MailService.this.environment
-                                            .getProperty("APP_SENDER_MAIL"),
-                                            MailService.this.environment
-                                            .getProperty("APP_SENDER_MAIL_PASSWORD"));
-                                }
-                            });
-            Config config = MailService.this.configService.getConfig();
-            for (String mail: config.getEmails()) {
-                try {
-                    MimeMessage message = new MimeMessage(session);
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
-                    message.setSubject("TopCoder Challenges check out");
-                    message.setDataHandler(new DataHandler(
-                            new ByteArrayDataSource(this.body, "text/html")));
-                    Transport.send(message);
-                } catch (MessagingException | IOException exception) {
-                    LOGGER.error("Error sending mail {} {}", mail, exception);
-                    MailService.this.errorLogService.addErrorLog(
-                            String.format("Error sending mail %s",
-                                    LocalDateTime.now().toString()));
-                    MailService.this.statusService.error();
-                    continue;
-                }
-                LOGGER.debug("Mail to: {} sent successfully", mail);
-            }
-        }
-
-        /**
          * Sends mail to given mail
          *
          * @param email
          */
-        public void send(String email) {
+        public void send(String subject, String email) {
             Session session = Session
                     .getDefaultInstance(
                             MailService.this.properties,
@@ -160,7 +122,7 @@ public class MailService {
             try {
                 MimeMessage message = new MimeMessage(session);
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-                message.setSubject("TopCoder Challenges check out");
+                message.setSubject(subject);
                 message.setDataHandler(new DataHandler(
                         new ByteArrayDataSource(this.body, "text/html")));
                 Transport.send(message);

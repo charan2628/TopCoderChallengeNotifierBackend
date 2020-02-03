@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.lang.invoke.MethodHandles;
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.UserDao;
 import com.app.model.User;
+import com.app.util.MailSubject;
 
 @Service
 public class UserService {
@@ -17,10 +19,13 @@ public class UserService {
             .getLogger(MethodHandles.lookup().lookupClass());
 
     private UserDao userDao;
+    private MailService mailService;
     private StatusService statusService;
     private ErrorLogService errorLogService;
 
-    public UserService(UserDao userDao, 
+    public UserService(
+            UserDao userDao,
+            MailService mailService,
             StatusService statusService, 
             ErrorLogService errorLogService) {
         super();
@@ -44,7 +49,11 @@ public class UserService {
 
     public void addUser(User user) {
         try {
+            String cfrmCode = String.valueOf(Math.abs(new Random().nextInt(10000)));
+            user.setConfirmToken(cfrmCode);
             this.userDao.addUser(user);
+            this.mailService.confirmRegistration(cfrmCode)
+                .send(MailSubject.CONFORM_REGISTRATION, user.getEmail());
         } catch (Exception e) {
             LOGGER.error("Error adding user: {} {}", user, e);
             this.errorLogService.addErrorLog(
