@@ -3,7 +3,7 @@ package com.app.dao;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import org.bson.types.ObjectId;
+import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +32,28 @@ public class UserConfigDao {
         this.collection = mongoClient.getDatabase(databaseName).getCollection(challenges, UserConfig.class);
         LOGGER.debug("UserDao initialized successfully DB: {} COLLECTION: {}", databaseName, challenges);
     }
-    
+
     public UserConfig getUserConfig(String email) {
         return this.collection.find(eq("email", email)).first();
     }
-    
+
     public void addUserCOnfig(UserConfig userConfig) {
         this.collection.insertOne(userConfig);
     }
-    
-    public void updateTags(ObjectId id, List<String> tags) {
-        this.collection.updateOne(eq("_id", id), set("tags", tags));
+
+    public void updateTags(String email, List<String> tags) {
+        this.collection.updateOne(eq("email", email), set("tags", tags));
     }
-    
-    public void scheduleTime(ObjectId id, String time) {
-        this.collection.updateOne(eq("_id", id), set("scheduleTime", time));
+
+    public void scheduleTime(String email, String time) {
+        this.collection.updateOne(eq("email", email), set("scheduleTime", time));
     }
-    
-    public void addChallenges(Object id, List<String> challengeNames) {
-        this.collection.updateOne(eq("_id", id), pushEach("notifiedChallenges", challengeNames));
+
+    public void addChallenges(String email, List<String> challengeNames) {
+        this.collection.updateOne(eq("email", email), pushEach("notifiedChallenges", challengeNames));
+    }
+
+    public void _deleteAll() {
+        this.collection.deleteMany(new Document());
     }
 }
