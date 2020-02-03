@@ -161,7 +161,7 @@ public class AccessTokenService {
                 .getRules()
                 .getOffset(Instant.now());
         LocalDateTime exp = LocalDateTime.ofEpochSecond(
-                Long.parseLong(claims.getExpirationTime()),
+                claims.getExpirationTime(),
                 0,
                 zoneOffset);
         return exp.isAfter(now) ? true : false;

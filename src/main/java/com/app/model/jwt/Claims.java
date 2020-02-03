@@ -7,7 +7,7 @@ public class Claims {
     @JsonProperty("iss")
     private String issuer;
     @JsonProperty("exp")
-    private String expirationTime;
+    private long expirationTime;
     @JsonProperty("email")
     private String email;
 
@@ -15,7 +15,7 @@ public class Claims {
         super();
     }
 
-    public Claims(String issuer, String expirationTime, String email) {
+    public Claims(String issuer, long expirationTime, String email) {
         super();
         this.issuer = issuer;
         this.expirationTime = expirationTime;
@@ -30,11 +30,11 @@ public class Claims {
         this.issuer = issuer;
     }
 
-    public String getExpirationTime() {
+    public long getExpirationTime() {
         return expirationTime;
     }
 
-    public void setExpirationTime(String expirationTime) {
+    public void setExpirationTime(long expirationTime) {
         this.expirationTime = expirationTime;
     }
 
