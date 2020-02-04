@@ -49,6 +49,7 @@ public class UserRegisterController {
         user.setId(null);
         user.setConfirmToken(null);
         user.setPassword(AppUtil.sha256(user.getPassword() + salt));
+        user.setAdmin(false);
         this.userService.addUser(user);
     }
     

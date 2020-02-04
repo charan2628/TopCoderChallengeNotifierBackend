@@ -9,17 +9,19 @@ public class User {
     private String password;
     private String confirmToken;
     private boolean confirmed;
+    private boolean admin;
 
     public User() {
         super();
     }
-
-    public User(String email, String password, String confirmToken, boolean confirmed) {
+    
+    public User(String email, String password, String confirmToken, boolean confirmed, boolean admin) {
         super();
         this.email = email;
         this.password = password;
         this.confirmToken = confirmToken;
         this.confirmed = confirmed;
+        this.admin = admin;
     }
 
     public ObjectId getId() {
@@ -62,10 +64,18 @@ public class User {
         this.confirmed = confirmed;
     }
 
+    public boolean isAdmin() {
+        return this.admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     @Override
     public String toString() {
         return "User [id=" + this.id + ", email=" + this.email + ", password=" + this.password + ", confirmToken="
-                + this.confirmToken + ", confirmed=" + this.confirmed + "]";
+                + this.confirmToken + ", confirmed=" + this.confirmed + ", admin=" + this.admin + "]";
     }
 
 }
