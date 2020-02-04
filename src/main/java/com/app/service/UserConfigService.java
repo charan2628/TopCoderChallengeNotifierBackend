@@ -111,6 +111,22 @@ public class UserConfigService {
         }
     }
 
+    public List<String> usersWithinTime(long minTime, long maxTime) {
+        try {
+            List<String> emails = new ArrayList<>();
+            this.userConfigDao.withinTime(minTime, maxTime)
+                .forEach(uc -> emails.add(uc.getEmail()));
+            return emails;
+        } catch (Exception e) {
+            LOGGER.error("Error getting userconfig within time: {} {} {}", minTime, maxTime, e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error getting userconfig within time %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
+            throw e;
+        }
+    }
+
     public void _deleteAll() {
         this.userConfigDao._deleteAll();
     }

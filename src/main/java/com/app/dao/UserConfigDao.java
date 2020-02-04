@@ -1,7 +1,9 @@
 package com.app.dao;
 
 import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.bson.Document;
 import org.slf4j.Logger;
@@ -51,6 +53,13 @@ public class UserConfigDao {
 
     public void addChallenges(String email, List<String> challengeNames) {
         this.collection.updateOne(eq("email", email), pushEach("notifiedChallenges", challengeNames));
+    }
+
+    public List<UserConfig> withinTime(long minTime, long maxTime) {
+        List<UserConfig> userConfigs = new ArrayList<UserConfig>();
+        this.collection.find(and(gte("scheduleTime", minTime), lt("scheduleTime", maxTime)))
+            .forEach((Consumer<UserConfig>)(uc) -> userConfigs.add(uc));
+        return userConfigs;
     }
 
     public void _deleteAll() {
