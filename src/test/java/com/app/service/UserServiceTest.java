@@ -25,7 +25,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void addUserTest() {
-        User user = new User("i@i.com", "pass", "1234", false);
+        User user = new User("i@i.com", "pass", "1234", false, false);
         this.userService.addUser(user);
         User userDb = this.userService.getUser(user.getEmail());
         Assert.assertNotNull(userDb);
@@ -34,7 +34,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void confirmUserTest() {
-        User user = new User("i@i.com", "pass", "1234", false);
+        User user = new User("i@i.com", "pass", "1234", false, false);
         this.userService.addUser(user);
         this.userService.confirmUser("i@i.com", "1234");
         user = this.userService.getUser(user.getEmail());
