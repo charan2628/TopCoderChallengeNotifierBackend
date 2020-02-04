@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.exception.UnAuthorizedException;
 import com.app.model.Login;
 import com.app.model.Token;
-import com.app.service.AccessTokenService;
-import com.app.service.AuthorizationService;
+import com.app.service.LoginService;
 
 /**
  * Controller for /login requests.
@@ -31,25 +29,21 @@ public class LoginController {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
-    private AuthorizationService authorizationService;
-    private AccessTokenService accessTokenService;
+    private LoginService loginService;
     
     public LoginController(
-            @Autowired AuthorizationService authorizationService,
-            @Autowired AccessTokenService accessTokenService) {
+            @Autowired LoginService loginService) {
         
-        this.authorizationService = authorizationService;
-        this.accessTokenService = accessTokenService;
+        this.loginService = loginService;
     }
     
     @PostMapping
     public Token login(@RequestBody Login login) throws Exception{
-        LOGGER.info("GET /login");
-        if(authorizationService.authenticate(login)) {
-            LOGGER.debug("USER AUTHENTICATED");
-            return new Token(this.accessTokenService.createToken());
+        if(LOGGER.isDebugEnabled()) {
+            LOGGER.debug("POST /login BODY: {}", login);
+        } else {
+            LOGGER.info("POST /login");
         }
-        LOGGER.info("USER UNAUTHENTICATED");
-        throw new UnAuthorizedException();
+        return this.loginService.getToken(login);
     }
 }
