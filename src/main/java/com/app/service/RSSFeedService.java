@@ -3,8 +3,6 @@ package com.app.service;
 import java.lang.invoke.MethodHandles;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +12,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.app.model.Config;
 import com.app.model.rss.Feed;
 import com.app.model.rss.Item;
 
@@ -36,7 +33,6 @@ public class RSSFeedService {
     private StatusService statusService;
     @Autowired
     private ErrorLogService errorLogService;
-    private ConfigService configService;
     private RestTemplate restTemplate;
     private String feedUrl;
 
@@ -46,13 +42,11 @@ public class RSSFeedService {
      * <p> Constructor Injection to ease testing
      */
     public RSSFeedService(
-            @Autowired RestTemplateBuilder restTemplateBuilder,
-            @Autowired ConfigService configService,
+            RestTemplateBuilder restTemplateBuilder,
             @Value("${feed.url}") String feedUrl) {
 
         this.restTemplate = restTemplateBuilder
                 .build();
-        this.configService = configService;
         this.feedUrl = feedUrl;
     }
 
@@ -87,53 +81,7 @@ public class RSSFeedService {
      *
      * @return All Items
      */
-    public List<Item> getAllItems() {
-        return this.getFeed().getChannel().getItems();
-    }
-
-    /**
-     * Filters the items from feed that match
-     * tags (ex: Node.Js, Java) got from ConfigService.
-     *
-     * @return filtered Items
-     */
     public List<Item> getItems() {
-        Config config = this.configService.getConfig();
-        final Pattern pattern = this.createPattern(config.getTags());
-        List<Item> items = this.getAllItems()
-                    .stream()
-                    .filter((Item item) -> {
-                    String description = item.getDescription();
-                    if (pattern.matcher(description).find()) {
-                        return true;
-                    }
-                    return false;
-                })
-                .collect(Collectors.toList());
-        return items;
-    }
-
-    /**
-     * Helper method to create a regex pattern including
-     * all the tags.
-     *
-     * <p>Example:
-     * For tags (Node.Js, Java) it will create following regex pattern
-     * (?:Node\.Js|Java)
-     *
-     * @param tags
-     * @return compiled pattern from tags
-     */
-    private Pattern createPattern(List<String> tags) {
-        StringBuilder regex = new StringBuilder();
-        regex.append("(?:");
-        if (tags.size() > 0) {
-            regex.append(tags.get(0));
-        }
-        for (int i = 1; i < tags.size(); i++) {
-            regex.append(String.format("|%s", tags.get(i)));
-        }
-        regex.append(")");
-        return Pattern.compile(regex.toString());
+        return this.getFeed().getChannel().getItems();
     }
 }

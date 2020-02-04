@@ -1,23 +1,25 @@
 package com.app.scheduler;
 
 import java.lang.invoke.MethodHandles;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.concurrent.ScheduledFuture;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.concurrent.DefaultManagedTaskScheduler;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
-import com.app.exception.ErrorSchedulingTaskException;
+import com.app.model.Challenge;
 import com.app.notifier.ChallengeNotifier;
 import com.app.service.ErrorLogService;
+import com.app.service.RSSFeedService;
 import com.app.service.StatusService;
-import com.app.util.ChallengeType;
-import com.app.util.ScheduleType;
+import com.app.service.UserConfigService;
+import com.app.util.AppUtil;
+import com.app.util.Constants;
 
 /**
  * Scheduler which schedule notifications now or later
@@ -31,64 +33,57 @@ public class ChallengeNotificationScheduler {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
-    @Autowired
     private StatusService statusService;
-    @Autowired
     private ErrorLogService errorLogService;
     private ChallengeNotifier challengeNotifier;
-    private ScheduledFuture<?> scheduledFuture;
+    private ThreadPoolTaskScheduler taskScheduler;
+    private UserConfigService userConfigService;
+    private RSSFeedService rssFeedService;
 
     public ChallengeNotificationScheduler(
-            @Autowired ChallengeNotifier challengeNotifier) {
+            StatusService statusService, ErrorLogService errorLogService,
+            ChallengeNotifier challengeNotifier, ThreadPoolTaskScheduler taskScheduler,
+            UserConfigService userConfigService, RSSFeedService rssFeedService) {
+        super();
+        this.statusService = statusService;
+        this.errorLogService = errorLogService;
         this.challengeNotifier = challengeNotifier;
+        this.taskScheduler = taskScheduler;
+        this.userConfigService = userConfigService;
+        this.rssFeedService = rssFeedService;
     }
-
-    /**
-     * Notified challenges now
-     *
-     * @param challengeType NEW / ALL
-     */
-    public void scheduleNow(ChallengeType challengeType) {
-        if (challengeType.equals(ChallengeType.NEW)) {
-            this.challengeNotifier.notifyNewChallenges(ScheduleType.NOW, null);
-        } else {
-            this.challengeNotifier.notifyAllChallenges(null);
+    
+    @Async
+    @Scheduled(fixedRate = 3*Constants.TEN_MINUTES_IN_MILLI)
+    public void scheduleNotifications() {
+        try {
+            Instant instant = Instant.now();
+            long startTime = instant.getEpochSecond()*Constants.ONE_SECOND_IN_MILLI;
+            
+            this.schedule(startTime + 2*Constants.TEN_MINUTES_IN_MILLI,
+                    startTime + 3*Constants.TEN_MINUTES_IN_MILLI);
+            this.schedule(startTime + Constants.TEN_MINUTES_IN_MILLI,
+                    startTime + 2*Constants.TEN_MINUTES_IN_MILLI);
+            this.schedule(startTime,
+                    startTime + Constants.TEN_MINUTES_IN_MILLI);
+        } catch (Exception e) {
+            LOGGER.error("Error scheduling notifications");
+            this.errorLogService.addErrorLog(
+                    String.format("Error scheduling notifications",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
         }
     }
     
-    public void scheduleNow(ChallengeType challengeType, String mail) {
-        if (challengeType.equals(ChallengeType.NEW)) {
-            this.challengeNotifier.notifyNewChallenges(ScheduleType.NOW, mail);
-        } else {
-            this.challengeNotifier.notifyAllChallenges(mail);
-        }
-    }
-
-    /**
-     * Notifies challenges daily at specified time
-     *
-     * @param date
-     */
-    public synchronized void schedule(Date date) {
-        try {
-            if (this.scheduledFuture != null) {
-                this.scheduledFuture.cancel(true);
-                this.scheduledFuture = null;
-            }
-            TaskScheduler scheduler = new DefaultManagedTaskScheduler();
-            this.scheduledFuture = scheduler.scheduleAtFixedRate(
-                    () -> this.challengeNotifier.notifyNewChallenges(ScheduleType.LATER, null),
-                    date,
-                    86400000L);
-        } catch (Exception e) {
-            LOGGER.error("Error scheduling task date: {} {}", date, e);
-            this.errorLogService.addErrorLog(
-                    String.format("Error scheduling tasks %s",
-                            LocalDateTime.now().toString()));
-            this.statusService.error();
-            throw new ErrorSchedulingTaskException();
-        }
-        LOGGER.info("Successfully scheduled task for date: {}", date);
+    private void schedule(long start, long end) {
+        List<String> emails = this.userConfigService
+                .usersWithinTime(start,
+                        end);
+        this.taskScheduler.schedule(() -> {
+            List<Challenge> challenges = AppUtil.itemsToChallenges(
+                    this.rssFeedService.getItems());
+            this.challengeNotifier.notifiyChallenges(emails, challenges);
+        }, Instant.ofEpochMilli(start));
     }
 
 }
