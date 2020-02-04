@@ -12,13 +12,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
-import com.app.model.Challenge;
+import com.app.model.rss.Item;
 import com.app.notifier.ChallengeNotifier;
 import com.app.service.ErrorLogService;
 import com.app.service.RSSFeedService;
 import com.app.service.StatusService;
 import com.app.service.UserConfigService;
-import com.app.util.AppUtil;
 import com.app.util.Constants;
 
 /**
@@ -80,9 +79,8 @@ public class ChallengeNotificationScheduler {
                 .usersWithinTime(start,
                         end);
         this.taskScheduler.schedule(() -> {
-            List<Challenge> challenges = AppUtil.itemsToChallenges(
-                    this.rssFeedService.getItems());
-            this.challengeNotifier.notifiyChallenges(emails, challenges);
+            List<Item> items = this.rssFeedService.getItems();
+            this.challengeNotifier.notifiyChallenges(emails, items);
         }, Instant.ofEpochMilli(start));
     }
 

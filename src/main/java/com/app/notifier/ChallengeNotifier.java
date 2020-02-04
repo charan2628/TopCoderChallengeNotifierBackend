@@ -11,10 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.app.model.Challenge;
+import com.app.model.UserConfig;
+import com.app.model.rss.Item;
 import com.app.service.MailService;
 import com.app.service.StatusService;
 import com.app.service.UserConfigService;
 import com.app.service.MailService.Mail;
+import com.app.util.AppUtil;
 import com.app.util.MailSubject;
 
 /**
@@ -52,16 +55,14 @@ public class ChallengeNotifier {
      *        challenges to be sent
      */
     public void notifiyChallenges(
-            List<String> emails, 
-            List<Challenge> challenges) {
+            List<String> emails,  List<Item> items) {
 
         List<Challenge> newChallenges;
-        List<String> names;
+        UserConfig userConfig;
         for(String email: emails) {
-            names = this.userConfigService
-                    .getUserConfig(email)
-                    .getNotifiedChallenges();
-            newChallenges = this.newChallenges(challenges, names);
+            userConfig = this.userConfigService.getUserConfig(email);
+            List<Challenge> challenges = AppUtil.toChallenges(items, userConfig.getTags());
+            newChallenges = this.newChallenges(challenges, userConfig.getNotifiedChallenges());
             Mail mail = this.mailService.challengesMessage(newChallenges);
             if(!mail.send(MailSubject.TOPCODER_CHALLENGE_NOTIFICATION, email)) {
                 LOGGER.error("Error sending mail {}", email);
