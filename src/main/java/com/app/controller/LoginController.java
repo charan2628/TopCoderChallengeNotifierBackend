@@ -25,19 +25,21 @@ import com.app.service.LoginService;
 @RestController
 @RequestMapping("/login")
 public class LoginController {
-    
+
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MethodHandles.lookup().lookupClass());
 
     private LoginService loginService;
-    
+
     public LoginController(
             @Autowired LoginService loginService) {
         
         this.loginService = loginService;
     }
-    
-    @PostMapping
+
+    @PostMapping(
+            path = "",
+            produces = "application/json", consumes = "application/json")
     public Token login(@RequestBody Login login) throws Exception{
         if(LOGGER.isDebugEnabled()) {
             LOGGER.debug("POST /login BODY: {}", login);
