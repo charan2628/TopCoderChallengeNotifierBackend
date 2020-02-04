@@ -106,7 +106,7 @@ public class MailService {
          *
          * @param email
          */
-        public void send(String subject, String email) {
+        public boolean send(String subject, String email) {
             Session session = Session
                     .getDefaultInstance(
                             MailService.this.properties,
@@ -132,9 +132,10 @@ public class MailService {
                         String.format("Error sending mail %s",
                                 LocalDateTime.now().toString()));
                 MailService.this.statusService.error();
-                return;
+                return false;
             }
             LOGGER.debug("Mail to: {} sent successfully", email);
+            return true;
         }
     }
 }
