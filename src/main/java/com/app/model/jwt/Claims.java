@@ -10,16 +10,19 @@ public class Claims {
     private long expirationTime;
     @JsonProperty("email")
     private String email;
+    @JsonProperty("admin")
+    private boolean isAdmin;
 
     public Claims() {
         super();
     }
 
-    public Claims(String issuer, long expirationTime, String email) {
+    public Claims(String issuer, long expirationTime, String email, boolean isAdmin) {
         super();
         this.issuer = issuer;
         this.expirationTime = expirationTime;
         this.email = email;
+        this.isAdmin = isAdmin;
     }
 
     public String getIssuer() {
@@ -44,6 +47,14 @@ public class Claims {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
+
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
 }

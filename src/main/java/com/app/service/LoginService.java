@@ -46,7 +46,7 @@ public class LoginService {
                 .getRules()
                 .getOffset(Instant.now());
     }
-    
+
     public boolean verifyLogin(Login login) throws Exception {
         login.setPassword(
                 AppUtil.sha256(login.getPassword() + salt));
@@ -60,14 +60,14 @@ public class LoginService {
         LOGGER.info("Unauthorized request {}", login);
         return false;
     }
-    
+
     public Token getToken(Login login) throws Exception {
         if(!this.verifyLogin(login)) {
             throw new UnAuthorizedException();
         }
         LocalDateTime dateTime = LocalDateTime.now();
         dateTime.plusMinutes(Long.valueOf(this.tokenExpTime));
-        Claims claims = new Claims(this.issuer, dateTime.toEpochSecond(zoneOffset), login.getEmail());
+        Claims claims = new Claims(this.issuer, dateTime.toEpochSecond(zoneOffset), login.getEmail(), false);
         Token token = new Token();
         token.setAccessToken(
                 this.accessTokenService.createToken(claims));
