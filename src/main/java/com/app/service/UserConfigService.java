@@ -81,7 +81,13 @@ public class UserConfigService {
 
     public void updateSchedule(String email, long epochMilli) {
         try {
-            this.userConfigDao.scheduleTime(email, epochMilli);
+            UserConfig userConfig = this.getUserConfig(email);
+            if(userConfig == null) {
+                userConfig = new UserConfig(email, new ArrayList<String>(), epochMilli, new ArrayList<String>());
+                this.addUserConfig(userConfig);
+            } else {
+                this.userConfigDao.scheduleTime(email, epochMilli);
+            }
         } catch (Exception e) {
             LOGGER.error("Error updating userconfig schedule: {} {}", email, e);
             this.errorLogService.addErrorLog(
