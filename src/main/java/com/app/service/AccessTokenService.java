@@ -111,9 +111,6 @@ public class AccessTokenService {
     }
     
     public Claims getClaims(String token) throws Exception {
-        if(!this.verifyToken(token)) {
-            return null;
-        }
         String payload = token.split("\\.")[1];
         payload = new String(Base64.getUrlDecoder().decode(payload));
         ObjectMapper mapper = new ObjectMapper();
