@@ -73,4 +73,15 @@ public class LoginService {
                 this.accessTokenService.createToken(claims));
         return token;
     }
+    
+    public boolean isAdmin(Login login) {
+        User user = this.userService.getUser(login.getEmail());
+        if(user.isAdmin()) {
+            LOGGER.info("Admin login: {}", login.getEmail());
+            return true;
+        } else {
+            LOGGER.info("Unauthorized Admin login: {}", login.getEmail());
+            return false;
+        }
+    }
 }
