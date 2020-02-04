@@ -25,9 +25,9 @@ import com.app.service.ConfigService;
  * @author charan2628
  *
  */
-@CrossOrigin
-@RestController
-@RequestMapping("/config")
+//@CrossOrigin
+//@RestController
+//@RequestMapping("/config")
 public class ConfigController {
 
     private static final Logger LOGGER = LoggerFactory
