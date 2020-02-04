@@ -61,13 +61,13 @@ public class LoginService {
         return false;
     }
 
-    public Token getToken(Login login) throws Exception {
+    public Token getToken(Login login, boolean isAdmin) throws Exception {
         if(!this.verifyLogin(login)) {
             throw new UnAuthorizedException();
         }
         LocalDateTime dateTime = LocalDateTime.now();
         dateTime.plusMinutes(Long.valueOf(this.tokenExpTime));
-        Claims claims = new Claims(this.issuer, dateTime.toEpochSecond(zoneOffset), login.getEmail(), false);
+        Claims claims = new Claims(this.issuer, dateTime.toEpochSecond(zoneOffset), login.getEmail(), isAdmin);
         Token token = new Token();
         token.setAccessToken(
                 this.accessTokenService.createToken(claims));

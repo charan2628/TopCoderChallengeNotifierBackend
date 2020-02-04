@@ -46,6 +46,6 @@ public class LoginController {
         } else {
             LOGGER.info("POST /login");
         }
-        return this.loginService.getToken(login);
+        return this.loginService.getToken(login, false);
     }
 }
