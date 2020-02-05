@@ -15,7 +15,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -33,6 +35,7 @@ import com.mongodb.MongoClientSettings;
  */
 @Configuration
 @EnableAsync
+@EnableScheduling
 @ComponentScan(basePackages = {"com.app"})
 public class AppConfig implements WebMvcConfigurer {
 
@@ -81,14 +84,23 @@ public class AppConfig implements WebMvcConfigurer {
     public AuthInterceptor authInterceptor() {
         return new AuthInterceptor();
     }
-    
-    @Bean("asnc_executor")
+
+    @Bean("async_executor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setMaxPoolSize(5);
         taskExecutor.setAwaitTerminationSeconds(5);
         taskExecutor.setDaemon(true);
         return taskExecutor;
+    }
+
+    @Bean("taskExecutor")
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
+        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.setThreadNamePrefix("my scheduler - ");
+        scheduler.setPoolSize(4);
+        scheduler.initialize();
+        return scheduler;
     }
 
     @Override
@@ -101,6 +113,6 @@ public class AppConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor())
             .addPathPatterns("/**")
-            .excludePathPatterns("/login/**", "/error/**");
+            .excludePathPatterns("/login/**", "/register/**", "/error/**");
     }
 }

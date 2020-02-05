@@ -9,12 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.model.Login;
 import com.app.model.User;
 import com.app.service.UserService;
 import com.app.util.AppUtil;
@@ -39,21 +41,19 @@ public class UserRegisterController {
     
     @PostMapping(path = "", consumes = "application/json", produces = "application/json")
     @ResponseStatus(code = HttpStatus.OK)
-    public void registerUser(@RequestBody User user) throws Exception {
+    public void registerUser(@RequestBody Login login) throws Exception {
         if(LOGGER.isDebugEnabled()) {
-            LOGGER.debug("POST REQUEST /register BODY: {}", user);
+            LOGGER.debug("POST REQUEST /register BODY: {}", login);
         } else {
             LOGGER.debug("POST REQUEST /register");
         }
-        user.setConfirmed(false);
-        user.setId(null);
-        user.setConfirmToken(null);
-        user.setPassword(AppUtil.sha256(user.getPassword() + salt));
-        user.setAdmin(false);
+        User user = new User();
+        user.setEmail(login.getEmail());
+        user.setPassword(AppUtil.sha256(login.getPassword() + salt));
         this.userService.addUser(user);
     }
     
-    @PostMapping(path = "/confirm", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/confirm")
     @ResponseStatus(code = HttpStatus.OK)
     public void confirmRegistration(
             @PathParam("email") String email,

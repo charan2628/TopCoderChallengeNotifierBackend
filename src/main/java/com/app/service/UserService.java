@@ -31,6 +31,7 @@ public class UserService {
         super();
         this.userDao = userDao;
         this.statusService = statusService;
+        this.mailService = mailService;
         this.errorLogService = errorLogService;
     }
     

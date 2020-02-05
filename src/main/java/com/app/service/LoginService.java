@@ -42,6 +42,7 @@ public class LoginService {
         this.accessTokenService = accessTokenService;
         this.salt = salt;
         this.issuer = issuer;
+        this.tokenExpTime = tokenExpTime;
         this.zoneOffset = ZoneId.systemDefault()
                 .getRules()
                 .getOffset(Instant.now());

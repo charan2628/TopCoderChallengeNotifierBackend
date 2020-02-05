@@ -84,7 +84,7 @@ public class StatusService {
      * configured in {@code AppConfig}.
      *
      */
-    @Async("asnc_executor")
+    @Async("async_executor")
     public void error() {
         try {
             Status status = this.getStatus();

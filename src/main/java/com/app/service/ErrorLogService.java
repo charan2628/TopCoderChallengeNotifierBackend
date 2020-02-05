@@ -51,7 +51,7 @@ public class ErrorLogService {
      *
      * @param errorLog error log message
      */
-    @Async("asnc_executor")
+    @Async("async_executor")
     public void addErrorLog(String errorLog) {
         try {
             this.errorLogDao.addErrorLog(errorLog);
