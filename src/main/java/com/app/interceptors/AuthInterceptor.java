@@ -47,6 +47,9 @@ public class AuthInterceptor implements HandlerInterceptor{
             try {
                 boolean authorized = this.accessTokenService.verifyToken(accessToken);
                 if(authorized) {
+                    if(this.accessTokenService.getClaims(accessToken).isAdmin()) {
+                        request.setAttribute("isAdmin", true);
+                    }
                     return true;
                 }
             } catch (Exception e) {

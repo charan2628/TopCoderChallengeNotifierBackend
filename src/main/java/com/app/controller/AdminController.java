@@ -3,6 +3,8 @@ package com.app.controller;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,13 +43,13 @@ public class AdminController {
     }
 
     @PostMapping(
-            path = "",
+            path = "login",
             produces = "application/json", consumes = "application/json")
     public Token adminLogin(@RequestBody Login login) throws Exception {
         if(LOGGER.isDebugEnabled()) {
-            LOGGER.debug("POST /login BODY: {}", login);
+            LOGGER.debug("POST admin/login BODY: {}", login);
         } else {
-            LOGGER.info("POST /login");
+            LOGGER.info("POST admin/login");
         }
         if(!this.loginService.isAdmin(login)) {
             throw new UnAuthorizedException();
@@ -59,9 +61,13 @@ public class AdminController {
     @GetMapping(
             path = "status",
             produces = "application/json")
-    public Status getStatus() {
+    public Status getStatus(HttpServletRequest request) {
         LOGGER.info("GET REQUEST /status");
-        return this.statusService.getStatus();
+        if(!request.getAttribute("isAdmin").equals(true)) {
+            throw new UnAuthorizedException();
+        } else {
+            return this.statusService.getStatus();
+        }
     }
 
     /**
@@ -72,8 +78,12 @@ public class AdminController {
     @GetMapping(
             path = "status/errors",
             produces = "application/json")
-    public List<String> getErrorMessages() {
-        LOGGER.info("GET REWUEST /status/errors");
-        return this.errorLogService.getErrorLogs();
+    public List<String> getErrorMessages(HttpServletRequest request) {
+        LOGGER.info("GET REQUEST /status/errors");
+        if(request.getAttribute("isAdmin") == null || !request.getAttribute("isAdmin").equals(true)) {
+            throw new UnAuthorizedException();
+        } else {
+            return this.errorLogService.getErrorLogs();
+        }
     }
 }
