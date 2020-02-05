@@ -45,7 +45,7 @@ public class ChallengeNotificationScheduler {
             StatusService statusService, ErrorLogService errorLogService,
             ChallengeNotifier challengeNotifier, ThreadPoolTaskScheduler taskScheduler,
             UserConfigService userConfigService, RSSFeedService rssFeedService,
-            @Value("${schedule_sections") int scheduleSections, @Value("${schedule_rate") long scheduleRate) {
+            @Value("${schedule_sections}") int scheduleSections, @Value("${schedule_rate}") long scheduleRate) {
         super();
         this.statusService = statusService;
         this.errorLogService = errorLogService;
@@ -62,10 +62,13 @@ public class ChallengeNotificationScheduler {
     public void scheduleNotifications() {
         try {
             Instant instant = Instant.now();
-            long startTime = instant.toEpochMilli(), interval = this.scheduleRate/this.scheduleSections;
+            long startTime = instant.toEpochMilli(), interval = this.scheduleRate/this.scheduleSections,
+                    start, end;
             for(int i = this.scheduleSections; i > 0; i--) {
-                this.schedule(startTime + (i-1)*interval,
-                        startTime + i*interval);
+                start = startTime + (i-1)*interval;
+                end = startTime + i*interval;
+                LOGGER.debug("Scheduling Task between {} and {}", start, end);
+                this.schedule(start, end);
             }
         } catch (Exception e) {
             LOGGER.error("Error scheduling notifications");
@@ -81,6 +84,7 @@ public class ChallengeNotificationScheduler {
                 .usersWithinTime(start,
                         end);
         this.taskScheduler.schedule(() -> {
+            LOGGER.debug("Running scheduled notification task emails: {}", emails);
             List<Item> items = this.rssFeedService.getItems();
             this.challengeNotifier.notifiyChallenges(emails, items);
         }, Instant.ofEpochMilli(start));

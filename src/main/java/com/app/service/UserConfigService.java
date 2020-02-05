@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.UserConfigDao;
+import com.app.model.Challenge;
 import com.app.model.UserConfig;
 import com.app.util.AppUtil;
 
@@ -98,9 +99,11 @@ public class UserConfigService {
         }
     }
 
-    public void addChallenges(String email, List<String> challenges) {
+    public void addChallenges(String email, List<Challenge> challenges) {
         try {
-            this.userConfigDao.addChallenges(email, challenges);
+            List<String> names = new ArrayList<>();
+            challenges.forEach(c -> names.add(c.getName()));
+            this.userConfigDao.addChallenges(email, names);
         } catch (Exception e) {
             LOGGER.error("Error adding userconfig challenges: {} {}", email, e);
             this.errorLogService.addErrorLog(

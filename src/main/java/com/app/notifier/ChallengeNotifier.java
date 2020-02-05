@@ -67,6 +67,8 @@ public class ChallengeNotifier {
             if(!mail.send(MailSubject.TOPCODER_CHALLENGE_NOTIFICATION, email)) {
                 LOGGER.error("Error sending mail {}", email);
                 this.statusService.error();
+            } else {
+                this.userConfigService.addChallenges(email, newChallenges);
             }
         }
     }

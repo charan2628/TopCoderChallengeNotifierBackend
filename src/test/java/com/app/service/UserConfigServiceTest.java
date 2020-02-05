@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.app.AppRunner;
+import com.app.model.Challenge;
 import com.app.model.UserConfig;
 
 @ActiveProfiles("test")
@@ -59,7 +60,8 @@ public class UserConfigServiceTest extends AbstractTestNGSpringContextTests {
     public void addChallengesTest() {
         UserConfig userConfig = new UserConfig("i@i.com", Arrays.asList("nodejs"), 123456, Arrays.asList("c"));
         this.userConfigService.addUserConfig(userConfig);
-        this.userConfigService.addChallenges("i@i.com", Arrays.asList("h", "a"));
+        this.userConfigService.addChallenges("i@i.com", Arrays.asList(
+                new Challenge("c", null, null), new Challenge("h", null, null), new Challenge("a", null, null)));
         userConfig = this.userConfigService.getUserConfig("i@i.com");
         Assert.assertNotNull(userConfig);
         Assert.assertEqualsNoOrder(userConfig.getNotifiedChallenges().toArray(), new String[] {"c", "h", "a"});
