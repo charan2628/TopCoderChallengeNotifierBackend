@@ -67,7 +67,7 @@ public class LoginService {
             throw new UnAuthorizedException();
         }
         LocalDateTime dateTime = LocalDateTime.now();
-        dateTime.plusMinutes(Long.valueOf(this.tokenExpTime));
+        dateTime = dateTime.plusMinutes(Long.valueOf(this.tokenExpTime));
         Claims claims = new Claims(this.issuer, dateTime.toEpochSecond(zoneOffset), login.getEmail(), isAdmin);
         Token token = new Token();
         token.setAccessToken(
