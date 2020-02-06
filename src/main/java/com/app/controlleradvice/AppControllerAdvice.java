@@ -12,8 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.app.exception.AppException;
+import com.app.exception.AppExceptionMessage;
 import com.app.exception.ErrorSchedulingTaskException;
+import com.app.exception.InvalidConfirmationCode;
 import com.app.exception.UnAuthorizedException;
 import com.app.exception.UnConfirmedRegistrationExcpetion;
 import com.mongodb.MongoException;
@@ -27,28 +28,33 @@ public class AppControllerAdvice {
     public ResponseEntity<?> anyOtherException(HttpServletRequest request, Throwable ex) {
         if(ex instanceof MongoException) {
             return new ResponseEntity<>(
-                    new AppException(
+                    new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "db error contact admin",
                             request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         } else if(ex instanceof ErrorSchedulingTaskException) {
             return new ResponseEntity<>(
-                    new AppException(
+                    new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "error scheduling task",
                             request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         } else if(ex instanceof UnAuthorizedException) {
             return new ResponseEntity<>(
-                    new AppException(
+                    new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "invalid userame or password",
                             request.getRequestURI()), HttpStatus.BAD_REQUEST);
         } else if(ex instanceof UnConfirmedRegistrationExcpetion) {
             return new ResponseEntity<>(
-                    new AppException(
+                    new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "unconfirmed registration",
                             request.getRequestURI()), HttpStatus.BAD_REQUEST);
+        } else if(ex instanceof InvalidConfirmationCode) {
+            return new ResponseEntity<>(
+                    new AppExceptionMessage(
+                            LocalDateTime.now().toString(), "error", "invalid confirmation code",
+                            request.getRequestURI()), HttpStatus.NOT_FOUND);
         }
         logger.error("ERROR: {}", ex);
         return new ResponseEntity<>(
-                new AppException(
+                new AppExceptionMessage(
                         LocalDateTime.now().toString(), "error", "bad request check docs",
                         request.getRequestURI()), HttpStatus.BAD_REQUEST);
     }

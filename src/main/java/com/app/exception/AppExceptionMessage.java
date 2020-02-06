@@ -1,17 +1,17 @@
 package com.app.exception;
 
-public class AppException {
+public class AppExceptionMessage {
 
     private String timestamp;
     private String status;
     private String message;
     private String path;
     
-    public AppException() {
+    public AppExceptionMessage() {
         super();
     }
 
-    public AppException(String timestamp, String status, String message, String path) {
+    public AppExceptionMessage(String timestamp, String status, String message, String path) {
         super();
         this.timestamp = timestamp;
         this.status = status;
