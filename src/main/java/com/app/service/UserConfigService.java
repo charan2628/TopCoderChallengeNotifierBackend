@@ -67,7 +67,6 @@ public class UserConfigService {
                 userConfig = new UserConfig(email, tags, 0, new ArrayList<String>());
                 this.addUserConfig(userConfig);
             } else {
-                tags.addAll(userConfig.getTags());
                 this.userConfigDao.updateTags(email, tags);
             }
         } catch (Exception e) {
