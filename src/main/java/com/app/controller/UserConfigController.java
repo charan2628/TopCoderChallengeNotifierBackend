@@ -10,9 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,9 +31,7 @@ public class UserConfigController {
     private AccessTokenService accessTokenService; 
     private UserConfigService userConfigService;
 
-    public UserConfigController(
-            AccessTokenService accessTokenService,
-            UserConfigService userConfigService) {
+    public UserConfigController( AccessTokenService accessTokenService, UserConfigService userConfigService) {
         this.accessTokenService = accessTokenService;
         this.userConfigService = userConfigService;
     }
@@ -47,23 +44,27 @@ public class UserConfigController {
         return this.userConfigService.getUserConfig(claims.getEmail());
     }
     
-    @PostMapping(path = "tags", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "tags", produces = "application/json")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void updateTags(
-            @RequestBody List<String> tags,
-            HttpServletRequest request) throws Exception {
-        LOGGER.info("POST REQUEST /config/tags");
+    public void updateTags(@RequestParam("tags") List<String> tags, HttpServletRequest request) throws Exception {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("GET REQUEST /config/tags {}", tags);
+        } else {
+            LOGGER.info("GET REQUEST /config/tags");
+        }
         String token = request.getHeader("Authorization");
         Claims claims = this.accessTokenService.getClaims(token);
         this.userConfigService.updateTags(claims.getEmail(), tags);
     }
     
-    @PostMapping(path = "schedule", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "schedule", produces = "application/json")
     @ResponseStatus(code = HttpStatus.ACCEPTED)
-    public void updateSchedule(
-            @RequestBody String time,
-            HttpServletRequest request) throws Exception {
-        LOGGER.info("POST REQUEST /config/tags");
+    public void updateSchedule(@RequestParam("time") String time, HttpServletRequest request) throws Exception {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("GET REQUEST /config/schedule {}", time);
+        } else {
+            LOGGER.info("GET REQUEST /config/schedule");
+        }
         String token = request.getHeader("Authorization");
         Claims claims = this.accessTokenService.getClaims(token);
         this.userConfigService.updateSchedule(claims.getEmail(), Long.parseLong(time));

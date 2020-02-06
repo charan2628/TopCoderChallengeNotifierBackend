@@ -2,8 +2,6 @@ package com.app.controller;
 
 import java.lang.invoke.MethodHandles;
 
-import javax.websocket.server.PathParam;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.exception.InvalidConfirmationCode;
 import com.app.model.Login;
 import com.app.model.User;
 import com.app.service.UserService;
@@ -32,9 +32,7 @@ public class UserRegisterController {
     private UserService userService;
     private String salt;
     
-    public UserRegisterController(
-            UserService userService,
-            @Value("${SALT}") String salt) {
+    public UserRegisterController(UserService userService, @Value("${SALT}") String salt) {
         this.userService = userService;
         this.salt = salt;
     }
@@ -55,9 +53,7 @@ public class UserRegisterController {
     
     @GetMapping(path = "/confirm")
     @ResponseStatus(code = HttpStatus.OK)
-    public void confirmRegistration(
-            @PathParam("email") String email,
-            @PathParam("code") String code) {
+    public void confirmRegistration(@RequestParam("email") String email, @RequestParam("code") String code) {
         if(email == null || code == null || code.equals("") || email.equals("")) {
             throw new IllegalArgumentException();
         }
@@ -66,6 +62,8 @@ public class UserRegisterController {
         } else {
             LOGGER.debug("POST REQUEST /register/cofirm");
         }
-        this.userService.confirmUser(email, code);
+        if(!this.userService.confirmUser(email, code)) {
+            throw new InvalidConfirmationCode();
+        }
     }
 }
