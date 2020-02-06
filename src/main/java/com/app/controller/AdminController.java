@@ -63,7 +63,7 @@ public class AdminController {
             produces = "application/json")
     public Status getStatus(HttpServletRequest request) {
         LOGGER.info("GET REQUEST /status");
-        if(!request.getAttribute("isAdmin").equals(true)) {
+        if(request.getAttribute("isAdmin") == null || !request.getAttribute("isAdmin").equals(true)) {
             throw new UnAuthorizedException();
         } else {
             return this.statusService.getStatus();
