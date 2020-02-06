@@ -40,12 +40,12 @@ public class AppControllerAdvice {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "invalid userame or password",
-                            request.getRequestURI()), HttpStatus.BAD_REQUEST);
+                            request.getRequestURI()), HttpStatus.UNAUTHORIZED);
         } else if(ex instanceof UnConfirmedRegistrationExcpetion) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "unconfirmed registration",
-                            request.getRequestURI()), HttpStatus.BAD_REQUEST);
+                            request.getRequestURI()), HttpStatus.NOT_ACCEPTABLE);
         } else if(ex instanceof InvalidConfirmationCode) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
