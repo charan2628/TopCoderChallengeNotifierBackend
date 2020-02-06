@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,5 +69,18 @@ public class UserConfigController {
         String token = request.getHeader("Authorization");
         Claims claims = this.accessTokenService.getClaims(token);
         this.userConfigService.updateSchedule(claims.getEmail(), Long.parseLong(time));
+    }
+    
+    @DeleteMapping(path = "", produces = "application/json")
+    @ResponseStatus(code = HttpStatus.ACCEPTED)
+    public void deleteUserConfig(HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization");
+        Claims claims = this.accessTokenService.getClaims(token);
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("DELETE REQUEST /config  email: {}", claims.getEmail());
+        } else {
+            LOGGER.info("DELETE REQUEST /config");
+        }
+        this.userConfigService.deleteUserConfig(claims.getEmail());
     }
 }

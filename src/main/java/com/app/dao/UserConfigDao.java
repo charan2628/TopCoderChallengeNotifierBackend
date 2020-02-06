@@ -61,6 +61,10 @@ public class UserConfigDao {
             .forEach((Consumer<UserConfig>)(uc) -> userConfigs.add(uc));
         return userConfigs;
     }
+    
+    public void deleteUserConfig(String email) {
+        this.collection.deleteOne(eq("email", email));
+    }
 
     public void _deleteAll() {
         this.collection.deleteMany(new Document());

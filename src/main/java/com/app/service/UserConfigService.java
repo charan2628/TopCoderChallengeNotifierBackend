@@ -128,6 +128,19 @@ public class UserConfigService {
             throw e;
         }
     }
+    
+    public void deleteUserConfig(String email) {
+        try {
+            this.userConfigDao.deleteUserConfig(email);
+        } catch (Exception e) {
+            LOGGER.error("Error deleting userconfig {}", e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error deleting userconfig %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
+            throw e;
+        }
+    }
 
     public void _deleteAll() {
         this.userConfigDao._deleteAll();
