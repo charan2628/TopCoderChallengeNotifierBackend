@@ -17,6 +17,7 @@ import com.app.exception.ErrorSchedulingTaskException;
 import com.app.exception.InvalidConfirmationCode;
 import com.app.exception.UnAuthorizedException;
 import com.app.exception.UnConfirmedRegistrationExcpetion;
+import com.app.exception.UserAlreadyPresentException;
 import com.mongodb.MongoException;
 
 @ControllerAdvice(basePackages = "com.app")
@@ -50,6 +51,11 @@ public class AppControllerAdvice {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
                             LocalDateTime.now().toString(), "error", "invalid confirmation code",
+                            request.getRequestURI()), HttpStatus.NOT_FOUND);
+        } else if(ex instanceof UserAlreadyPresentException) {
+            return new ResponseEntity<>(
+                    new AppExceptionMessage(
+                            LocalDateTime.now().toString(), "error", "user already present",
                             request.getRequestURI()), HttpStatus.NOT_FOUND);
         }
         logger.error("ERROR: {}", ex);

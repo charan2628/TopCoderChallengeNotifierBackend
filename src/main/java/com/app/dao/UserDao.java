@@ -44,6 +44,10 @@ public class UserDao {
     public void confirmUser(ObjectId id) {
         this.collection.updateOne(eq("_id", id), combine(set("confirmed", true)));
     }
+    
+    public boolean isUserPresent(String email) {
+        return this.collection.find(eq("email", email)).first() == null ? false : true;
+    }
 
     public void _deleteAll() {
         this.collection.deleteMany(new Document());

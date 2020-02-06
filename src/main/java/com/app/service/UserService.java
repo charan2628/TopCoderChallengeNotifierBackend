@@ -97,6 +97,19 @@ public class UserService {
             throw e;
         }
     }
+    
+    public boolean isUserPresent(String email) {
+        try {
+            return this.userDao.isUserPresent(email);
+        } catch (Exception e) {
+            LOGGER.error("Error checking user present: {} {}", email, e);
+            this.errorLogService.addErrorLog(
+                    String.format("Error checking user present %s",
+                            LocalDateTime.now().toString()));
+            this.statusService.error();
+            throw e;
+        }
+    }
 
     void _deleteAll() {
         this.userDao._deleteAll();

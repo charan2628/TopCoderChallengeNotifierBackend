@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.exception.InvalidConfirmationCode;
+import com.app.exception.UserAlreadyPresentException;
 import com.app.model.Login;
 import com.app.model.User;
 import com.app.service.UserService;
@@ -44,6 +45,9 @@ public class UserRegisterController {
             LOGGER.debug("POST REQUEST /register BODY: {}", login);
         } else {
             LOGGER.debug("POST REQUEST /register");
+        }
+        if(this.userService.isUserPresent(login.getEmail())) {
+            throw new UserAlreadyPresentException();
         }
         User user = new User();
         user.setEmail(login.getEmail());
