@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.UserDao;
+import com.app.exception.UnAuthorizedException;
 import com.app.model.User;
 import com.app.util.MailSubject;
 
@@ -83,6 +84,9 @@ public class UserService {
     public boolean confirmUser(String email, String code) {
         try {
             User user = this.getUser(email);
+            if(user == null) {
+                throw new UnAuthorizedException();
+            }
             if(!user.getConfirmToken().equals(code)) {
                 return false;
             }

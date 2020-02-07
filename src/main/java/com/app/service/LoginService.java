@@ -52,6 +52,9 @@ public class LoginService {
         login.setPassword(
                 AppUtil.sha256(login.getPassword() + salt));
         User user = this.userService.getUser(login.getEmail());
+        if(user == null) {
+            throw new UnAuthorizedException();
+        }
         if(!user.isConfirmed()) {
             throw new UnConfirmedRegistrationExcpetion();
         }
