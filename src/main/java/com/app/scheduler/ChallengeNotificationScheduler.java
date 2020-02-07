@@ -83,6 +83,10 @@ public class ChallengeNotificationScheduler {
         List<String> emails = this.userConfigService
                 .usersWithinTime(start,
                         end);
+        if(emails.size() == 0) {
+            LOGGER.debug("No users scheduled at this time {} {}", start, end);
+            return;
+        }
         this.taskScheduler.schedule(() -> {
             LOGGER.debug("Running scheduled notification task emails: {}", emails);
             List<Item> items = this.rssFeedService.getItems();
