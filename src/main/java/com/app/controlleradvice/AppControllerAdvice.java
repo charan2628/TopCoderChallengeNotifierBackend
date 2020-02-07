@@ -30,38 +30,38 @@ public class AppControllerAdvice {
         if(ex instanceof MongoException) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "db error contact admin",
+                            LocalDateTime.now().toString(), "error", "Db error contact admin.",
                             request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         } else if(ex instanceof ErrorSchedulingTaskException) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "error scheduling task",
+                            LocalDateTime.now().toString(), "error", "Error scheduling task.",
                             request.getRequestURI()), HttpStatus.INTERNAL_SERVER_ERROR);
         } else if(ex instanceof UnAuthorizedException) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "invalid userame or password",
+                            LocalDateTime.now().toString(), "error", "Invalid email or password.",
                             request.getRequestURI()), HttpStatus.UNAUTHORIZED);
         } else if(ex instanceof UnConfirmedRegistrationExcpetion) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "unconfirmed registration",
-                            request.getRequestURI()), HttpStatus.NOT_ACCEPTABLE);
+                            LocalDateTime.now().toString(), "error", "Unconfirmed registration.",
+                            request.getRequestURI()), HttpStatus.NOT_FOUND);
         } else if(ex instanceof InvalidConfirmationCode) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "invalid confirmation code",
+                            LocalDateTime.now().toString(), "error", "Invalid confirmation code.",
                             request.getRequestURI()), HttpStatus.NOT_FOUND);
         } else if(ex instanceof UserAlreadyPresentException) {
             return new ResponseEntity<>(
                     new AppExceptionMessage(
-                            LocalDateTime.now().toString(), "error", "user already present",
+                            LocalDateTime.now().toString(), "error", "User already present.",
                             request.getRequestURI()), HttpStatus.NOT_FOUND);
         }
         logger.error("ERROR: {}", ex);
         return new ResponseEntity<>(
                 new AppExceptionMessage(
-                        LocalDateTime.now().toString(), "error", "bad request check docs",
+                        LocalDateTime.now().toString(), "error", "Bad request check docs.",
                         request.getRequestURI()), HttpStatus.BAD_REQUEST);
     }
 }
