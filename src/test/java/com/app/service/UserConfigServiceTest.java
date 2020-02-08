@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,11 +40,11 @@ public class UserConfigServiceTest extends AbstractTestNGSpringContextTests {
     public void updateTagsTest() {
         UserConfig userConfig = new UserConfig("i@i.com", Arrays.asList("nodejs"), 123456, Arrays.asList("c"));
         this.userConfigService.addUserConfig(userConfig);
-        this.userConfigService.updateTags("i@i.com", Arrays.asList("java"));
+        this.userConfigService.updateTags("i@i.com", Arrays.asList("java", "angular"));
         userConfig = this.userConfigService.getUserConfig("i@i.com");
         Assert.assertNotNull(userConfig);
         System.out.println(userConfig.getTags());
-        Assert.assertEqualsNoOrder(userConfig.getTags().toArray(), new String[] {"nodejs", "java"});
+        Assert.assertEqualsNoOrder(userConfig.getTags().toArray(), new String[] {"angular", "java"});
     }
     
     @Test
@@ -58,9 +59,9 @@ public class UserConfigServiceTest extends AbstractTestNGSpringContextTests {
     
     @Test
     public void addChallengesTest() {
-        UserConfig userConfig = new UserConfig("i@i.com", Arrays.asList("nodejs"), 123456, Arrays.asList("c"));
+        UserConfig userConfig = new UserConfig("i@i.com", Arrays.asList("nodejs"), 123456, Collections.emptyList());
         this.userConfigService.addUserConfig(userConfig);
-        this.userConfigService.addChallenges("i@i.com", Arrays.asList(
+        this.userConfigService.addChallenges(userConfig.getEmail(), Arrays.asList(
                 new Challenge("c", null, null), new Challenge("h", null, null), new Challenge("a", null, null)));
         userConfig = this.userConfigService.getUserConfig("i@i.com");
         Assert.assertNotNull(userConfig);
