@@ -90,6 +90,6 @@ public class AppUtil {
             regex.append(String.format("|%s", tags.get(i)));
         }
         regex.append(")");
-        return Pattern.compile(regex.toString());
+        return Pattern.compile(regex.toString(), Pattern.CASE_INSENSITIVE);
     }
 }
