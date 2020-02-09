@@ -88,5 +88,11 @@ public class Challenge {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Challenge [id=" + this.id + ", name=" + this.name + ", description=" + this.description + ", link="
+                + this.link + "]";
+    }
     
 }
