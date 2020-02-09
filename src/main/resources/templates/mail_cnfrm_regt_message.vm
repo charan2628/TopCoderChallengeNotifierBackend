@@ -6,5 +6,7 @@
 	<body>
 		<h1>TopCoder Challenge Notifier Confirm Registration</h1>
 			<p>Confirmation code: ${code}</p>
+			<p>Please click this <a href="www.custom-built.dev/app/tpcn/confirm-registration?email=${email}">link</a> to confirm registration.</p>
+			<p> Or copy this link www.custom-built.dev/app/tpcn/confirm-registration?email=${email} in browser.</p>
 	</body>
 </html>

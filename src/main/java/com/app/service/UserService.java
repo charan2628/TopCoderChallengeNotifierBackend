@@ -54,7 +54,7 @@ public class UserService {
             String cfrmCode = String.valueOf(Math.abs(new Random().nextInt(10000)));
             user.setConfirmToken(cfrmCode);
             this.userDao.addUser(user);
-            this.mailService.confirmRegistration(cfrmCode)
+            this.mailService.confirmRegistration(user.getEmail(), cfrmCode)
                 .send(MailSubject.CONFORM_REGISTRATION, user.getEmail());
         } catch (Exception e) {
             LOGGER.error("Error adding user: {} {}", user, e);

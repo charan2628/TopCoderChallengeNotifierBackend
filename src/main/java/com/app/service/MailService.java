@@ -81,8 +81,8 @@ public class MailService {
         return new Mail(message);
     }
 
-    public Mail confirmRegistration(String code) {
-        String mesage = MailHTMLMessageBuilder.confirmRegistrationMessage(code);
+    public Mail confirmRegistration(String email, String code) {
+        String mesage = MailHTMLMessageBuilder.confirmRegistrationMessage(email, code);
         return new Mail(mesage);
     }
 

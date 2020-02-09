@@ -52,9 +52,10 @@ public class MailHTMLMessageBuilder {
         return writer.toString();
     }
     
-    public static String confirmRegistrationMessage(String code) {
+    public static String confirmRegistrationMessage(String email, String code) {
         VelocityContext context = new VelocityContext();
         context.put("code", code);
+        context.put("email", email);
         Template template = Velocity
                 .getTemplate("templates/mail_cnfrm_regt_message.vm");
         StringWriter writer = new StringWriter();
