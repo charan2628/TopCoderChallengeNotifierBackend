@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "da01d554-c4d7-4037-b37f-c8162dddeeaf",
+		"name": "TopCoderChallengeNotifier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LOGIN",
+			"item": [
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24a0b2ab-fa32-4fbf-8715-fe300f09cdcd",
+								"exec": [
+									"pm.test(\"if status is 200 then set access_token\", () => {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"access_token\", pm.response.json().access_token);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{USER_EMAIL}}\",\n\t\"password\": \"{{USER_PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/login",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"login"
+							]
+						},
+						"description": "Login user by providing email and passwords, returns access token.\nIf response is 200 OK, access token is saved by post script into environment varaible."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "REGISTER",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{USER_EMAIL}}\",\n\t\"password\": \"{{USER_PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/register",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"register"
+							]
+						},
+						"description": "Register new user.\nDoesn't accept if email already present.\nOn successfull registration sends confirmation code to user email."
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm Registration",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/register/confirm?email={{USER_EMAIL}}&code=2981",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"register",
+								"confirm"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{USER_EMAIL}}"
+								},
+								{
+									"key": "code",
+									"value": "2981"
+								}
+							]
+						},
+						"description": "Confirms user registration process."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "USER CONFIG",
+			"item": [
+				{
+					"name": "Update Tags",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/config/tags?tags=NodeJS, Java, Angular,ReactJS",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"config",
+								"tags"
+							],
+							"query": [
+								{
+									"key": "tags",
+									"value": "NodeJS, Java, Angular,ReactJS"
+								}
+							]
+						},
+						"description": "Updates user tags, to filter out challenges."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Config",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/config",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"config"
+							]
+						},
+						"description": "Gets the user config which includes tags set and scheduled time."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Schedule",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/config/schedule?time=1581141036960",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"config",
+								"schedule"
+							],
+							"query": [
+								{
+									"key": "time",
+									"value": "1581141036960"
+								}
+							]
+						},
+						"description": "Update user schedule time, time must be provide in epoch milliseconds."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ADMIN",
+			"item": [
+				{
+					"name": "Admin Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d04525b9-65bc-4fcd-8162-b2fd9e7caf47",
+								"exec": [
+									"pm.test(\"if status is 200 then set access_token\", () => {",
+									"    pm.response.to.have.status(200);",
+									"    pm.environment.set(\"admin_access_token\", pm.response.json().access_token);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"{{ADMIN_EMAIL}}\",\n\t\"password\": \"{{ADMIN_PASSWORD}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/admin/login",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"admin",
+								"login"
+							]
+						},
+						"description": "Logins admin, admin users need to added through mongo shell by updating user isAdmin property to true."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/admin/status",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"admin",
+								"status"
+							]
+						},
+						"description": "Gets the current status, no of errors occurred and no of successfully tasks completed."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Error log",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{admin_access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{access_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://{{URL}}:{{PORT}}/admin/status/errors",
+							"protocol": "http",
+							"host": [
+								"{{URL}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"admin",
+								"status",
+								"errors"
+							]
+						},
+						"description": "Gets the log of error events occurred"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Home",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "652ac106-29da-4b65-9d0f-35990dc62b94",
+						"exec": [
+							"pm.test(\"should return a 200 status code\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"c\", \"h\", \"a\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{URL}}:{{PORT}}/config/tags",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"port": "{{PORT}}",
+					"path": [
+						"config",
+						"tags"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c73b1a85-5759-4a8e-9e59-8ca61c587ee1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7753f53d-4935-4887-b041-734570bc8940",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "513b9d3b-93e0-4e36-83cd-0a885f768ad1",
+			"key": "URL",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"id": "042543f8-de18-4e13-9a3d-5ef28f3e760f",
+			"key": "PORT",
+			"value": "8080",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
