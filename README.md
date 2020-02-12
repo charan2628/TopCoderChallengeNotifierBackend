@@ -46,14 +46,14 @@ $ mongo db-colls-init.js
 ```  
 * [db-colls-test-init.js](./build-scripts/mongodb/db-colls-test-init.js) creates collections for unit test cases.
 * Build the app using `mvn install` command and run the jar file by providing `LOG_HOME` system property to store logs or run by AppRunner main method from your IDE.
-* To run as docker container `cd` into build-scripts/server paste the jar previously built into this folder and from build folder run `build.sh` by providing three arguments:
+* To run as docker container `cd` into build-scripts/server paste the jar previously built into this folder and from build folder run [build.sh](./build-scripts/server/build.sh) by providing these three arguments:
   * path to store mongodb database data
   * path to store logs
   * app version
 
 Example
 ```bash
-$ .build.sh /var/app/tpcn/db /var/app/tpcn/logs 2.3
+$ ./build.sh /var/app/tpcn/db /var/app/tpcn/logs 2.3
 ```
 * Import postman collection and environment in `POST_MAN` folder to check and get info about API.
 
@@ -70,4 +70,4 @@ $ .build.sh /var/app/tpcn/db /var/app/tpcn/logs 2.3
 
 ## TODO
 * Add option to change challenge type to develop/design.
-* Make build script more interactive and build script for windows.
+* Make build script for windows.
