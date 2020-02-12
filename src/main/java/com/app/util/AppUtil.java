@@ -1,6 +1,10 @@
 package com.app.util;
 
 import java.security.MessageDigest;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Collections;
@@ -91,5 +95,23 @@ public class AppUtil {
         }
         regex.append(")");
         return Pattern.compile(regex.toString(), Pattern.CASE_INSENSITIVE);
+    }
+
+    /**
+     * Converts 
+     * @param epochMilli
+     * @return
+     */
+    public static LocalDateTime toDateTime(long epochMilli) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMilli), ZoneId.of("Asia/Kolkata"));
+    }
+    
+    /**
+     * Returns current UTC time hours and minutes converted to seconds.
+     *
+     */
+    public static long timeNow() {
+        LocalTime time = LocalTime.now(ZoneId.of("Z"));
+        return time.getHour()*60*60 + time.getMinute()*60;
     }
 }

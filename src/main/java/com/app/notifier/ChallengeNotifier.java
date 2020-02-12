@@ -65,7 +65,7 @@ public class ChallengeNotifier {
             newChallenges = this.newChallenges(challenges, userConfig.getNotifiedChallenges());
             Mail mail = this.mailService.challengesMessage(newChallenges);
             if(!mail.send(MailSubject.TOPCODER_CHALLENGE_NOTIFICATION, email)) {
-                LOGGER.error("Error sending mail {}", email);
+                LOGGER.info("Error sending mail {}", email);
                 this.statusService.error();
             } else {
                 this.userConfigService.addChallenges(email, newChallenges);

@@ -19,6 +19,9 @@ import com.app.service.ErrorLogService;
 import com.app.service.RSSFeedService;
 import com.app.service.StatusService;
 import com.app.service.UserConfigService;
+import com.app.util.Constants;
+
+import static com.app.util.AppUtil.*;
 
 /**
  * Scheduler which schedule notifications now or later
@@ -61,13 +64,12 @@ public class ChallengeNotificationScheduler {
     @Scheduled(fixedRateString = "${schedule_rate}")
     public void scheduleNotifications() {
         try {
-            Instant instant = Instant.now();
-            long startTime = instant.toEpochMilli(), interval = this.scheduleRate/this.scheduleSections,
+            long startTime = timeNow(), interval = (this.scheduleRate/this.scheduleSections)/1000,
                     start, end;
             for(int i = this.scheduleSections; i > 0; i--) {
-                start = startTime + (i-1)*interval;
-                end = startTime + i*interval;
-                LOGGER.debug("Scheduling Task between {} and {}", start, end);
+                start = (startTime + (i-1)*interval) % Constants.ONE_DAY_IN_SECONDS;
+                end = (startTime + i*interval) % Constants.ONE_DAY_IN_SECONDS;
+                LOGGER.info("Scheduling Task between {} and {}", start, end);
                 this.schedule(start, end);
             }
         } catch (Exception e) {
@@ -84,11 +86,11 @@ public class ChallengeNotificationScheduler {
                 .usersWithinTime(start,
                         end);
         if(emails.size() == 0) {
-            LOGGER.debug("No users scheduled at this time {} {}", start, end);
+            LOGGER.info("No users scheduled between {} and {}", start, end);
             return;
         }
         this.taskScheduler.schedule(() -> {
-            LOGGER.debug("Running scheduled notification task emails: {}", emails);
+            LOGGER.info("Running scheduled notification task emails: {}", emails);
             List<Item> items = this.rssFeedService.getItems();
             this.challengeNotifier.notifiyChallenges(emails, items);
         }, Instant.ofEpochMilli(start));

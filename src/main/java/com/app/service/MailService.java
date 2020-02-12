@@ -127,14 +127,14 @@ public class MailService {
                         new ByteArrayDataSource(this.body, "text/html")));
                 Transport.send(message);
             } catch (MessagingException | IOException exception) {
-                LOGGER.error("Error sending mail {} {}", email, exception);
+                LOGGER.info("Error sending mail {} {}", email, exception);
                 MailService.this.errorLogService.addErrorLog(
                         String.format("Error sending mail %s",
                                 LocalDateTime.now().toString()));
                 MailService.this.statusService.error();
                 return false;
             }
-            LOGGER.debug("Mail to: {} sent successfully", email);
+            LOGGER.info("Mail to: {} sent successfully", email);
             return true;
         }
     }
