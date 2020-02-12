@@ -210,14 +210,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "{{access_token}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{access_token}}"
 							},
 							{
 								"key": "Content-Type",
 								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"url": {
@@ -238,7 +238,7 @@
 								}
 							]
 						},
-						"description": "Update user schedule time, time must be provide in epoch milliseconds."
+						"description": "Updates user schedule time, schedule time must be provided in seconds.\nFor example:\nTo schedule at 10:30 am send 37800 (10*60*60 + 30*60)"
 					},
 					"response": []
 				}
@@ -442,13 +442,13 @@
 	],
 	"variable": [
 		{
-			"id": "513b9d3b-93e0-4e36-83cd-0a885f768ad1",
+			"id": "f6b9fdd1-6d5e-42b3-8383-3da57323b754",
 			"key": "URL",
 			"value": "localhost",
 			"type": "string"
 		},
 		{
-			"id": "042543f8-de18-4e13-9a3d-5ef28f3e760f",
+			"id": "73ffea1e-dc17-4732-b939-565fa98ac9eb",
 			"key": "PORT",
 			"value": "8080",
 			"type": "string"
