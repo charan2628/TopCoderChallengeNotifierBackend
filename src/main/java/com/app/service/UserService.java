@@ -49,9 +49,10 @@ public class UserService {
         }
     }
 
-    public void addUser(User user) {
+    public String addUser(User user) {
+        String cfrmCode;
         try {
-            String cfrmCode = String.valueOf(Math.abs(new Random().nextInt(10000)));
+            cfrmCode = String.valueOf(Math.abs(new Random().nextInt(10000)));
             user.setConfirmToken(cfrmCode);
             this.userDao.addUser(user);
             this.mailService.confirmRegistration(user.getEmail(), cfrmCode)
@@ -65,6 +66,7 @@ public class UserService {
             throw e;
         }
         LOGGER.debug("Added user {}", user);
+        return cfrmCode;
     }
     
     public boolean isConfirmed(String email) {

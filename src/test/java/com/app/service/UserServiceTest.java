@@ -32,12 +32,19 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         Assert.assertFalse(userDb.isConfirmed());
     }
     
-//    @Test
+    @Test
     public void confirmUserTest() {
         User user = new User("i@i.com", "pass", "1234", false, false);
-        this.userService.addUser(user);
-        this.userService.confirmUser("i@i.com", "1234");
+        String cfrmCode = this.userService.addUser(user);
+        this.userService.confirmUser("i@i.com", cfrmCode);
         user = this.userService.getUser(user.getEmail());
         Assert.assertTrue(user.isConfirmed());
+    }
+    
+    @Test
+    public void userAlreadyPresentTest() {
+        User user = new User("i@i.com", "pass", null, false, false);
+        this.userService.addUser(user);
+        Assert.assertTrue(this.userService.isUserPresent("i@i.com"));
     }
 }
