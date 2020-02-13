@@ -4,6 +4,8 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 import java.lang.invoke.MethodHandles;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
@@ -17,7 +19,6 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -93,14 +94,11 @@ public class AppConfig implements WebMvcConfigurer {
         taskExecutor.setDaemon(true);
         return taskExecutor;
     }
-
-    @Bean("taskExecutor")
-    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
-        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setThreadNamePrefix("my scheduler - ");
-        scheduler.setPoolSize(4);
-        scheduler.initialize();
-        return scheduler;
+    
+    @Bean("task_scheduler")
+    public ScheduledExecutorService scheduledExecutorService() {
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(3);
+        return service;
     }
 
     @Override

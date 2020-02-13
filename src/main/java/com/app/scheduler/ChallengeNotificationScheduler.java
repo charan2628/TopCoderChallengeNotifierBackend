@@ -1,16 +1,17 @@
 package com.app.scheduler;
 
 import java.lang.invoke.MethodHandles;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
 import com.app.model.rss.Item;
@@ -38,7 +39,7 @@ public class ChallengeNotificationScheduler {
     private StatusService statusService;
     private ErrorLogService errorLogService;
     private ChallengeNotifier challengeNotifier;
-    private ThreadPoolTaskScheduler taskScheduler;
+    private ScheduledExecutorService taskScheduler;
     private UserConfigService userConfigService;
     private RSSFeedService rssFeedService;
     private long scheduleRate;
@@ -46,7 +47,7 @@ public class ChallengeNotificationScheduler {
 
     public ChallengeNotificationScheduler(
             StatusService statusService, ErrorLogService errorLogService,
-            ChallengeNotifier challengeNotifier, ThreadPoolTaskScheduler taskScheduler,
+            ChallengeNotifier challengeNotifier, @Qualifier("task_scheduler")ScheduledExecutorService taskScheduler,
             UserConfigService userConfigService, RSSFeedService rssFeedService,
             @Value("${schedule_sections}") int scheduleSections, @Value("${schedule_rate}") long scheduleRate) {
         super();
@@ -65,12 +66,13 @@ public class ChallengeNotificationScheduler {
     public void scheduleNotifications() {
         try {
             long startTime = timeNow(), interval = (this.scheduleRate/this.scheduleSections)/1000,
-                    start, end;
+                    start, end, delay;
             for(int i = this.scheduleSections; i > 0; i--) {
-                start = (startTime + (i-1)*interval) % Constants.ONE_DAY_IN_SECONDS;
-                end = (startTime + i*interval) % Constants.ONE_DAY_IN_SECONDS;
+                delay = (i-1)*interval;
+                start = (startTime + delay) % Constants.ONE_DAY_IN_SECONDS;
+                end = (startTime + delay + interval) % Constants.ONE_DAY_IN_SECONDS;
                 LOGGER.info("Scheduling Task between {} and {}", start, end);
-                this.schedule(start, end);
+                this.schedule(start, end, delay);
             }
         } catch (Exception e) {
             LOGGER.error("Error scheduling notifications");
@@ -81,7 +83,7 @@ public class ChallengeNotificationScheduler {
         }
     }
 
-    private void schedule(long start, long end) {
+    private void schedule(long start, long end, long delay) {
         List<String> emails = this.userConfigService
                 .usersWithinTime(start,
                         end);
@@ -93,7 +95,7 @@ public class ChallengeNotificationScheduler {
             LOGGER.info("Running scheduled notification task emails: {}", emails);
             List<Item> items = this.rssFeedService.getItems();
             this.challengeNotifier.notifiyChallenges(emails, items);
-        }, Instant.ofEpochMilli(start));
+        }, delay, TimeUnit.SECONDS);
     }
 
 }
