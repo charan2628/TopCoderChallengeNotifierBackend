@@ -11,17 +11,24 @@
 	</parent>
 	<groupId>dev.charan2628.projects</groupId>
 	<artifactId>TopCoderChallengeNotifierBackend</artifactId>
-	<version>1.1</version>
+	<version>1.0</version>
 	<name>TopCoderChallengeNotifierBackend</name>
-	<description>Notifies new challenges of specified tags through mail,
-	configured through admin console</description>
-	<url>https://github.com/charan2628/TopCoderChallengeNotifierApi</url>
+	<description>TopCoder challenge notifier backend.</description>
+	<url>https://github.com/charan2628/TopCoderChallengeNotifierBackend</url>
 
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub charan2628 Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/charan2628/TopCoderChallengeNotifierBackend</url>
+		</repository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
@@ -50,10 +57,6 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.8.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
