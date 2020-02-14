@@ -13,12 +13,12 @@ TRY IT OUT [https://custom-built.dev/app/tpcn](https://custom-built.dev/app/tpcn
 
 * On app start up, a [notification task](./src/main/java/com/app/scheduler/ChallengeNotificationScheduler.java#L61) is scheduled at a fixed rate, set through `schedule_rate` property.
 * This will at each invocation divides the `schedule_rate` into equal sections, set through `schedule_sections` property.
-* For each section it schedules an [task](./src/main/java/com/app/scheduler/ChallengeNotificationScheduler.java#L82) using `org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler`.
+* For each section it schedules an [task](./src/main/java/com/app/scheduler/ChallengeNotificationScheduler.java#L82) using `java.util.concurrent.ScheduledExecutorService`.
 * These tasks wake up at their intervals and fetch all users scheduled in this interval from the database and send notifications to them through their emails.
 ### Note:
   * The variance between user scheduled time and actual notification time can be tuned by adjusting `schedule_sections` property.
   * For example: If a variance of +/- 10 min is acceptable, then you can set `schedule_rate` as 1800000(30 min in ms) and `schedule_sections` as 3.
-  * `schedule_sections` property should be inline with `async_executor` max pool size in [AppConfig](./src/main/java/com/app/config/AppConfig.java).
+  * `schedule_sections` property should be inline with `task_scheduler` max pool size in [AppConfig](./src/main/java/com/app/config/AppConfig.java).
 
 ## Authentication
 * This app uses JWT access tokens to identify users between requests, signed using SHA256withECDSA.
